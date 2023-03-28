@@ -3,8 +3,10 @@ import { Route, Routes } from "react-router";
 import HomePage from "./home/HomePage";
 import ProfilePage from "./profile/ProfilePage";
 import NavigationSidebar from "./components/NavigationSideBar";
+import DetailsPage from "./details/DetailsPage";
 
 function App() {
+  const currentUserID = "u111111";
   return (
     <BrowserRouter>
       <div className="row mt-2">
@@ -18,7 +20,10 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="home" element={<HomePage />} />
-            <Route path="profile" element={<ProfilePage />} />
+            <Route path="profile" element={<ProfilePage userID={currentUserID}/>} />
+            <Route path="profile/:profileId" element={<ProfilePage/>} />
+            <Route path="details/:detailsId" element={<DetailsPage/>} />
+            <Route path="search" element={<HomePage/>} />
           </Routes>
         </div>
       </div>
