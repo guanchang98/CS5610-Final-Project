@@ -1,12 +1,12 @@
 import React from "react";
 import {useParams} from "react-router";
-import {Link} from "react-router-dom";
+import BackButtonComponent from "../components/BackButtonComponent";
 
 const DetailsPage = () => {
     const params = useParams();
     return (
         <div>
-            <Link to="../home">Back</Link><br/>
+            <BackButtonComponent/>
             Detail page for item {params.detailsId};
         </div>
     )

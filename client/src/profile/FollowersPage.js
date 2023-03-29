@@ -1,11 +1,11 @@
 import React from "react";
-import {Link} from "react-router-dom";
 import UsersList from "../components/UsersList";
+import BackButtonComponent from "../components/BackButtonComponent";
 
 const FollowersPage = () => {
     return (
         <div>
-            <Link to="../profile">Back</Link>
+            <BackButtonComponent/>
             <h1>Followers</h1>
             <UsersList/>
         </div>
