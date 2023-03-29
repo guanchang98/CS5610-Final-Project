@@ -6,6 +6,8 @@ import NavigationSidebar from "./components/NavigationSideBar";
 import DetailsPage from "./details/DetailsPage";
 import LoginPage from "./login/LoginPage";
 import {useState} from "react";
+import FollowersPage from "./profile/FollowersPage";
+import FollowingPage from "./profile/FollowingPage";
 
 function App() {
     const currentUserID = "anonymous";
@@ -32,6 +34,8 @@ function App() {
                         <Route path="profile/:profileId" element={<ProfilePage/>}/>
                         <Route path="details/:detailsId" element={<DetailsPage/>}/>
                         <Route path="login" element={<LoginPage/>}/>
+                        <Route path="profile/following" element={<FollowingPage/>}/>
+                        <Route path="profile/followers" element={<FollowersPage/>}/>
                     </Routes>
                 </div>
                 {

@@ -4,8 +4,8 @@ import {Link} from "react-router-dom";
 const ProductItem = (
     {
         item = {
-            "id": "u111111",
-            "name": "item1"
+            "id": "p111111",
+            "name": "item"
         }
     }
 ) => {

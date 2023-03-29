@@ -3,9 +3,9 @@ import ProductItem from "./ProductItem";
 
 const ProductsList = () => {
     const itemsArray = [
-        {id: "i111111", name: "item1"},
-        {id: "i222222", name: "item2"},
-        {id: "i333333", name: "item3"},
+        {id: "p111111", name: "item1"},
+        {id: "p222222", name: "item2"},
+        {id: "p333333", name: "item3"},
     ];
     return (
         <ul className="list-group">
