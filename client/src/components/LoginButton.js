@@ -10,7 +10,9 @@ const LoginButton = () => {
     return (
         <div>
             <Link to="/login" className="btn btn-link float-end"
-                  onClick={() => {console.log("login")}}>Login/Register</Link>
+                  onClick={() => {console.log("login")}}>Login</Link>
+            <Link to="/register" className="btn btn-link float-end"
+                              onClick={() => {console.log("register")}}>Register</Link>
             <div className="float-end">Anonymous</div>
         </div>
     )
