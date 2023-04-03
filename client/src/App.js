@@ -40,7 +40,6 @@ function App() {
                                 <Route path="/" element={<HomePage/>}/>
                                 <Route path="home" element={<HomePage/>}/>
                                 <Route path="search" element={<HomePage/>}/>
-                                <Route path="profile" element={<ProfilePage/>}/>
                                 <Route path="profile" element={<ProfilePage userID={currentUser}/>}/>
                                 <Route path="profile/:profileId" element={<ProfilePage/>}/>
                                 <Route path="details/:detailsId" element={<DetailsPage/>}/>
