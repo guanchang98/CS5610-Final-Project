@@ -4,26 +4,27 @@ import HomePage from "./home/HomePage";
 import ProfilePage from "./profile/ProfilePage";
 import NavigationSidebar from "./components/NavigationSideBar";
 import DetailsPage from "./details/DetailsPage";
-import LoginPage from "./login/LoginPage";
+import LoginPage from "./screens/LoginPage";
 import FollowersPage from "./profile/FollowersPage";
 import FollowingPage from "./profile/FollowingPage";
-
 import {configureStore} from "@reduxjs/toolkit";
 import isLoggingReducer from "./reducers/isLogging-reducer";
 import {Provider, useSelector} from "react-redux";
-
-
+import store from "./reducers/store"
+import RegisterScreen from "./screens/RegisterScreen";
 import LoginButton from "./components/LoginButton";
 
 
 function App() {
-    const currentUserID = "anonymous";
-    // const store = configureStore({reducer: {isLogging: isLoggingReducer}});
+    const currentUser = "anonymous";
+//     const store = configureStore({reducer: { users: usersReducer}});
     const loggingIn = false;
+//    const { currentUser } = useSelector((state) => state.users);
+//    const loggingIn = currentUser === null?false:true;
 
     return (
             <BrowserRouter>
-                {/*<Provider store={store}>*/}
+                <Provider store={store}>
                     <div className="row mt-2">
                         {
                             !loggingIn &&
@@ -39,12 +40,14 @@ function App() {
                                 <Route path="/" element={<HomePage/>}/>
                                 <Route path="home" element={<HomePage/>}/>
                                 <Route path="search" element={<HomePage/>}/>
-                                <Route path="profile" element={<ProfilePage userID={currentUserID}/>}/>
+                                <Route path="profile" element={<ProfilePage/>}/>
+                                <Route path="profile" element={<ProfilePage userID={currentUser}/>}/>
                                 <Route path="profile/:profileId" element={<ProfilePage/>}/>
                                 <Route path="details/:detailsId" element={<DetailsPage/>}/>
                                 <Route path="login" element={<LoginPage/>}/>
                                 <Route path="profile/following" element={<FollowingPage/>}/>
                                 <Route path="profile/followers" element={<FollowersPage/>}/>
+                                <Route path="/register" element={<RegisterScreen />} />
                             </Routes>
                         </div>
                         {
@@ -54,7 +57,7 @@ function App() {
                             </div>
                         }
                     </div>
-                {/*</Provider>*/}
+                </Provider>
             </BrowserRouter>
 
     );
