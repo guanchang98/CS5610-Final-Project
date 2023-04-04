@@ -28,13 +28,6 @@ const ProductsList = () => {
          image: "iphone-case.png",},
     ];
     return (
-        // <ul className="list-group mt-2">
-        //     {
-        //         itemsArray.map(item =>
-        //             <ProductItem
-        //                 key={item.id} item={item}/> )
-        //     }
-        // </ul>
         <div className="row mt-2 justify-content-between">
             {
                 itemsArray.map(item =>  
