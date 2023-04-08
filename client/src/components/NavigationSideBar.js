@@ -22,6 +22,18 @@ const NavigationSidebar = () => {
                 >
                     Profile
                 </Link>
+                <Link
+                    to="/wishlist"
+                    className={`list-group-item ${active === "wishlist" ? "active" : ""}`}
+                >
+                    Wishlist
+                </Link>
+                <Link
+                    to="/cart"
+                    className={`list-group-item ${active === "cart" ? "active" : ""}`}
+                >
+                    Cart
+                </Link>
             </div>
         </div>
 

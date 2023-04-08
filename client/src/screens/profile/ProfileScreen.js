@@ -1,15 +1,15 @@
 import React from 'react';
 import {useParams} from "react-router";
 import {Link} from "react-router-dom";
-import ProductsList from "../components/ProductsList";
-import BackButtonComponent from "../components/BackButtonComponent";
-import BackToHomeComponent from "../components/BackToHomeComponent";
+import ProductsList from "../../components/ProductsList";
+import BackButtonComponent from "../../components/BackButtonComponent";
+import BackToHomeComponent from "../../components/BackToHomeComponent";
 import {useLocation} from "react-router";
-import bannerPic from "../images/profile_banner.jpeg";
-import avatar from "../images/avatar_man.png";
-import '../index.css';
+import bannerPic from "../../images/profile_banner.jpeg";
+import avatar from "../../images/avatar_man.png";
+import '../../index.css';
 
-const ProfilePage = (props) => {
+const ProfileScreen = (props) => {
     const params = useParams();
     const {pathname} = useLocation();
     const paths = pathname.split("/");
@@ -104,4 +104,4 @@ const ProfilePage = (props) => {
     )
 }
 
-export default ProfilePage
+export default ProfileScreen
