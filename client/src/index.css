@@ -23,3 +23,9 @@
 .wd-bottom-4 {
     bottom: 4px;
 }
+
+.wd-pos-absolute-profile-banner {
+    position: absolute;
+    top: 180px;
+    left: 20px;
+}
