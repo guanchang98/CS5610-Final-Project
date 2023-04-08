@@ -3,7 +3,6 @@ import {useParams} from "react-router";
 import {Link} from "react-router-dom";
 import ProductsList from "../../components/ProductsList";
 import BackButtonComponent from "../../components/BackButtonComponent";
-import BackToHomeComponent from "../../components/BackToHomeComponent";
 import {useLocation} from "react-router";
 import bannerPic from "../../images/profile_banner.jpeg";
 import avatar from "../../images/avatar_man.png";
@@ -43,7 +42,7 @@ const ProfileScreen = (props) => {
     return (
         <div className="border-1">
             {paths.length > 2 && <BackButtonComponent/>}
-            {paths.length <= 2 && <BackToHomeComponent/>}
+            {paths.length <= 2 && <BackButtonComponent/>}
             {/*{props.userID && <span>Welcome, user {props.userID}!</span>}*/}
             {/*{!props.userID && <span>user {params.profileId}'s profile</span>}*/}
 
