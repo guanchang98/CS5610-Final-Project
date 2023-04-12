@@ -28,7 +28,7 @@ function RegisterScreen() {
   return (
     <div>
       <h1>Register</h1>
-      <div className="form-group col-4">
+      <div className="form-group">
         <label>Username</label>
         <input
           type="text"
@@ -39,7 +39,7 @@ function RegisterScreen() {
           }}
         />
       </div>
-      <div className="form-group col-4">
+      <div className="form-group">
         <label>Password</label>
         <input
           type="password"
@@ -50,7 +50,7 @@ function RegisterScreen() {
           }}
         />
       </div>
-      <div className="form-group mt-3 col-4">
+      <div className="form-group mt-3">
           <label>Role</label>
           <select
                 className="form-control"
@@ -62,7 +62,7 @@ function RegisterScreen() {
               <option value="BUYER">BUYER</option>
           </select>
       </div>
-      <button onClick={register} className="btn btn-primary mt-3 ml-3">
+      <button onClick={register} className="btn btn-primary mt-3">
         Register
       </button>
       <div>
