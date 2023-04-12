@@ -14,38 +14,27 @@ const ProfileScreen = (props) => {
     const paths = pathname.split("/");
     const userProfile = {
         bannerPicture: bannerPic,
-        bio: "A test user",
-        dateJoined: "2023-04-05",
+        bio: "A test user bio",
         dateOfBirth: "1998-10-03",
-        firstName: "Chang",
-        lastName: "Guan",
-        followersCount: 3,
-        followingCount: 3,
-        handle: "@changguan",
+        userName: "Jane Doe",
+        role: "SELLER",
+        followCount: 3,
         location: "Sunnyvale",
         profilePicture: avatar,
         website: "google.com",
     }
     const {
         bannerPicture,
+        userName,
         bio,
-        dateJoined,
         dateOfBirth,
-        firstName,
-        followersCount,
-        followingCount,
-        handle,
-        lastName,
+        followCount,
         location,
         profilePicture,
     } = userProfile;
     return (
         <div className="border-1">
-            {paths.length > 2 && <BackButtonComponent/>}
-            {paths.length <= 2 && <BackButtonComponent/>}
-            {/*{props.userID && <span>Welcome, user {props.userID}!</span>}*/}
-            {/*{!props.userID && <span>user {params.profileId}'s profile</span>}*/}
-
+            <BackButtonComponent/>
             <div className="row">
                 <img src={bannerPicture} className="w-100 mb-3" height="240"/>
                 <div className="col-9 float-start">
@@ -58,12 +47,9 @@ const ProfileScreen = (props) => {
                 </div>
                 <div>
                     <div className="mt-3">
-                        <h2>{firstName} {lastName}</h2>
+                        <h2>{userName}</h2>
                     </div>
-                    <div className="mb-3 text-secondary">
-                        {handle}
-                    </div>
-                    <p>
+                    <p className="mt-4">
                         {bio}
                     </p>
                     <div className="row mb-3">
@@ -75,21 +61,23 @@ const ProfileScreen = (props) => {
                             <i className="bi bi-balloon text-secondary"></i>
                             <span className="text-secondary"> Born on {dateOfBirth} </span>
                         </div>
-                        <div className="col-4">
-                            <i className="bi bi-calendar3 text-secondary"></i>
-                            <span className="text-secondary"> Joined {dateJoined} </span>
-                        </div>
                     </div>
                     <div className="row">
-                        <div className="mb-3 list-group list-group-horizontal col-5">
-                            <Link to="/profile/following" className="list-group-item list-group-item-action border-0">
-                                <b>{followingCount} </b>
-                                <span className="text-secondary">Following</span>
-                            </Link>
-                            <Link to="/profile/followers" className="list-group-item list-group-item-action border-0">
-                                <b> {followersCount} </b>
-                                <span className="text-secondary">Followers</span>
-                            </Link>
+                        <div className="mb-3 list-group list-group-horizontal col-3">
+                            {
+                                userProfile.role === "BUYER" &&
+                                <Link to="/profile/following" className="list-group-item list-group-item-action border-0">
+                                    <b>{followCount} </b>
+                                    <span className="text-secondary">Following</span>
+                                </Link>
+                            }
+                            {
+                                userProfile.role === "SELLER" &&
+                                <Link to="/profile/followers" className="list-group-item list-group-item-action border-0">
+                                    <b> {followCount} </b>
+                                    <span className="text-secondary">Followers</span>
+                                </Link>
+                            }
                         </div>
                     </div>
                     <div>

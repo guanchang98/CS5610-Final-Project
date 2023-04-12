@@ -29,3 +29,7 @@
     top: 180px;
     left: 20px;
 }
+
+.wd-no-underline {
+    text-decoration: none;
+}
