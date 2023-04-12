@@ -4,13 +4,18 @@ const USERS_API_URL = `${API_BASE}/users`;
 //const USERS_API_URL = "http://localhost:4000/api/users";
 console.log(USERS_API_URL)
 
+const api = axios.create({
+  withCredentials: true,
+});
+
 export const findAllUsers = async () => {
   const response = await axios.get(USERS_API_URL);
   return response.data;
 };
 
-export const findUserById = (id) => {
-  return axios.get(`${USERS_API_URL}/${id}`).then((response) => response.data);
+export const findUserById = async (id) => {
+  const response = await axios.get(`${USERS_API_URL}/userId/${id}`);
+  return response.data;
 };
 
 export const createUser = (user) => {
@@ -18,7 +23,7 @@ export const createUser = (user) => {
 };
 
 export const updateUser = (newUser) => {
-  return axios.put(`${USERS_API_URL}/${newUser.id}`, newUser);
+  return api.put(`${USERS_API_URL}/${newUser._id}`, newUser);
 };
 
 export const deleteUser = (id) => {
@@ -26,17 +31,17 @@ export const deleteUser = (id) => {
 };
 
 export const login = (user) => {
-  return axios.post(`${USERS_API_URL}/login`, user);
+  return api.post(`${USERS_API_URL}/login`, user);
 };
 
 export const logout = () => {
-  return axios.post(`${USERS_API_URL}/logout`);
+  return api.post(`${USERS_API_URL}/logout`);
 };
 
 export const register = (user) => {
-  return axios.post(`${USERS_API_URL}/register`, user);
+  return api.post(`${USERS_API_URL}/register`, user);
 };
 
 export const profile = () => {
-  return axios.get(`${USERS_API_URL}/profile`);
+  return api.get(`${USERS_API_URL}/profile`);
 };
