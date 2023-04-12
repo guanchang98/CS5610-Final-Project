@@ -7,7 +7,7 @@ const usersSchema = new mongoose.Schema(
     dob:Date,
     location:String,
     bio:String,
-    role: { type: String, required: true, default: "BUYER" },
+    role: { type: String, required: true, default: "ADMIN" },
     avatar:{type: String, default:"https://previews.123rf.com/images/cienpies/cienpies1111/cienpies111100002/11076086-human-head-shape-made-with-social-media-icons-set.jpg"},
     profilePic:{type: String, default:"https://www.reuters.com/resizer/S2QZTkoqSfT_OagpUN2LL5FX5j8=/960x0/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/TXDGVXPBEVMY5PA2RHRF2EA25Y.jpg"},
     cart: [

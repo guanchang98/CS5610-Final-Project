@@ -53,9 +53,7 @@ const LoginScreen = () => {
                         </button>
 
                     </div>
-                    <p className="forgot-password text-right mt-2">
-                        Forgot <a href="#">password?</a>
-                    </p>
+
                 </div>
             </form>
         </div>
