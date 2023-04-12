@@ -11,17 +11,24 @@ function RegisterScreen() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const register = () => {
+    if (!username || !password) {
+//          setError("Missing required information!");
+          console.log("Missing required information!");
+        }
+    else {
     try {
-      dispatch(registerThunk({ username, password }));
-      navigate("/profile");
-    } catch (err) {
-      console.log(err);
+          dispatch(registerThunk({ username:username, password:password}));
+          navigate("/profile");
+        } catch (err) {
+          console.log(err);
+        }
     }
+
   };
   return (
     <div>
       <h1>Register</h1>
-      <div className="form-group">
+      <div className="form-group col-4">
         <label>Username</label>
         <input
           type="text"
@@ -32,7 +39,7 @@ function RegisterScreen() {
           }}
         />
       </div>
-      <div className="form-group">
+      <div className="form-group col-4">
         <label>Password</label>
         <input
           type="password"
@@ -43,17 +50,7 @@ function RegisterScreen() {
           }}
         />
       </div>
-      <div className="form-group">
-        <label>Password Validation</label>
-        <input
-          type="password"
-          className="form-control"
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-        />
-      <div className="form-group mt-3">
+      <div className="form-group mt-3 col-4">
           <label>Role</label>
           <select
                 className="form-control"
@@ -65,8 +62,7 @@ function RegisterScreen() {
               <option value="BUYER">BUYER</option>
           </select>
       </div>
-      </div>
-      <button onClick={register} className="btn btn-primary">
+      <button onClick={register} className="btn btn-primary mt-3 ml-3">
         Register
       </button>
       <div>
