@@ -12,7 +12,7 @@ function RegisterScreen() {
   const navigate = useNavigate();
   const register = () => {
     try {
-      dispatch(registerThunk({ username, password }));
+      dispatch(registerThunk({ username:username, password:password, role:role}));
       navigate("/profile");
     } catch (err) {
       console.log(err);
