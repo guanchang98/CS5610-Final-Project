@@ -11,12 +11,18 @@ function RegisterScreen() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const register = () => {
+    if (!email || !password) {
+          setError("Missing required information!");
+        }
+    else {
     try {
-      dispatch(registerThunk({ username:username, password:password, role:role}));
-      navigate("/profile");
-    } catch (err) {
-      console.log(err);
+          dispatch(registerThunk({ username:username, password:password, role:role}));
+          navigate("/profile");
+        } catch (err) {
+          console.log(err);
+        }
     }
+
   };
   return (
     <div>
