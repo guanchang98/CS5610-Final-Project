@@ -1,18 +1,18 @@
 import {BrowserRouter, Link} from "react-router-dom";
 import {Route, Routes} from "react-router";
-import HomePage from "./home/HomePage";
-import ProfilePage from "./profile/ProfilePage";
+import HomeScreen from "./screens/HomeScreen";
+import ProfileScreen from "./screens/profile/ProfileScreen";
 import NavigationSidebar from "./components/NavigationSideBar";
-import DetailsPage from "./details/DetailsPage";
-import LoginPage from "./screens/LoginPage";
-import FollowersPage from "./profile/FollowersPage";
-import FollowingPage from "./profile/FollowingPage";
-import {configureStore} from "@reduxjs/toolkit";
-import isLoggingReducer from "./reducers/isLogging-reducer";
+import DetailsScreen from "./screens/DetailsScreen";
+import LoginScreen from "./screens/LoginScreen";
+import FollowersScreen from "./screens/profile/FollowersScreen";
+import FollowingScreen from "./screens/profile/FollowingScreen";
 import {Provider, useSelector} from "react-redux";
 import store from "./reducers/store"
 import RegisterScreen from "./screens/RegisterScreen";
 import LoginButton from "./components/LoginButton";
+import CartScreen from "./screens/CartScreen";
+import WishlistScreen from "./screens/WishlistScreen";
 
 
 function App() {
@@ -37,16 +37,18 @@ function App() {
                             style={{position: "relative"}}
                         >
                             <Routes>
-                                <Route path="/" element={<HomePage/>}/>
-                                <Route path="home" element={<HomePage/>}/>
-                                <Route path="search" element={<HomePage/>}/>
-                                <Route path="profile" element={<ProfilePage userID={currentUser}/>}/>
-                                <Route path="profile/:profileId" element={<ProfilePage/>}/>
-                                <Route path="details/:detailsId" element={<DetailsPage/>}/>
-                                <Route path="login" element={<LoginPage/>}/>
-                                <Route path="profile/following" element={<FollowingPage/>}/>
-                                <Route path="profile/followers" element={<FollowersPage/>}/>
+                                <Route path="/" element={<HomeScreen/>}/>
+                                <Route path="home" element={<HomeScreen/>}/>
+                                <Route path="search" element={<HomeScreen/>}/>
+                                <Route path="profile" element={<ProfileScreen userID={currentUser}/>}/>
+                                <Route path="profile/:profileId" element={<ProfileScreen/>}/>
+                                <Route path="details/:detailsId" element={<DetailsScreen/>}/>
+                                <Route path="login" element={<LoginScreen/>}/>
+                                <Route path="profile/following" element={<FollowingScreen/>}/>
+                                <Route path="profile/followers" element={<FollowersScreen/>}/>
                                 <Route path="/register" element={<RegisterScreen />} />
+                                <Route path="wishlist" element={<WishlistScreen/>}/>
+                                <Route path="cart" element={<CartScreen/>}/>
                             </Routes>
                         </div>
                         {

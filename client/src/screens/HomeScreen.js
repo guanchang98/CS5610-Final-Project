@@ -2,7 +2,7 @@ import React from "react";
 import SearchBar from "../components/SearchBar";
 import ProductsList from "../components/ProductsList";
 
-const HomePage = () => {
+const HomeScreen = () => {
     return (
         <>
             <SearchBar/>
@@ -11,4 +11,4 @@ const HomePage = () => {
     );
 };
 
-export default HomePage;
+export default HomeScreen;

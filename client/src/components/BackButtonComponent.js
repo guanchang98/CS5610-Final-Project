@@ -5,7 +5,9 @@ const BackButtonComponent = () => {
     const navigate = useNavigate();
     return (
         <div>
-            <button onClick={() => navigate(-1)} className="btn btn-link">Back</button><br/>
+            <button onClick={() => navigate(-1)} className="btn">
+                <i className="bi bi-arrow-left"></i>
+            </button><br/>
         </div>
 
     )

@@ -1,15 +1,14 @@
 import React from "react";
-import UsersList from "../components/UsersList";
 import BackButtonComponent from "../components/BackButtonComponent";
-
-const FollowingPage = () => {
+import ProductsList from "../components/ProductsList";
+const CartScreen = () => {
     return (
         <div>
             <BackButtonComponent/>
-            <h1>Following</h1>
-            <UsersList/>
+            <h1>Cart</h1>
+            <ProductsList/>
         </div>
     )
 }
 
-export default FollowingPage;
+export default CartScreen;
