@@ -22,6 +22,7 @@ export const createUserThunk = createAsyncThunk(
   }
 );
 
+//update user profile:only update current user
 export const updateUserThunk = createAsyncThunk(
   "users/update",
   async (user) => {

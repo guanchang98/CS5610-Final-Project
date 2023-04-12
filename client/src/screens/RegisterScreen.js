@@ -7,7 +7,7 @@ function RegisterScreen() {
   const { currentUser } = useSelector((state) => state.users);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState("SELLER");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const register = () => {
