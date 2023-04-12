@@ -2,6 +2,7 @@ import axios from "axios";
 const API_BASE = process.env.REACT_APP_API_BASE;
 const USERS_API_URL = `${API_BASE}/users`;
 //const USERS_API_URL = "http://localhost:4000/api/users";
+console.log(USERS_API_URL)
 
 export const findAllUsers = async () => {
   const response = await axios.get(USERS_API_URL);
