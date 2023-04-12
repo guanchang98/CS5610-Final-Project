@@ -2,7 +2,7 @@ import React from "react";
 import {useLocation, useParams} from "react-router";
 import BackButtonComponent from "../components/BackButtonComponent";
 
-const DetailsPage = () => {
+const DetailsScreen = () => {
     // const params = useParams();
     const { state } = useLocation();
     
@@ -36,4 +36,4 @@ const DetailsPage = () => {
     )
 }
 
-export default DetailsPage;
+export default DetailsScreen;
