@@ -15,8 +15,8 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin:"*",
-//    origin: "http://localhost:3000",
+//    origin:"*",
+    origin: "https://capable-rugelach-0c7fd8.netlify.app",
   })
 );
 
