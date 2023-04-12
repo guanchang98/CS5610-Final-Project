@@ -6,7 +6,7 @@ const WishlistScreen = () => {
         <div>
             <BackButtonComponent/>
             <h1>Wishlist</h1>
-            <ProductsList/>
+            {/*<ProductsList/>*/}
         </div>
     )
 }
