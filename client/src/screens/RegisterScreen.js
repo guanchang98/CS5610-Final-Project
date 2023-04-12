@@ -12,7 +12,8 @@ function RegisterScreen() {
   const navigate = useNavigate();
   const register = () => {
     if (!email || !password) {
-          setError("Missing required information!");
+//          setError("Missing required information!");
+          console.log("Missing required information!");
         }
     else {
     try {
