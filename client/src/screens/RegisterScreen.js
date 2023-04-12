@@ -17,7 +17,7 @@ function RegisterScreen() {
         }
     else {
     try {
-          dispatch(registerThunk({ username, password}));
+          dispatch(registerThunk({ username:username, password:password}));
           navigate("/profile");
         } catch (err) {
           console.log(err);
