@@ -132,7 +132,7 @@ const ProfileScreen = (props) => {
                     </div>
                 </div>
             </div>
-            <ProductsList/>
+            {/*<ProductsList/>*/}
         </div>
 
     )

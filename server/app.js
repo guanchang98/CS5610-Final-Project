@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 
 import UsersController from "./users/users-controller.js";
+import ProductsController from "./products/products-controller.js";
 import mongoose from "mongoose";
 import session from "express-session";
 
@@ -56,6 +57,7 @@ app.get("/", function (req, res) {
 });
 
 UsersController(app);
+ProductsController(app);
 
 
 app.listen(process.env.PORT || 4000);

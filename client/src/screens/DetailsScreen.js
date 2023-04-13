@@ -14,7 +14,7 @@ const DetailsScreen = () => {
            
                 <div className="row">
                     <div className="col-7">
-                        <img className="rounded" src={`/image/${state.image}`} alt='' width='100%'/>
+                        <img className="rounded wd-punk-image-size-detail" src={state.image_url} alt='' width='100%'/>
                     </div>
                     <div className="col-4 ms-4">
                         <h3 className="fw-bold text-secondary">{state.name}</h3>
