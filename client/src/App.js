@@ -13,7 +13,9 @@ import RegisterScreen from "./screens/RegisterScreen";
 import LoginButton from "./components/LoginButton";
 import CartScreen from "./screens/CartScreen";
 import WishlistScreen from "./screens/WishlistScreen";
+import CurrentUserContext from "./components/current-user-context";
 
+//userId={currentUser}
 
 function App() {
     const currentUser = "anonymous";
@@ -25,6 +27,7 @@ function App() {
     return (
             <BrowserRouter>
                 <Provider store={store}>
+                  <CurrentUserContext>
                     <div className="row mt-2">
                         {
                             !loggingIn &&
@@ -40,8 +43,8 @@ function App() {
                                 <Route path="/" element={<HomeScreen/>}/>
                                 <Route path="home" element={<HomeScreen/>}/>
                                 <Route path="search" element={<HomeScreen/>}/>
-                                <Route path="profile" element={<ProfileScreen userID={currentUser}/>}/>
-                                <Route path="profile/:profileId" element={<ProfileScreen/>}/>
+                                <Route path="/profile" element={<ProfileScreen/>}/>
+                                <Route path="profile/:userId" element={<ProfileScreen/>}/>
                                 <Route path="details/:detailsId" element={<DetailsScreen/>}/>
                                 <Route path="login" element={<LoginScreen/>}/>
                                 <Route path="profile/following" element={<FollowingScreen/>}/>
@@ -58,6 +61,7 @@ function App() {
                             </div>
                         }
                     </div>
+                  </CurrentUserContext>
                 </Provider>
             </BrowserRouter>
 

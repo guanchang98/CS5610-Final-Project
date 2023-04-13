@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { loginThunk } from "../services/users/users-thunks";
@@ -11,13 +11,15 @@ const LoginScreen = () => {
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const login = () => {
-    try {
-      dispatch(loginThunk({ username, password }));
-      navigate("/profile");
-    } catch (err) {
-      console.log(err);
-    }
+    const login = async () => {
+        try {
+          const user = await dispatch(loginThunk({ username, password }));
+          console.log("login")
+          console.log(user)
+          navigate("/profile");
+        } catch (err) {
+          console.log(err);
+        }
     };
     return (
         <div className="Auth-form-container">
