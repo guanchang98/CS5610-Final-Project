@@ -78,7 +78,7 @@ const ProfileScreen = (props) => {
            loadScreen();
            console.log("profile");
            console.log(profile)
-          }, [userId]);
+          }, []);
     return (
         <div className="border-1">
             <BackButtonComponent/>
