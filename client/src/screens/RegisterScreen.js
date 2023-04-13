@@ -10,18 +10,19 @@ function RegisterScreen() {
   const [role, setRole] = useState("SELLER");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const register = () => {
+  const register = async () => {
     if (!username || !password) {
 //          setError("Missing required information!");
           console.log("Missing required information!");
         }
     else {
-    try {
-          dispatch(registerThunk({ username:username, password:password, role:role}));
-          navigate("/profile");
-        } catch (err) {
-          console.log(err);
-        }
+        try {
+              await dispatch(registerThunk({ username:username, password:password, role:role}));
+              navigate("/profile");
+            } catch (err) {
+              console.log(err);
+            }
+
     }
 
   };

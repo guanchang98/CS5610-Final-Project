@@ -46,10 +46,12 @@ function UsersController(app) {
   const login = async (req, res) => {
     const user = req.body;
     console.log(user);
+
     const foundUser = await usersDao.findUserByCredentials(
       req.body.username,
       req.body.password
     );
+    console.log("foundUser")
     console.log(foundUser);
     if (foundUser) {
       req.session["currentUser"] = foundUser;
@@ -92,7 +94,7 @@ function UsersController(app) {
   app.post("/api/users/register", register);
 
   app.get("/api/users", findAllUsers);
-  //   app.get("/api/users/:id", findUserById);
+  app.get("/api/users/userId/:id", findUserById);
   app.delete("/api/users/:id", deleteUserById);
   app.post("/api/users", createUser);
   app.put("/api/users/:id", updateUser);
