@@ -40,6 +40,7 @@ const ProfileScreen = (props) => {
         }
         console.log("usersss");
         const response = await dispatch(profileThunk());
+        console.log(response);
         setProfile(response.payload);
     };
     const loadScreen = async () => {
@@ -75,6 +76,8 @@ const ProfileScreen = (props) => {
     useEffect(() => {
            console.log("usereffect");
            loadScreen();
+           console.log("profile");
+           console.log(profile)
           }, [userId]);
     return (
         <div className="border-1">
