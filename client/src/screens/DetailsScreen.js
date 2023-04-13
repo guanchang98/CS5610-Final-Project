@@ -8,15 +8,15 @@ const DetailsScreen = () => {
     
     return (
         <div>
-            <BackButtonComponent/>
+            {/* <BackButtonComponent/> */}
             {/* Detail page for item {params.detailsId}; */}
             <h2>Product Detail</h2>
            
                 <div className="row">
-                    <div className="col-7">
+                    <div className="col-5">
                         <img className="rounded" src={`/image/${state.image}`} alt='' width='100%'/>
                     </div>
-                    <div className="col-4 ms-4">
+                    <div className="col-5">
                         <h3 className="fw-bold text-secondary">{state.name}</h3>
                         <h3 className="fw-bold">${state.price}</h3><br/>
                         <p className="text-secondary">{state.description}</p>

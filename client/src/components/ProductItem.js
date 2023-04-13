@@ -14,21 +14,25 @@ const ProductItem = (
 ) => {
     let navigate = useNavigate(); 
     return (
-        <div className="col-sm-4 mb-3">
+        <div className="col-sm-3 mb-3">
             <div className="card p-2">
                 <div onClick={() => navigate(`/details/${item.id}`, { state: item })}>
                     <img className="rounded" src={`/image/${item.image}`} alt='' width='100%'/>
                     <span className="text-secondary">{item.name}</span>
                     <p className="fw-bold">${item.price}</p>  
                 </div>
-                <div className="row justify-content-between mb-2">
-                    <button type="button" className="col-5 btn btn-primary btn-sm ms-3"
-                        onClick={()=>{console.log("add button")}}>
-                        Add
-                    </button>
-                    <button type="button" className="col-5 btn btn-sm btn-primary me-3">
-                        Edit
-                    </button>
+                <div className="row mb-2 justify-content-between">
+                    <div className="col-6 text-center">
+                        <button type="button" className="btn btn-primary w-65"
+                            onClick={()=>{console.log("add button")}}>
+                            Add
+                        </button>
+                    </div>
+                    <div className="col-6 text-center">
+                        <button type="button" className="btn btn-primary w-65">
+                            Edit
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

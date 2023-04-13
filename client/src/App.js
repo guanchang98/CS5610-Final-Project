@@ -13,7 +13,7 @@ import RegisterScreen from "./screens/RegisterScreen";
 import LoginButton from "./components/LoginButton";
 import CartScreen from "./screens/CartScreen";
 import WishlistScreen from "./screens/WishlistScreen";
-
+import NavBar from './components/navbar'
 
 function App() {
     const currentUser = "anonymous";
@@ -25,15 +25,19 @@ function App() {
     return (
             <BrowserRouter>
                 <Provider store={store}>
-                    <div className="row mt-2">
-                        {
+                    <div>
+                        <NavBar/>
+                    </div>
+
+                    <div className="mt-2 ms-8 me-8">
+                        {/* {
                             !loggingIn &&
                             <div className="col-2 col-md-2 col-lg-1 col-xl-2">
                                 <NavigationSidebar/>
                             </div>
-                        }
+                        } */}
                         <div
-                            className="col-9 col-md-9 col-lg-7 col-xl-6 mx-auto"
+                            // className="col-9 col-md-9 col-lg-7 col-xl-6 mx-auto"
                             style={{position: "relative"}}
                         >
                             <Routes>
@@ -51,16 +55,15 @@ function App() {
                                 <Route path="cart" element={<CartScreen/>}/>
                             </Routes>
                         </div>
-                        {
+                        {/* {
                             !loggingIn &&
                             <div className="container col-1 col1-md-1 col-lg-3 col-xl-3">
                                 <LoginButton/>
                             </div>
-                        }
+                        } */}
                     </div>
                 </Provider>
             </BrowserRouter>
-
     );
 }
 
