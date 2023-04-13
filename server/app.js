@@ -22,13 +22,33 @@ app.use(
   })
 );
 
-app.use(
-  session({
+let sess = {
     secret: "process.env.SECRET",
     resave: false,
     cookie: { secure: false },
-  })
-);
+};
+
+if (process.env.ENV === 'production'){
+    app.use(
+      session({
+          secret: "process.env.SECRET",
+          resave: false,
+          cookie: { secure: true },
+      })
+    );
+    app.set('trust proxy', 1);
+}
+else {
+  app.use(
+        session({
+            secret: "process.env.SECRET",
+            resave: false,
+            cookie: { secure: false },
+        })
+      );
+}
+
+
 app.use(express.json());
 
 app.get("/", function (req, res) {
