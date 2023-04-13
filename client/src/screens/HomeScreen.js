@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import ProductsList from "../components/ProductsList";
 import {Link} from "react-router-dom";
-import {fullTextSearch} from "../services/products/punks-service";
+import {fullTextSearch} from "../services/products/products-service";
 
 const HomeScreen = () => {
     const [search, setSearch] = useState("");

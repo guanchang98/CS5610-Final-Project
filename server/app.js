@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 
 import UsersController from "./users/users-controller.js";
+import ProductsController from "./products/products-controller.js";
 import mongoose from "mongoose";
 
 // mongoose.connect("mongodb://127.0.0.1:27017/tuiter-sp23-06");
@@ -17,5 +18,6 @@ app.get("/", function (req, res) {
 });
 
 UsersController(app);
+ProductsController(app);
 
 app.listen(4000);

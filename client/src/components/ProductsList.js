@@ -3,7 +3,7 @@ import ProductItem from "./ProductItem";
 
 const ProductsList = (props) => {
     const productArray = props.productArray;
-    console.log(productArray);
+    console.log(productArray.length === 0);
     return (
         <div className="row mt-2 justify-content-between">
             {
