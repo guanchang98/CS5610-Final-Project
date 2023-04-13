@@ -43,7 +43,7 @@ function App() {
                                 <Route path="/" element={<HomeScreen/>}/>
                                 <Route path="home" element={<HomeScreen/>}/>
                                 <Route path="search" element={<HomeScreen/>}/>
-                                <Route path="/profile" element={<ProfileScreen/>}/>
+                                <Route path="profile" element={<ProfileScreen/>}/>
                                 <Route path="profile/:userId" element={<ProfileScreen/>}/>
                                 <Route path="details/:detailsId" element={<DetailsScreen/>}/>
                                 <Route path="login" element={<LoginScreen/>}/>
