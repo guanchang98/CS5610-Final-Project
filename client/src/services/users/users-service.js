@@ -1,7 +1,7 @@
 import axios from "axios";
-const API_BASE = process.env.REACT_APP_API_BASE;
-const USERS_API_URL = `${API_BASE}/users`;
-//const USERS_API_URL = "http://localhost:4000/api/users";
+// const API_BASE = process.env.REACT_APP_API_BASE;
+// const USERS_API_URL = `${API_BASE}/users`;
+const USERS_API_URL = "http://localhost:4000/api/users";
 console.log(USERS_API_URL)
 
 const api = axios.create({
@@ -30,9 +30,8 @@ export const deleteUser = (id) => {
   return axios.delete(`${USERS_API_URL}/${id}`);
 };
 
-export const login = async (user) => {
-  const response = await api.post(`${USERS_API_URL}/login`, user);
-  return response.data
+export const login = (user) => {
+  return api.post(`${USERS_API_URL}/login`, user);
 };
 
 //export const loginUser = async (user) => {
