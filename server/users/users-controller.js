@@ -36,7 +36,7 @@ function UsersController(app) {
     // const user = users.find((user) => user.id === id);
     // const index = users.indexOf(user);
     // users[index] = { ...user, ...req.body };
-    if (id === currentUser){
+    if (id === currentUser._id){
         req.session["currentUser"] = {...currentUser, ...req.body};
     }
     const status = await usersDao.updateUser(id, req.body);

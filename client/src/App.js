@@ -2,6 +2,7 @@ import {BrowserRouter, Link} from "react-router-dom";
 import {Route, Routes} from "react-router";
 import HomeScreen from "./screens/HomeScreen";
 import ProfileScreen from "./screens/profile/ProfileScreen";
+import EditProfile from "./screens/profile/EditProfile";
 import NavigationSidebar from "./components/NavigationSideBar";
 import DetailsScreen from "./screens/DetailsScreen";
 import LoginScreen from "./screens/LoginScreen";
@@ -44,6 +45,7 @@ function App() {
                                 <Route path="home" element={<HomeScreen/>}/>
                                 <Route path="search" element={<HomeScreen/>}/>
                                 <Route path="profile" element={<ProfileScreen/>}/>
+                                <Route path="edit-profile" element={<EditProfile/>}/>
                                 <Route path="profile/:userId" element={<ProfileScreen/>}/>
                                 <Route path="details/:detailsId" element={<DetailsScreen/>}/>
                                 <Route path="login" element={<LoginScreen/>}/>
