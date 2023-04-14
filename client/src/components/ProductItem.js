@@ -15,25 +15,40 @@ const ProductItem = (
 ) => {
     let navigate = useNavigate(); 
     return (
-        <div className="col-sm-4 mb-3">
-            <div className="card p-2">
-                <div onClick={() => navigate(`/details/${item.id}`, { state: item })}>
-                    <img className="rounded wd-punk-image-size-home" src={item.image_url} alt='' width='100%'/><br/>
-                    <span className="text-secondary">{item.name}</span>
-                    <p className="fw-bold">${item.price}</p>  
+        <div className="col-sm-3 mb-3">
+            <div className="card p-2" onClick={() => navigate(`/details/${item.id}`, { state: item })}>
+                <div className="text-center">
+                    <img className="rounded wd-punk-image-size-home" src={item.image_url} alt='' length='100%'/><br/><br/>  
                 </div>
-                <div className="row justify-content-between mb-2">
-                    <button type="button" className="col-5 btn btn-primary btn-sm ms-3"
-                        onClick={()=>{console.log("add button")}}>
-                        Add
-                    </button>
-                    <button type="button" className="col-5 btn btn-sm btn-primary me-3">
-                        Edit
-                    </button>
+                <div>
+                    <p className="text-center text-secondary">{item.name}</p>
+                    <p className="text-center fw-bold">${item.price}</p>
                 </div>
             </div>
         </div>
+
+        // <div className="card">
+        //     <img className="rounded wd-punk-image-size-home" src={item.image_url} alt='' length='100%'/><br/>
+        //     <div className="card-body">
+        //     <p className="card-text">${item.price}</p>
+        //     </div>
+        //     </div>
     );
 }
 
 export default ProductItem;
+
+
+// {/* <div className="row mb-2 justify-content-between">
+//     <div className="col-6 text-center">
+//         <button type="button" className="btn btn-primary w-65"
+//             onClick={()=>{console.log("add button")}}>
+//             Add
+//         </button>
+//     </div>
+//     <div className="col-6 text-center">
+//         <button type="button" className="btn btn-primary w-65">
+//             Edit
+//         </button>
+//     </div>
+// </div>  */}
