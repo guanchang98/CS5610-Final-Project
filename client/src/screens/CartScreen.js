@@ -6,7 +6,7 @@ const CartScreen = () => {
         <div>
             <BackButtonComponent/>
             <h1>Cart</h1>
-            <ProductsList/>
+            {/*<ProductsList/>*/}
         </div>
     )
 }

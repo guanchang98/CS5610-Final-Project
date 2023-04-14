@@ -60,19 +60,7 @@ function UsersController(app) {
       res.sendStatus(404);
     }
   };
-  const logout = async (req, res) => {
-    req.session.destroy();
-    // currentUser = null;
-    res.sendStatus(204);
-  };
-  const profile = async (req, res) => {
-    const currentUser = req.session["currentUser"];
-    if (currentUser) {
-      res.send(currentUser);
-    } else {
-      res.sendStatus(404);
-    }
-  };
+
   const register = async (req, res) => {
     const user = req.body;
     // const foundUser = users.find((user) => user.username === req.body.username);
@@ -87,6 +75,20 @@ function UsersController(app) {
       res.json(newUser);
     }
   };
+  const logout = async (req, res) => {
+    req.session.destroy();
+    // currentUser = null;
+    res.sendStatus(204);
+  };
+  const profile = async (req, res) => {
+    const currentUser = req.session["currentUser"];
+    if (currentUser) {
+      res.send(currentUser);
+    } else {
+      res.sendStatus(404);
+    }
+  };
+
 
   app.post("/api/users/login", login);
   app.post("/api/users/logout", logout);

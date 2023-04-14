@@ -33,3 +33,13 @@
 .wd-no-underline {
     text-decoration: none;
 }
+
+.wd-punk-image-size-home {
+    width: 100px;
+    height: 280px;
+}
+
+.wd-punk-image-size-detail {
+    width: 200px;
+    height: 550px;
+}
