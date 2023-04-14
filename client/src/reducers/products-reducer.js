@@ -15,6 +15,7 @@ const initialState = {
 const productSlice = createSlice({
         name: "products",
         initialState: initialState,
+        reducers: {},
         extraReducers: {
             [findProductsThunk.pending]: (state, action) => {
                 state.loading = true;
@@ -38,7 +39,15 @@ const productSlice = createSlice({
             },
             [createProductThunk.fulfilled]: (state, {payload}) => {
                 state.loading = false;
-                state.products.push(payload);
+                state.products = {...state.products, payload};
+            },
+            [createProductThunk.pending]: (state, action) => {
+                state.loading = true;
+                state.products = [];
+            },
+            [createProductThunk.rejected]: (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
             },
             [deleteProductByIdThunk.fulfilled]: (state, {payload}) => {
                 state.loading = false;
