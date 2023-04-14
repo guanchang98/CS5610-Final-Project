@@ -51,11 +51,12 @@ const EditProfile = () => {
                                                                                                             setProfile({ ...profile, dob: e.target.value });
                                                                                                           }}  />
                                 </div>
+                                <br></br>
                                 <div className="row">
 
-                                    <div className="col-4">
+                                    <div className="col-5 ml-3">
 
-                                        <Link className="btn btn-primary rounded-3 col-4" to="/profile"> Cancel
+                                        <Link className="btn btn-primary rounded-3" to="/profile"> Cancel
                                                                         </Link>
                                     </div>
                                     <div className="col-4">
