@@ -14,6 +14,7 @@ function RegisterScreen() {
     if (!username || !password) {
 //          setError("Missing required information!");
           console.log("Missing required information!");
+          alert("Missing required information!");
         }
     else {
         try {
@@ -21,6 +22,8 @@ function RegisterScreen() {
               navigate("/profile");
             } catch (err) {
               console.log(err);
+              alert("register failed!");
+
             }
 
     }

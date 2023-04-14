@@ -30,15 +30,9 @@ export const deleteUser = (id) => {
   return axios.delete(`${USERS_API_URL}/${id}`);
 };
 
-export const login = async (user) => {
-  const response = await api.post(`${USERS_API_URL}/login`, user);
-  return response.data
+export const login = (user) => {
+  return api.post(`${USERS_API_URL}/login`, user);
 };
-
-//export const loginUser = async (user) => {
-//  const response = await axios.post(`${API_BASE}/api/login`, user);
-//  return response.data;
-//};
 
 export const logout = () => {
   return api.post(`${USERS_API_URL}/logout`);

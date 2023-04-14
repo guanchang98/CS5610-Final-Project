@@ -13,12 +13,13 @@ const LoginScreen = () => {
     const navigate = useNavigate();
     const login = async () => {
         try {
-          const user = await dispatch(loginThunk({ username, password }));
+          const user = await dispatch(loginThunk({ username:username, password:password }));
           console.log("login")
           console.log(user)
           navigate("/profile");
         } catch (err) {
           console.log(err);
+          alert("wrong user");
         }
     };
     return (
@@ -55,7 +56,14 @@ const LoginScreen = () => {
                         </button>
 
                     </div>
-
+                    <div>
+                            {currentUser && (
+                              <div>
+                                <h2>{currentUser.username}</h2>
+                                <h2>{currentUser.password}</h2>
+                              </div>
+                            )}
+                    </div>
                 </div>
             </form>
         </div>
