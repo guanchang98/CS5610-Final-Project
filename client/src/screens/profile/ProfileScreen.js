@@ -108,7 +108,7 @@ const ProfileScreen = (props) => {
                                                                                                                           Edit Profile
                                                                                               </Link>
                                                                                           </div>}
-
+                         <br></br>  <br></br> <br></br> <br></br>
                          <div>
                              <div className="mt-3">
                                  <h2>{profile?.username}</h2>
