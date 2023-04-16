@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import {Link} from "react-router-dom";
 import "../index.css";
-
+import {
+  userUnfollowsUser,
+} from "../services/users/follows-service";
+import { useDispatch, useSelector } from "react-redux";
 
 const UserItem = (
     {
@@ -14,6 +17,11 @@ const UserItem = (
         }
     }
 ) => {
+    const { currentUser } = useSelector((state) => state.users);
+const unfollowUser = async () => {
+        await userUnfollowsUser(currentUser._id, user._id);
+    };
+
     return (
         <div className="card mt-2 row">
             <div className="col">
@@ -24,14 +32,7 @@ const UserItem = (
                     <span className="wd-no-underline">{user.name}</span>
                 </Link>
                 {
-                    user.followed &&
-                    <button className="btn btn-primary rounded-pill float-end mt-3 ">
-                        Following
-                    </button>
-                }
-                {
-                    !user.followed &&
-                    <button className="btn btn-danger rounded-pill float-end mt-3">
+                    <button onClick={userUnfollowsUser} className="btn btn-danger rounded-pill float-end mt-3">
                         Unfollow
                     </button>
                 }

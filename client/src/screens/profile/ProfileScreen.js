@@ -7,15 +7,16 @@ import {
   logoutThunk,
   updateUserThunk,
 } from "../../services/users/users-thunks";
+
 //import { findLikesByUserId } from "../../napster/likes-service";
 import { findUserById } from "../../services/users/users-service";
 import ProfileMe from "../../components/ProfileMe";
 
-//import {
-//  userFollowsUser,
-//  findFollowsByFollowerId,
-//  findFollowsByFollowedId,
-//} from "../services/follows-service";
+import {
+  userFollowsUser,
+  findFollowsByFollowerId,
+  findFollowsByFollowedId,
+} from "../../services/users/follows-service";
 import ProductsList from "../../components/ProductsList";
 import BackButtonComponent from "../../components/BackButtonComponent";
 import {useLocation} from "react-router";
@@ -31,8 +32,12 @@ const ProfileScreen = (props) => {
     console.log("current user");
     console.log(currentUser);
     const [profile, setProfile] = useState(currentUser);
+    const [following, setFollowing] = useState([]);
+    const [follows, setFollows] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+
 
     const fetchProfile = async () => {
         console.log("fetchProfile");
@@ -53,7 +58,13 @@ const ProfileScreen = (props) => {
     };
     const loadScreen = async () => {
         await fetchProfile();
+
       };
+
+    const followUser = async () => {
+        await userFollowsUser(currentUser._id, profile._id);
+    };
+
     const updateProfile = async () => {
         await dispatch(updateUserThunk(profile));
     };
@@ -84,10 +95,9 @@ const ProfileScreen = (props) => {
         } = userProfile;
 
     useEffect(() => {
-           console.log("usereffect");
+
            loadScreen();
-           console.log("profile");
-           console.log(profile)
+
           }, [userId]);
 
     return currentUser === true?<div>currentUser</div>:
@@ -100,9 +110,9 @@ const ProfileScreen = (props) => {
                              <img src={profile?.avatar} className="w-25 wd-pos-absolute-profile-banner"/>
                          </div>
                          {userId?<div className="col-3 mb-4">
-                                                              <Link className="btn btn-primary rounded-3 float-end" to="/edit-profile">
+                                                              <button onClick={followUser} className="btn btn-primary rounded-3 float-end" >
                                                                                           Follow
-                                                              </Link>
+                                                              </button>
                                                           </div>:<div className="col-3 mb-4">
                                                                                               <Link className="btn btn-primary rounded-3 float-end" to="/edit-profile">
                                                                                                                           Edit Profile

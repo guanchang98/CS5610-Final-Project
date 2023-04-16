@@ -49,6 +49,7 @@ if (process.env.ENV === 'production'){
       session({
           secret: "process.env.SECRET",
           resave: false,
+          saveUninitialized: true,
           cookie: { secure: true ,sameSite:'none'},
       })
     );
@@ -59,6 +60,7 @@ else {
         session({
             secret: "process.env.SECRET",
             resave: false,
+            saveUninitialized: true,
             cookie: { secure: false },
         })
       );
