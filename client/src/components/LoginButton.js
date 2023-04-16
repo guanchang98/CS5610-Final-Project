@@ -45,16 +45,16 @@ const LoginButton = () => {
 //navigate("/profile");
                   }, [currentUser]);
     return currentUser === null?(<div>
-                                                            <Link to="/login" className="btn btn-link float-end"
-                                                                  onClick={() => {console.log("login")}}>Login</Link>
-                                                            <Link to="/register" className="btn btn-link float-end"
-                                                                              onClick={() => {console.log("register")}}>Register</Link>
-                                                            <div className="float-end">Welcome, Anonymous</div>
-                                                        </div>):(<div>
-                                                                                      <button  className="btn btn-link float-end"
-                                                                                                        onClick={logout}>Logout</button>
-                                                                                      <div className="float-end">Welcome, {currentUser.username}</div>
-                                                                                  </div>);
+                                      <Link to="/login" className="btn btn-link float-end"
+                                            onClick={() => {console.log("login")}}>Login</Link>
+                                      <Link to="/register" className="btn btn-link float-end"
+                                                        onClick={() => {console.log("register")}}>Register</Link>
+                                      <div className="float-end">Welcome, Anonymous</div>
+                                  </div>):(<div>
+                                                                <button  className="btn btn-link float-end"
+                                                                                  onClick={logout}>Logout</button>
+                                                                <div className="float-end">Welcome, {currentUser.username}</div>
+                                                            </div>);
 //                                                                                  (
 //        <div>
 //          {layout}
