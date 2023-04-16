@@ -25,23 +25,14 @@ const DetailsScreen = () => {
     }
 
     const addToCart = async () => {
-        const response = await addProductsToUserCart(currentUser._id, state._id, count);
+        const response = await addProductsToUserCart(currentUser._id, state.product_id, count);
+        setCount()
     }
 
     const addToWishlist = async () => {
         const response = await updateProductById({...state, seller_id: currentUser._id});
         const response2 = await userLikesProduct(currentUser._id, state._id);
-        fetchProduct();
-    }
-    const unLikeProduct = async () => {
-        // const state.seller_id = undefined;
-        product = {...product, seller_id: undefined};
-        console.log("product", product)
-        // console.log("newP", newP)
-        const response = await updateProductById({...state, seller_id: undefined});
-        // console.log("response", response)
-        // console.log("unlike the product: ", state.seller_id)
-        fetchProduct();
+        fetchProduct("defaultValue");
     }
 
     const fetchProduct = async () => {
@@ -52,8 +43,6 @@ const DetailsScreen = () => {
     useEffect(() => {
         fetchProduct();
     }, [])
-
-    // console.log("product seller id", product.seller_id === undefined)
     
     return (
         <div> 
