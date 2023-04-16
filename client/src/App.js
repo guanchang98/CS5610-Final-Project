@@ -44,6 +44,7 @@ function App(){
                         } */}
                         <div
                             // className="col-9 col-md-9 col-lg-7 col-xl-6 mx-auto"
+                            // className="col-9 col-md-9 col-lg-7 col-xl-6 mx-auto"
                             style={{position: "relative"}}
                         >
                             <Routes>
@@ -62,6 +63,7 @@ function App(){
                                 <Route path="cart" element={<CartScreen/>}/>
                             </Routes>
                         </div>
+                        {/* {
                         {/* {
                             !loggingIn &&
                             <div className="container col-1 col1-md-1 col-lg-3 col-xl-3">

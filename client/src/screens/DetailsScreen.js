@@ -33,6 +33,16 @@ const DetailsScreen = () => {
         const response2 = await userLikesProduct(currentUser._id, state._id);
         fetchProduct();
     }
+    const unLikeProduct = async () => {
+        // const state.seller_id = undefined;
+        product = {...product, seller_id: undefined};
+        console.log("product", product)
+        // console.log("newP", newP)
+        const response = await updateProductById({...state, seller_id: undefined});
+        // console.log("response", response)
+        // console.log("unlike the product: ", state.seller_id)
+        fetchProduct();
+    }
 
     const fetchProduct = async () => {
         const response = await findProductById(state.product_id);
@@ -127,6 +137,11 @@ const DetailsScreen = () => {
                         }
                     </div>
                 </div>
+                <button className="btn btn-primary float-end"
+                        onClick={unLikeProduct}>
+                    unlike product
+                </button>
+
                 {   
                     currentUser !== null && currentUser._id === product.seller_id && 
                     <div className="d-grid gap-2 col-2 mx-auto mt-5">
