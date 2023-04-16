@@ -89,6 +89,15 @@ function UsersController(app) {
     }
   };
 
+  // update user cart by adding a product
+  const addProductsToUserCart = async (req, res) => {
+    const userId = req.params.id;
+    const productId = req.params.pid;
+    const count = req.params.c;
+    const status = await usersDao.addProductsToUserCart(userId, productId, count);
+    res.json(status);
+  };
+
 
   app.post("/api/users/login", login);
   app.post("/api/users/logout", logout);
@@ -100,6 +109,8 @@ function UsersController(app) {
   app.delete("/api/users/:id", deleteUserById);
   app.post("/api/users", createUser);
   app.put("/api/users/:id", updateUser);
+
+  app.put("/api/users/:id/cart/:pid/count/:c", addProductsToUserCart)
 }
 
 export default UsersController;
