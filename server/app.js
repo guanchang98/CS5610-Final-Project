@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-//import FollowsController from "./follows/follows-controller.js";
+import FollowsController from "./follows/follows-controller.js";
 import UsersController from "./users/users-controller.js";
 import ProductsController from "./products/products-controller.js";
 import mongoose from "mongoose";
@@ -75,6 +75,6 @@ app.get("/", function (req, res) {
 
 UsersController(app);
 ProductsController(app);
-//FollowsController(app);
+FollowsController(app);
 
 app.listen(process.env.PORT || 4000);
