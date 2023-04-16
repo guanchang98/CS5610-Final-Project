@@ -137,10 +137,10 @@ const DetailsScreen = () => {
                         }
                     </div>
                 </div>
-                <button className="btn btn-primary float-end"
+                {/* <button className="btn btn-primary float-end"
                         onClick={unLikeProduct}>
                     unlike product
-                </button>
+                </button> */}
 
                 {   
                     currentUser !== null && currentUser._id === product.seller_id && 
