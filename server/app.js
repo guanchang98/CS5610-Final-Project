@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import FollowsController from "./follows/follows-controller.js";
+//import FollowsController from "./follows/follows-controller.js";
 import UsersController from "./users/users-controller.js";
 import ProductsController from "./products/products-controller.js";
 import mongoose from "mongoose";
@@ -49,6 +49,7 @@ if (process.env.ENV === 'production'){
       session({
           secret: "process.env.SECRET",
           resave: false,
+          saveUninitialized: true,
           cookie: { secure: true ,sameSite:'none'},
       })
     );
@@ -59,6 +60,7 @@ else {
         session({
             secret: "process.env.SECRET",
             resave: false,
+            saveUninitialized: true,
             cookie: { secure: false },
         })
       );
@@ -73,6 +75,6 @@ app.get("/", function (req, res) {
 
 UsersController(app);
 ProductsController(app);
-FollowsController(app);
+//FollowsController(app);
 
 app.listen(process.env.PORT || 4000);
