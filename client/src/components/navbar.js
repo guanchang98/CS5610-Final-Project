@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom";
+// import {Link} from "react-router-dom";
 import {useLocation} from "react-router";
 // import SearchBar from './SearchBar.js'; 
 import LoginButton from './LoginButton'; 
@@ -8,14 +8,13 @@ import LoginButton from './LoginButton';
 const NavBar = () => {
     const {pathname} = useLocation();
     const paths = pathname.split("/");
-    const active = paths[1];
-    console.log(paths);
-    const loggingIn = false;
+    // const active = paths[1];
+    // console.log(paths);
+    // const loggingIn = false;
 
     return (
         <nav className="navbar navbar-expand-md navbar-light bg-light">
             <div className="container-fluid">
-                {/* <h2>Shopping</h2> */}
                 <a className="navbar-brand f" href="/home">Shopping</a>
                 <button className="navbar-toggler" 
                         type="button" 

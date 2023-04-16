@@ -17,7 +17,7 @@ const ProductsList = (props) => {
             {
                 productArray.map(item =>
                     <ProductItem
-                        key={item.id} item={item}/>)
+                        key={item._id} item={item}/>)
             }
         </div>
     );

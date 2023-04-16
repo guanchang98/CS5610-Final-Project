@@ -3,7 +3,7 @@ import {Route, Routes} from "react-router";
 import HomeScreen from "./screens/HomeScreen";
 import ProfileScreen from "./screens/profile/ProfileScreen";
 import EditProfile from "./screens/profile/EditProfile";
-import NavigationSidebar from "./components/NavigationSideBar";
+// import NavigationSidebar from "./components/NavigationSideBar";
 import DetailsScreen from "./screens/DetailsScreen";
 import LoginScreen from "./screens/LoginScreen";
 import FollowersScreen from "./screens/profile/FollowersScreen";
@@ -11,7 +11,7 @@ import FollowingScreen from "./screens/profile/FollowingScreen";
 import {Provider, useSelector} from "react-redux";
 import store from "./reducers/store"
 import RegisterScreen from "./screens/RegisterScreen";
-import LoginButton from "./components/LoginButton";
+// import LoginButton from "./components/LoginButton";
 import CartScreen from "./screens/CartScreen";
 import WishlistScreen from "./screens/WishlistScreen";
 import CurrentUserContext from "./components/current-user-context";

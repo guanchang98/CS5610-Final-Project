@@ -15,8 +15,8 @@ const ProductItem = (
 ) => {
     let navigate = useNavigate(); 
     return (
-        <div className="col-sm-3 mb-3">
-            <div className="card p-2" onClick={() => navigate(`/details/${item.id}`, { state: item })}>
+        <div className="col-md-4 col-lg-3 col-sm-6 mb-3">
+            <div className="card p-2" onClick={() => navigate(`/details/${item._id}`, { state: item })}>
                 <div className="text-center">
                     <img className="rounded wd-punk-image-size-home" src={item.image_url} alt='' length='100%'/><br/><br/>  
                 </div>
@@ -26,29 +26,7 @@ const ProductItem = (
                 </div>
             </div>
         </div>
-
-        // <div className="card">
-        //     <img className="rounded wd-punk-image-size-home" src={item.image_url} alt='' length='100%'/><br/>
-        //     <div className="card-body">
-        //     <p className="card-text">${item.price}</p>
-        //     </div>
-        //     </div>
     );
 }
 
 export default ProductItem;
-
-
-// {/* <div className="row mb-2 justify-content-between">
-//     <div className="col-6 text-center">
-//         <button type="button" className="btn btn-primary w-65"
-//             onClick={()=>{console.log("add button")}}>
-//             Add
-//         </button>
-//     </div>
-//     <div className="col-6 text-center">
-//         <button type="button" className="btn btn-primary w-65">
-//             Edit
-//         </button>
-//     </div>
-// </div>  */}
