@@ -42,3 +42,8 @@ export const findFollowsByFollowerId = async (follower) => {
   console.log(response);
   return response.data;
 };
+
+export const getCartByUserId = async (userId) => {
+  const response = await axios.get(`${USERS_API}/${userId}/cart`);
+  return response.data;
+}
