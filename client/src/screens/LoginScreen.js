@@ -19,6 +19,7 @@ const LoginScreen = () => {
             navigate("/profile");
         } catch (err) {
             console.log(err);
+            alert("user not found!");
         }
     };
     return (

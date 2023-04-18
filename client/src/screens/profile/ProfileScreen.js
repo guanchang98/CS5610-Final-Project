@@ -13,9 +13,14 @@ import { findUserById } from "../../services/users/users-service";
 import ProfileMe from "../../components/ProfileMe";
 
 import {
+userUnfollowsUserThunk,
+  userFollowsUserThunk,
+  findFollowsByFollowerIdThunk,
+  findFollowsByFollowedIdThunk,
+} from "../../services/users/follows-thunks";
+import {
   userFollowsUser,
-  findFollowsByFollowerId,
-  findFollowsByFollowedId,
+  findFollowsByFollowerAndFollowed,
 } from "../../services/users/follows-service";
 import ProductsList from "../../components/ProductsList";
 import BackButtonComponent from "../../components/BackButtonComponent";
@@ -26,98 +31,107 @@ import '../../index.css';
 
 const ProfileScreen = (props) => {
     const {userId} = useParams();
-    console.log("userId")
-    console.log(userId)
     const { currentUser } = useSelector((state) => state.users);
-    console.log("current user");
-    console.log(currentUser);
+//    console.log("current user at beginning");
+//    console.log(currentUser);
     const [profile, setProfile] = useState(currentUser);
-    const [following, setFollowing] = useState([]);
-    const [follows, setFollows] = useState([]);
+    const [followedFlag, setFlag] = useState("");
+    const {follows} = useSelector((state) => state.follows);
+    const [following,setFollows] = useState(follows);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-
-
-    const fetchProfile = async () => {
-        console.log("fetchProfile");
-        console.log(userId);
-        if (userId) {
-            console.log("user");
-            const user = await findUserById(userId);
-            console.log(user);
-            setProfile(user);
-            return;
+    const fetchFollows = async () => {
+        if (profile.role === "SELLER"){
+            const response = await dispatch(findFollowsByFollowedIdThunk(currentUser._id));
+            setFollows(response.payload);
         }
-        console.log("usersss");
-        const response = await dispatch(profileThunk());
-        console.log(response);
-        setProfile(response.payload);
-
+        else {
+            const response = await dispatch(findFollowsByFollowerIdThunk(profile._id));
+            setFollows(response.payload);
+        }
 
     };
-    const loadScreen = async () => {
-        await fetchProfile();
 
-      };
+    const fetchFollowing = async () => {
+        const response = await dispatch(findFollowsByFollowedIdThunk(currentUser._id));
+        setFollows(response.payload);
+    };
+    const fetchProfile = async () => {
+        if (userId) {
+            console.log("fetchProfile");
+            const user = await findUserById(userId);
+            setProfile(user);
+//            console.log(profile);
+//            console.log(currentUser);
+            const response = await dispatch(profileThunk());
+            const curUser = response.payload;
+//            console.log(curUser);
+            if (curUser){
+                const followedFlag = await findFollowsByFollowerAndFollowed(curUser._id, userId);
+                setFlag(followedFlag.result);
+            }
+
+            return;
+        }
+        const response = await dispatch(profileThunk());
+        setProfile(response.payload);
+
+    };
+
 
     const followUser = async () => {
         await userFollowsUser(currentUser._id, profile._id);
+        setFlag("yes");
     };
+
+    const unfollowUser = async () => {
+            await dispatch(userUnfollowsUserThunk({follower:currentUser._id, followed:profile._id}));
+            setFlag("no");
+        };
 
     const updateProfile = async () => {
         await dispatch(updateUserThunk(profile));
     };
 
-    const {pathname} = useLocation();
-    const paths = pathname.split("/");
-    const userProfile = {
-            _id : '123',
-            bannerPicture: bannerPic,
-            bio: "A test user bio",
-            dateOfBirth: "1998-10-03",
-            userName: "Jane Doe",
-            role: "SELLER",
-            followCount: 3,
-            location: "Sunnyvale",
-            profilePicture: avatar,
-            website: "google.com",
-        }
-        const {
-            _id,
-            bannerPicture,
-            userName,
-            bio,
-            dateOfBirth,
-            followCount,
-            location,
-            profilePicture,
-        } = userProfile;
+    const loadScreen = async () => {
+                    await fetchProfile();
+                    console.log("flag");
+                    console.log(followedFlag);
+                    await fetchFollows();
+                  };
 
     useEffect(() => {
 
-           loadScreen();
+        loadScreen();
 
-          }, [userId]);
+    }, [userId]);
 
-    return currentUser === true?<div>currentUser</div>:
+    return profile?
             <div>
                  <div className="border-1">
                      <BackButtonComponent/>
                      <div className="row">
                          <img src={profile?.profilePic} className="w-100 mb-3" height="240"/>
                          <div className="col-9 float-start">
-                             <img src={profile?.avatar} className="w-25 wd-pos-absolute-profile-banner"/>
+                         <img src={profile?.avatar} className="w-25 wd-pos-absolute-profile-banner"/>
                          </div>
-                         {userId?<div className="col-3 mb-4">
-                                                              <button onClick={followUser} className="btn btn-primary rounded-3 float-end" >
-                                                                                          Follow
-                                                              </button>
-                                                          </div>:<div className="col-3 mb-4">
-                                                                                              <Link className="btn btn-primary rounded-3 float-end" to="/edit-profile">
-                                                                                                                          Edit Profile
-                                                                                              </Link>
-                                                                                          </div>}
+                         {userId && followedFlag==="no" && <div className="col-3 mb-4">
+                                  <button onClick={followUser} className="btn btn-primary rounded-3 float-end" >
+                                                              Follow
+                                  </button>
+                              </div>}
+                         {userId && followedFlag==="yes" && <div className="col-3 mb-4">
+                                                           <button onClick={unfollowUser} className="btn btn-primary rounded-3 float-end" >
+                                                                                       Unfollow
+                                                           </button>
+                                                       </div>}
+
+                         {!userId && profile && <div className="col-3 mb-4">
+                              <Link className="btn btn-primary rounded-3 float-end" to="/edit-profile">
+                                                          Edit Profile
+                              </Link>
+                          </div>}
                          <br></br>  <br></br> <br></br> <br></br>
                          <div>
                              <div className="mt-3">
@@ -140,17 +154,25 @@ const ProfileScreen = (props) => {
                              <div className="row">
                                  <div className="mb-3 list-group list-group-horizontal col-3">
                                      {
-                                         profile?.role === "BUYER" &&
-                                         <Link to="/profile/following" className="list-group-item list-group-item-action border-0">
-                                             <span className="text-secondary">Following</span>
+                                         profile?.role === "BUYER" && !userId &&
+                                         <Link to="/following" className="list-group-item list-group-item-action border-0">
+                                             <span className="text-secondary">{following.length} Following</span>
                                          </Link>
                                      }
                                      {
-                                         profile?.role === "SELLER" &&
-                                         <Link to="/profile/followers" className="list-group-item list-group-item-action border-0">
-                                             <span className="text-secondary">Followers</span>
+                                          profile?.role === "BUYER" && userId &&
+                                          <p>{following.length} Following</p>
+                                      }
+                                     {
+                                         profile?.role === "SELLER" && !userId &&
+                                         <Link to="/followers" className="list-group-item list-group-item-action border-0">
+                                             <span className="text-secondary">{following.length} Followers</span>
                                          </Link>
                                      }
+                                     {
+                                          profile?.role === "SELLER" && userId &&
+                                          <p>{following.length} Followers</p>
+                                      }
                                  </div>
                              </div>
                          </div>
@@ -160,7 +182,8 @@ const ProfileScreen = (props) => {
                  /*{<ProductsList/>}*/
                  }
 
-            </div>
+            </div>:<Link to = '/login'>Please login first</Link>
+
 }
 
 export default ProfileScreen

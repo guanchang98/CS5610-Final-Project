@@ -47,8 +47,10 @@ export const register = (user) => {
   return api.post(`${USERS_API_URL}/register`, user);
 };
 
-export const profile = () => {
-  return api.get(`${USERS_API_URL}/profile`);
+export const profile =  () => {
+//  const response = await api.get(`${USERS_API_URL}/profile`);
+//  return response;
+    return api.get(`${USERS_API_URL}/profile`);
 };
 
 export const addProductsToUserCart = (userId, productId, count) => {
