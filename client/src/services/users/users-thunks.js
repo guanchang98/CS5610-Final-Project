@@ -57,3 +57,11 @@ export const profileThunk = createAsyncThunk("users/profile", async () => {
   const response = await userService.profile();
   return response.data;
 });
+
+export const addProductsToUserCartThunk = createAsyncThunk(
+  "users/addProductsToUserCart",    
+  async (userId, productId, count) => {
+    const response = await userService.addProductsToUserCart(userId, productId, count);
+    return response.data;
+  } 
+);

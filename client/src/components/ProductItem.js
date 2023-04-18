@@ -15,21 +15,14 @@ const ProductItem = (
 ) => {
     let navigate = useNavigate(); 
     return (
-        <div className="col-sm-4 mb-3">
-            <div className="card p-2">
-                <div onClick={() => navigate(`/details/${item.id}`, { state: item })}>
-                    <img className="rounded wd-punk-image-size-home" src={item.image_url} alt='' width='100%'/><br/>
-                    <span className="text-secondary">{item.name}</span>
-                    <p className="fw-bold">${item.price}</p>  
+        <div className="col-md-4 col-lg-3 col-sm-6 mb-3">
+            <div className="card p-2" onClick={() => navigate(`/details/${item._id}`, { state: item })}>
+                <div className="text-center">
+                    <img className="rounded wd-punk-image-size-home" src={item.image_url} alt='' length='100%'/><br/><br/>  
                 </div>
-                <div className="row justify-content-between mb-2">
-                    <button type="button" className="col-5 btn btn-primary btn-sm ms-3"
-                        onClick={()=>{console.log("add button")}}>
-                        Add
-                    </button>
-                    <button type="button" className="col-5 btn btn-sm btn-primary me-3">
-                        Edit
-                    </button>
+                <div>
+                    <p className="text-center text-secondary">{item.name}</p>
+                    <p className="text-center fw-bold">${item.price}</p>
                 </div>
             </div>
         </div>

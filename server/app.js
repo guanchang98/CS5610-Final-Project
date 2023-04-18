@@ -3,6 +3,7 @@ import cors from "cors";
 import FollowsController from "./follows/follows-controller.js";
 import UsersController from "./users/users-controller.js";
 import ProductsController from "./products/products-controller.js";
+import ProductListController from "./product-list/product-list-controller.js";
 import mongoose from "mongoose";
 import session from "express-session";
 
@@ -76,5 +77,6 @@ app.get("/", function (req, res) {
 UsersController(app);
 ProductsController(app);
 FollowsController(app);
+ProductListController(app)
 
 app.listen(process.env.PORT || 4000);

@@ -52,3 +52,9 @@ export const profile =  () => {
 //  return response;
     return api.get(`${USERS_API_URL}/profile`);
 };
+
+export const addProductsToUserCart = (userId, productId, count) => {
+  console.log("product id from server: ", "product id: ", productId, "user id: ", userId, "count: ", count)
+  const response = api.put(`${USERS_API_URL}/${userId}/cart/${productId}/count/${count}`);
+  return response.data;
+}

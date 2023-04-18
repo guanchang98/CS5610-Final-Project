@@ -45,3 +45,10 @@ export const updateUser = async (id, user) => {
   const status = await usersModel.updateOne({ _id: id }, user);
   return status;
 };
+
+export const addProductsToUserCart = (userId, productId, count) => 
+  usersModel.updateOne({_id: userId }, { $push: { cart: {product_id: productId, count: count}}}); 
+
+
+
+

@@ -9,6 +9,7 @@ const {
   logoutThunk,
   profileThunk,
   registerThunk,
+  addProductsToUserCartThunk
 } = require("../services/users/users-thunks");
 
 
@@ -67,6 +68,15 @@ const usersSlice = createSlice({
     [registerThunk.fulfilled]: (state, action) => {
       state.currentUser = action.payload;
     },
+    // [addProductsToUserCartThunk.fulfilled]: (state, action) => {
+    //   state.currentUser = action.payload;
+    //   state.loading = false
+    //   const tuitNdx = state.tuits.findIndex((t) => t._id === payload._id)
+    //   state.tuits[tuitNdx] = {
+    //   ...state.tuits[tuitNdx],
+    //   ...payload
+    //   }
+    // }
   },
 });
 

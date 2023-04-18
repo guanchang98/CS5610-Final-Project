@@ -24,7 +24,8 @@ const HomeScreen = () => {
         return payload;
     }
     const searchPunk = async () => {
-        const query = search === "" ? "" : "beer_name=" + search;
+        // const query = search === "" ? "" : "beer_name=" + search;
+        const query = "";
         let response = await fullTextSearch(query);
         for (let i = 0; i < response.length; i++) {
             response[i] = {
