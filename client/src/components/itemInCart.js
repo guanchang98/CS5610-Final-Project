@@ -7,12 +7,14 @@ const ItemInCart = ({item}) => {
 
     return (
         
-            <li className="row list-group-item">
-                <div className="col-9">
-                    <h4>{item.name}</h4>
-                </div>
-                <div className="col-3">
-                    <h4>{item.count}</h4>
+            <li className="list-group-item">
+                <div className="row">
+                    <div className="col-9">
+                        <h4>{item.name}</h4>
+                    </div>
+                    <div className="col-3">
+                        <h4>{item.count}</h4>
+                    </div>
                 </div>
             </li>
     
