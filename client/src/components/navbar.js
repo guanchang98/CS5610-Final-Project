@@ -8,8 +8,8 @@ import LoginButton from './LoginButton';
 const NavBar = () => {
     const {pathname} = useLocation();
     const paths = pathname.split("/");
-    // const active = paths[1];
-    // console.log(paths);
+    const active = paths[1];
+    console.log(paths);
     // const loggingIn = false;
 
     return (
@@ -29,16 +29,16 @@ const NavBar = () => {
                 <div className="collapse navbar-collapse" id='navbarToggleMenu'>
                     <ul className="navbar-nav ms-auto">
                         <li>
-                            <a className="nav-link active" href="/home">Home</a>
+                            <a className={`nav-link ${active === 'home' ? 'active' : ''}`} href="/home">Home</a>
                         </li>
                         <li>
-                            <a className="nav-link" href="/profile">Profile</a>
+                            <a className={`nav-link ${active === 'profile' ? 'active' : ''}`} href="/profile">Profile</a>
                         </li>
                         <li>
-                            <a className="nav-link" href="/waitlist">Waitlist</a>
+                            <a className={`nav-link ${active === 'wishlist' ? 'active' : ''}`} href="/wishlist">Wishlist</a>
                         </li>
                         <li>
-                            <a className="nav-link" href="/cart">Cart</a>
+                            <a className={`nav-link ${active === 'cart' ? 'active' : ''}`} href="/cart">Cart</a>
                         </li>
                         {/* <li>
                             <a className="nav-link" href="/register">Register</a>
