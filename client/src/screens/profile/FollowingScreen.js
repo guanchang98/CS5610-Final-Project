@@ -3,40 +3,59 @@ import UserItem from "../../components/UserItem";
 import BackButtonComponent from "../../components/BackButtonComponent";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
+import { findUserById } from "../../services/users/users-service";
 import {
-  userFollowsUser,
-  findFollowsByFollowerId,
-  findFollowsByFollowedId,
-} from "../../services/users/follows-service";
+  userFollowsUserThunk,
+  findFollowsByFollowerIdThunk,
+  findFollowsByFollowedIdThunk,
+} from "../../services/users/follows-thunks";
+import {
+  profileThunk,
+  logoutThunk,
+  updateUserThunk,
+} from "../../services/users/users-thunks";
 
-const FollowingScreen = (profile) => {
-      const [follows, setFollows] = useState([]);
-    const { currentUser } = useSelector((state) => state.users);
+const FollowingScreen = () => {
+    const {follows} = useSelector((state) => state.follows);
+    const [following,setFollows] = useState(follows);
+//      const [following,setFollows] = useState([]);
+    const  {currentUser}  = useSelector((state) => state.users);
+    const [profile, setProfile] = useState(currentUser);
+    const fetchProfile = async () => {
+        const response = await dispatch(profileThunk());
+        setProfile(response.payload);
+        console.log(profile);
 
-          const fetchFollowers = async () => {
-              const follows = await findFollowsByFollowedId(currentUser._id);
-              setFollows(follows);
-          };
+    };
+    const dispatch = useDispatch();
+      const navigate = useNavigate();
 
-          const loadScreen = async () => {
-                  await fetchFollowers();
-                };
-      const dispatch = useDispatch();
-          const navigate = useNavigate();
-      useEffect(() => {
+    const fetchFollowers = async () => {
+        const response = await dispatch(findFollowsByFollowerIdThunk(profile._id));
+        setFollows(response.payload);
+    };
 
-                     loadScreen();
+    const loadScreen = async () => {
+          await fetchProfile();
+          fetchFollowers();
 
-                    }, []);
+    };
+      
+    useEffect(() => {
+
+                 loadScreen();
+
+    }, []);
     return (
         <div>
             <BackButtonComponent/>
             <h1>Following</h1>
+            <h1>{currentUser?.username}</h1>
             <ul className="list-group">
                         {
-                            follows.map(user =>
+                            follows?.map(user =>
                                 <UserItem
-                                    key={user.id} user={user}/> )
+                                    key={user._id} user={user}/> )
                         }
             </ul>
         </div>
