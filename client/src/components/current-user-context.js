@@ -4,7 +4,7 @@ import { profileThunk } from "../services/users/users-thunks";
 function CurrentUserContext({ children }) {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(profileThunk());
+     dispatch(profileThunk());
   }, []);
   return children;
 }

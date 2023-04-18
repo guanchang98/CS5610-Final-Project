@@ -9,6 +9,7 @@ function UsersController(app) {
     res.send(users);
   };
   const findUserById = async (req, res) => {
+    console.log("find user by id");
     const id = req.params.id;
     // const user = users.find((user) => user.id === id);
     const user = await usersDao.findUserById(id);

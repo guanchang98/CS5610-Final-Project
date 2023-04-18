@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import {Link} from "react-router-dom";
 import "../index.css";
 import {
-  userUnfollowsUser,
-} from "../services/users/follows-service";
+  userUnfollowsUserThunk,
+} from "../services/users/follows-thunks";
 import { useDispatch, useSelector } from "react-redux";
 
 const UserItem = (
@@ -17,25 +17,34 @@ const UserItem = (
         }
     }
 ) => {
+        const dispatch = useDispatch();
+
     const { currentUser } = useSelector((state) => state.users);
 const unfollowUser = async () => {
-        await userUnfollowsUser(currentUser._id, user._id);
+        console.log("unfollow");
+        console.log(currentUser._id);
+        console.log(user._id);
+
+        await dispatch(userUnfollowsUserThunk({follower:currentUser._id, followed:user._id}));
     };
 
     return (
         <div className="card mt-2 row">
             <div className="col">
-                <Link to={`/profile/${user.id}`} className="btn btn-link">
+                <Link to={`/profile/${user._id}`} className="btn btn-link">
                     <img src={user.avatar} width="60px"/>
                 </Link>
-                <Link to={`/profile/${user.id}`} className="btn">
-                    <span className="wd-no-underline">{user.name}</span>
+                <Link to={`/profile/${user._id}`} className="btn">
+                    <span className="wd-no-underline">{user.username}</span>
                 </Link>
-                {
-                    <button onClick={userUnfollowsUser} className="btn btn-danger rounded-pill float-end mt-3">
+                {currentUser.role === "BUYER" &&
+                    <button onClick={unfollowUser} className="btn btn-danger rounded-pill float-end mt-3">
                         Unfollow
                     </button>
                 }
+                {currentUser.role === "SELLER" &&
+                                    <span> {user.bio} </span>
+                                }
             </div>
         </div>
     );

@@ -8,6 +8,7 @@ import DetailsScreen from "./screens/DetailsScreen";
 import LoginScreen from "./screens/LoginScreen";
 import FollowersScreen from "./screens/profile/FollowersScreen";
 import FollowingScreen from "./screens/profile/FollowingScreen";
+import CurrentUserScreen from "./screens/profile/CurrentUserScreen";
 import {Provider, useSelector} from "react-redux";
 import store from "./reducers/store"
 import RegisterScreen from "./screens/RegisterScreen";
@@ -49,8 +50,8 @@ function App() {
                                 <Route path="profile/:userId" element={<ProfileScreen/>}/>
                                 <Route path="details/:detailsId" element={<DetailsScreen/>}/>
                                 <Route path="login" element={<LoginScreen/>}/>
-                                <Route path="profile/following" element={<FollowingScreen/>}/>
-                                <Route path="profile/followers" element={<FollowersScreen/>}/>
+                                <Route path="following" element={<FollowingScreen/>}/>
+                                <Route path="followers" element={<FollowersScreen/>}/>
                                 <Route path="/register" element={<RegisterScreen />} />
                                 <Route path="wishlist" element={<WishlistScreen/>}/>
                                 <Route path="cart" element={<CartScreen/>}/>
