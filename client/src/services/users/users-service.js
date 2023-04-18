@@ -56,3 +56,10 @@ export const addProductsToUserCart = (userId, productId, count) => {
   const response = api.put(`${USERS_API_URL}/${userId}/cart/${productId}/count/${count}`);
   return response.data;
 }
+
+export const getCartByUserId = async (userId) => {
+  console.log("get cart by user id: ", userId)
+  const response = await axios.get(`${USERS_API_URL}/${userId}/cart`);
+  console.log("response: ", response.data)
+  return response;
+}

@@ -1,3 +1,5 @@
+import { findProductById } from "../services/products/products-service";
+
 const { createSlice } = require("@reduxjs/toolkit");
 const {
   findAllUsersThunk,
@@ -12,11 +14,14 @@ const {
   addProductsToUserCartThunk
 } = require("../services/users/users-thunks");
 
+const { findProductByIdThunk } = require( "../services/products/products-thunks");
+
 const initialState = {
   users: [],
   loading: false,
   error: null,
-  currentUser: null,
+  currentUser: {},
+  productList: []
 };
 
 const usersSlice = createSlice({
@@ -67,15 +72,14 @@ const usersSlice = createSlice({
     [registerThunk.fulfilled]: (state, action) => {
       state.currentUser = action.payload;
     },
-    // [addProductsToUserCartThunk.fulfilled]: (state, action) => {
-    //   state.currentUser = action.payload;
-    //   state.loading = false
-    //   const tuitNdx = state.tuits.findIndex((t) => t._id === payload._id)
-    //   state.tuits[tuitNdx] = {
-    //   ...state.tuits[tuitNdx],
-    //   ...payload
-    //   }
-    // }
+    [addProductsToUserCartThunk.fulfilled]: (state, action) => {
+      state.currentUser = action.payload;
+    }, 
+
+    [findProductByIdThunk.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.productList = action.payload;
+    }
   },
 });
 

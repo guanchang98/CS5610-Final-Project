@@ -31,3 +31,8 @@ export const findFollowsByFollowerId = async (follower) => {
   const response = await axios.get(`${USERS_API}/${follower}/followees`);
   return response.data;
 };
+
+export const getCartByUserId = async (userId) => {
+  const response = await axios.get(`${USERS_API}/${userId}/cart`);
+  return response.data;
+}
