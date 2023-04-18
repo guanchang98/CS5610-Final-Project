@@ -24,8 +24,8 @@ const HomeScreen = () => {
         return payload;
     }
     const searchPunk = async () => {
-        // const query = search === "" ? "" : "beer_name=" + search;
-        const query = "";
+        const query = search === "" ? "" : "beer_name=" + search;
+        // const query = "";
         let response = await fullTextSearch(query);
         for (let i = 0; i < response.length; i++) {
             response[i] = {
@@ -40,6 +40,8 @@ const HomeScreen = () => {
             response[i] = await saveProductsToDBAndReturn(response[i]);
             // console.log("after create", response[i]);
         }
+        console.log("search", search);
+        console.log("response", response);
         setResults(response);
     }
     useEffect(() => {
