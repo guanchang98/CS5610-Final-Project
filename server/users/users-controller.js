@@ -9,7 +9,6 @@ function UsersController(app) {
     res.send(users);
   };
   const findUserById = async (req, res) => {
-    console.log("find user by id");
     const id = req.params.id;
     // const user = users.find((user) => user.id === id);
     const user = await usersDao.findUserById(id);
@@ -46,14 +45,12 @@ function UsersController(app) {
 
   const login = async (req, res) => {
     const user = req.body;
-    console.log(user);
 
     const foundUser = await usersDao.findUserByCredentials(
       req.body.username,
       req.body.password
     );
-    console.log("foundUser")
-    console.log(foundUser);
+
     if (foundUser) {
       req.session["currentUser"] = foundUser;
       res.send(foundUser);

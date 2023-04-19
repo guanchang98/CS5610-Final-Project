@@ -20,7 +20,7 @@ const initialState = {
   users: [],
   loading: false,
   error: null,
-  currentUser: {},
+  currentUser: null,
   productList: []
 };
 
@@ -53,13 +53,13 @@ const usersSlice = createSlice({
       state.loading = false;
       state.error = action.error.message;
     },
-    [findUserByIdThunk.pending]: (state, action) => {
-      state.loading = true;
-    },
-    [findUserByIdThunk.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.currentUser = action.payload;
-    },
+//    [findUserByIdThunk.pending]: (state, action) => {
+//      state.loading = true;
+//    },
+//    [findUserByIdThunk.fulfilled]: (state, action) => {
+//      state.loading = false;
+//      state.currentUser = action.payload;
+//    },
     [loginThunk.fulfilled]: (state, action) => {
       state.currentUser = action.payload;
     },

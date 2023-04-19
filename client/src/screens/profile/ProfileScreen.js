@@ -6,6 +6,7 @@ import {
   profileThunk,
   logoutThunk,
   updateUserThunk,
+  findUserByIdThunk,
 } from "../../services/users/users-thunks";
 
 //import { findLikesByUserId } from "../../napster/likes-service";
@@ -17,6 +18,7 @@ userUnfollowsUserThunk,
   userFollowsUserThunk,
   findFollowsByFollowerIdThunk,
   findFollowsByFollowedIdThunk,
+  findFollowsByFollowerAndFollowedThunk,
 } from "../../services/users/follows-thunks";
 import {
   userFollowsUser,
@@ -31,62 +33,66 @@ import '../../index.css';
 
 const ProfileScreen = (props) => {
     const {userId} = useParams();
-    const { currentUser } = useSelector((state) => state.users);
-//    console.log("current user at beginning");
-//    console.log(currentUser);
-    const [profile, setProfile] = useState(currentUser);
+    const   profile = useSelector((state) => state.users.currentUser);
+//    const [profile, setProfile] = useState(currentUser);
     const [followedFlag, setFlag] = useState("");
     const {follows} = useSelector((state) => state.follows);
     const [following,setFollows] = useState(follows);
+    const [user, setUser] = useState(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const fetchFollows = async () => {
-        if (profile.role === "SELLER"){
-            const response = await dispatch(findFollowsByFollowedIdThunk(currentUser._id));
-            setFollows(response.payload);
-        }
-        else {
-            const response = await dispatch(findFollowsByFollowerIdThunk(profile._id));
-            setFollows(response.payload);
-        }
-
-    };
-
-    const fetchFollowing = async () => {
-        const response = await dispatch(findFollowsByFollowedIdThunk(currentUser._id));
-        setFollows(response.payload);
-    };
-    const fetchProfile = async () => {
-        if (userId) {
-            console.log("fetchProfile");
-            const user = await findUserById(userId);
-            setProfile(user);
-//            console.log(profile);
-//            console.log(currentUser);
-            const response = await dispatch(profileThunk());
-            const curUser = response.payload;
-//            console.log(curUser);
-            if (curUser){
-                const followedFlag = await findFollowsByFollowerAndFollowed(curUser._id, userId);
-                setFlag(followedFlag.result);
+        if (userId && user){
+            if(user.role === "SELLER"){
+                const response = await dispatch(findFollowsByFollowedIdThunk(userId));
+                setFollows(response.payload);
             }
-
-            return;
+            else{
+                const response = await dispatch(findFollowsByFollowerIdThunk(userId));
+                setFollows(response.payload);
+            }
         }
-        const response = await dispatch(profileThunk());
-        setProfile(response.payload);
-
+        else if (profile){
+            if (profile.role === "SELLER"){
+                const response = await dispatch(findFollowsByFollowedIdThunk(profile._id));
+                setFollows(response.payload);
+            }
+            else {
+                const response = await dispatch(findFollowsByFollowerIdThunk(profile._id));
+                setFollows(response.payload);
+            }
+        }
     };
 
+    const fetchFollowerAndFollowing = async () => {
+        if (userId && profile){
+            const response = await dispatch(findFollowsByFollowerAndFollowedThunk({follower:profile._id, followed:userId}));
+            console.log("fetchFollowerAndFollowing",response);
+            console.log(profile,userId);
+            setFlag(response.payload.result);
+        }
+    }
+
+    const fetchProfile = async () => {
+        const response = await dispatch(profileThunk());
+//        setProfile(response.payload);
+    };
+
+    const fetchUserInfo = async () => {
+        if (userId) {
+           const response = await dispatch(findUserByIdThunk(userId));
+           setUser(response.payload);
+        }
+    }
 
     const followUser = async () => {
-        await userFollowsUser(currentUser._id, profile._id);
+        await userFollowsUser(profile._id, userId);
         setFlag("yes");
     };
 
     const unfollowUser = async () => {
-            await dispatch(userUnfollowsUserThunk({follower:currentUser._id, followed:profile._id}));
+            await dispatch(userUnfollowsUserThunk({follower:profile._id, followed:userId}));
             setFlag("no");
         };
 
@@ -95,37 +101,76 @@ const ProfileScreen = (props) => {
     };
 
     const loadScreen = async () => {
-                    await fetchProfile();
-                    console.log("flag");
-                    console.log(followedFlag);
+//                    await fetchProfile();
+
+                    await fetchUserInfo();
+                    await fetchFollowerAndFollowing();
                     await fetchFollows();
                   };
 
     useEffect(() => {
-
         loadScreen();
-
     }, [userId]);
 
-    return profile?
+    return user?(<div>
+                  <div className="border-1">
+                      <BackButtonComponent/>
+                      <div className="row">
+                          <img src={user?.profilePic} className="w-100 mb-3" height="240"/>
+                          <div className="col-9 float-start">
+                          <img src={user?.avatar} className="w-25 wd-pos-absolute-profile-banner" height="120"/>
+                          </div>
+                          {followedFlag==="no" && <div className="col-3 mb-4">
+                                   <button onClick={followUser} className="btn btn-primary rounded-3 float-end" >
+                                                               Follow
+                                   </button>
+                               </div>}
+                          {followedFlag==="yes" && <div className="col-3 mb-4">
+                                                            <button onClick={unfollowUser} className="btn btn-primary rounded-3 float-end" >
+                                                                                        Unfollow
+                                                            </button>
+                                                        </div>}
+                          <br></br>  <br></br> <br></br> <br></br>
+                          <div>
+                              <div className="mt-3">
+                                  <h2>{user?.username}</h2>
+                              </div>
+                              <p  className="mt-4" >
+                                  {user?.bio}
+                              </p>
+                              <div className="row mb-3">
+                                  <div className="col-3">
+                                      <i className="bi bi-geo-alt text-secondary"></i>
+                                      <span className="text-secondary"> {user?.location}   </span>
+                                  </div>
+                              </div>
+                              <div className="row">
+                                  <div className="mb-3 list-group list-group-horizontal col-3">
+
+                                      {
+                                           user?.role === "BUYER" &&
+                                           <p>{following && following.length} Following</p>
+                                       }
+
+                                      {
+                                           user?.role === "SELLER" &&
+                                           <p>{following && following.length} Followers</p>
+                                       }
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  </div>):(profile?
             <div>
                  <div className="border-1">
                      <BackButtonComponent/>
                      <div className="row">
                          <img src={profile?.profilePic} className="w-100 mb-3" height="240"/>
                          <div className="col-9 float-start">
-                         <img src={profile?.avatar} className="w-25 wd-pos-absolute-profile-banner"/>
+                         <img src={profile?.avatar} className="w-25 wd-pos-absolute-profile-banner" height="120"/>
                          </div>
-                         {userId && followedFlag==="no" && <div className="col-3 mb-4">
-                                  <button onClick={followUser} className="btn btn-primary rounded-3 float-end" >
-                                                              Follow
-                                  </button>
-                              </div>}
-                         {userId && followedFlag==="yes" && <div className="col-3 mb-4">
-                                                           <button onClick={unfollowUser} className="btn btn-primary rounded-3 float-end" >
-                                                                                       Unfollow
-                                                           </button>
-                                                       </div>}
+
 
                          {!userId && profile && <div className="col-3 mb-4">
                               <Link className="btn btn-primary rounded-3 float-end" to="/edit-profile">
@@ -156,23 +201,16 @@ const ProfileScreen = (props) => {
                                      {
                                          profile?.role === "BUYER" && !userId &&
                                          <Link to="/following" className="list-group-item list-group-item-action border-0">
-                                             <span className="text-secondary">{following.length} Following</span>
+                                             <span className="text-secondary">{following && following.length} Following</span>
                                          </Link>
                                      }
-                                     {
-                                          profile?.role === "BUYER" && userId &&
-                                          <p>{following.length} Following</p>
-                                      }
+
                                      {
                                          profile?.role === "SELLER" && !userId &&
                                          <Link to="/followers" className="list-group-item list-group-item-action border-0">
-                                             <span className="text-secondary">{following.length} Followers</span>
+                                             <span className="text-secondary">{following && following.length} Followers</span>
                                          </Link>
                                      }
-                                     {
-                                          profile?.role === "SELLER" && userId &&
-                                          <p>{following.length} Followers</p>
-                                      }
                                  </div>
                              </div>
                          </div>
@@ -181,8 +219,7 @@ const ProfileScreen = (props) => {
                  {userId?<div></div>: <h3>History</h3>
                  /*{<ProductsList/>}*/
                  }
-
-            </div>:<Link to = '/login'>Please login first</Link>
+            </div>:<Link to = '/login'>Please login first</Link>)
 
 }
 

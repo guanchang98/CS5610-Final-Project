@@ -27,7 +27,7 @@ const usersSchema = new mongoose.Schema(
           //   },
           // },
           // required: false,
-          product_id: {type: Number, unique: true, required: true}, 
+          product_id: {type: Number, required: true},
           count: {type: Number, required: true},
         },
     ],
