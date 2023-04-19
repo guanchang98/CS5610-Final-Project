@@ -40,10 +40,10 @@ const LoginButton = () => {
 //
 //    }
 //     useEffect(() => {
-//     console.log(currentUser);
+//         console.log(currentUser);
 // //                   window.location.reload();
 // //navigate("/profile");
-//                   }, [currentUser]);
+//     }, [currentUser]);
     return currentUser === null ? (<div>
         <Link to="/login" className="btn btn-link float-end"
               onClick={() => {

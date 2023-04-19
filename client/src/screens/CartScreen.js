@@ -7,7 +7,7 @@ import {findUserByIdThunk, profileThunk, getCartByUserIdThunk} from "../services
 import {useState} from "react";
 // import {findProductById} from "../services/products/products-service";
 import {findProductByIdThunk} from "../services/products/products-thunks";
-import ItemInCart from "../components/itemInCart";
+import CartAndHistoryItem from "../components/CartAndHistoryItem";
 import {moveCartItemsToHistory} from "../services/users/users-service";
 
 
@@ -60,6 +60,7 @@ const CartScreen = () => {
             console.log("checkOutShoppingCart", currentUser._id, prods[i].product_id, prods[i].count);
             await moveCartItemsToHistory(currentUser._id, prods[i].product_id, prods[i].count);
         }
+        await loadScreen();
     }
         const loadScreen = async () => {
             await getCartItems();
@@ -67,7 +68,7 @@ const CartScreen = () => {
 
         useEffect(() => {
             loadScreen();
-        }, [currentUser, prods]);
+        }, [currentUser]);
 
 
         return (
@@ -77,11 +78,14 @@ const CartScreen = () => {
                 <ul className="list-group mb-3">
                     <li className="list-group-item">
                         <div className="row">
-                            <div className="col-9">
+                            <div className="col-8">
                                 <h3>Name</h3>
                             </div>
-                            <div className="col-3">
-                                <h3>Quaility</h3>
+                            <div className="col-2">
+                                <h3>Price</h3>
+                            </div>
+                            <div className="col-2">
+                                <h3>Quantity</h3>
                             </div>
                         </div>
                     </li>
@@ -89,7 +93,7 @@ const CartScreen = () => {
                         currentUser._id && currentUser.cart && prods &&
                         prods.map(p =>
                             // console.log("p: ", p),
-                            <ItemInCart item={p}/>
+                            <CartAndHistoryItem item={p}/>
                         )
                     }
                 </ul>
