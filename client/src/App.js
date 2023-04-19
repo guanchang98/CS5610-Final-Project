@@ -12,6 +12,8 @@ import CurrentUserScreen from "./screens/profile/CurrentUserScreen";
 import {Provider, useSelector} from "react-redux";
 import store from "./reducers/store"
 import RegisterScreen from "./screens/RegisterScreen";
+import AdminScreen from "./screens/AdminScreen";
+
 // import LoginButton from "./components/LoginButton";
 import CartScreen from "./screens/CartScreen";
 import WishlistScreen from "./screens/WishlistScreen";
@@ -59,8 +61,9 @@ function App(){
                                 <Route path="login" element={<LoginScreen/>}/>
                                 <Route path="following" element={<FollowingScreen/>}/>
                                 <Route path="followers" element={<FollowersScreen/>}/>
-                                <Route path="/register" element={<RegisterScreen />} />
+                                <Route path="register" element={<RegisterScreen />} />
                                 <Route path="wishlist" element={<WishlistScreen/>}/>
+                                <Route path="admin" element={<AdminScreen/>}/>
                                 <Route path="cart" element={<CartScreen/>}/>
                             </Routes>
                         </div>
