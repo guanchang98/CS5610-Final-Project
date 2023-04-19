@@ -1,9 +1,9 @@
-import React,{useEffect} from "react";
+import React, {useEffect} from "react";
 import {Link} from "react-router-dom";
 import {changeState} from "../reducers/isLogging-reducer";
 import {useDispatch, useSelector} from "react-redux";
-import { useNavigate } from "react-router";
-import { logoutThunk } from "../services/users/users-thunks";
+import {useNavigate} from "react-router";
+import {logoutThunk} from "../services/users/users-thunks";
 
 const LoginButton = () => {
     const { currentUser } = useSelector((state) => state.users);
@@ -12,13 +12,12 @@ const LoginButton = () => {
 
     const logout = async () => {
         try {
-          await dispatch(logoutThunk());
-          navigate("/home");
+            await dispatch(logoutThunk());
+            navigate("/home");
         } catch (err) {
-          console.log(err);
+            console.log(err);
         }
     };
-
     return currentUser?(<div>
                                                                 <button  className="btn btn-link float-end"
                                                                                   onClick={logout}>Logout</button>

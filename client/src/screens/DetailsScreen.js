@@ -8,6 +8,7 @@ import {addProductsToUserCart} from '../services/users/users-service';
 import { useDispatch, useSelector } from "react-redux";
 import { addProductsToUserCartThunk } from "../services/users/users-thunks";
 import { userLikesProductThunk } from "../services/product-list/product-list-thunk";
+import BackButtonComponent from "../components/BackButtonComponent";
 // import BackButtonComponent from "../components/BackButtonComponent";
 
 const DetailsScreen = () => {
@@ -20,7 +21,7 @@ const DetailsScreen = () => {
     const [liked, setLiked] = useState(false);
     const {currentUser} = useSelector(state => state.users);
 
-    console.log("current user: ", currentUser)
+    // console.log("current user: ", currentUser)
 
     const dispatch = useDispatch();
 
@@ -57,6 +58,7 @@ const DetailsScreen = () => {
         <div> 
             {/* <BackButtonComponent/> */}
             {/* Detail page for item {params.detailsId}; */}
+            <BackButtonComponent/>
             <h2>Product Detail</h2>
            
                 <div className="row mt-5">
