@@ -15,8 +15,14 @@ const LoginScreen = () => {
         try {
             const user = await dispatch(loginThunk({username, password}));
             console.log("login")
-            console.log(user)
-            navigate("/profile");
+            console.log(user.payload.role)
+            if (user.payload.role === "ADMIN"){
+                navigate("/admin");
+            }
+            else{
+                navigate("/profile");
+            }
+            
         } catch (err) {
             console.log(err);
             alert("user not found!");

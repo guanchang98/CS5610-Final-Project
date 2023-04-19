@@ -18,15 +18,10 @@ const UserItem = (
     }
 ) => {
         const dispatch = useDispatch();
-
-    const { currentUser } = useSelector((state) => state.users);
-const unfollowUser = async () => {
-        console.log("unfollow");
-        console.log(currentUser._id);
-        console.log(user._id);
-
-        await dispatch(userUnfollowsUserThunk({follower:currentUser._id, followed:user._id}));
-    };
+        const { currentUser } = useSelector((state) => state.users);
+        const unfollowUser = async () => {
+            await dispatch(userUnfollowsUserThunk({follower:currentUser._id, followed:user._id}));
+        };
 
     return (
         <div className="card mt-2 row">
@@ -37,12 +32,12 @@ const unfollowUser = async () => {
                 <Link to={`/profile/${user._id}`} className="btn">
                     <span className="wd-no-underline">{user.username}</span>
                 </Link>
-                {currentUser.role === "BUYER" &&
+                {currentUser && currentUser.role === "BUYER" &&
                     <button onClick={unfollowUser} className="btn btn-danger rounded-pill float-end mt-3">
                         Unfollow
                     </button>
                 }
-                {currentUser.role === "SELLER" &&
+                {currentUser && currentUser.role === "SELLER" &&
                                     <span> {user.bio} </span>
                                 }
             </div>

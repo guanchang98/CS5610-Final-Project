@@ -24,8 +24,6 @@ const FollowingScreen = () => {
     const fetchProfile = async () => {
         const response = await dispatch(profileThunk());
         setProfile(response.payload);
-        console.log(profile);
-
     };
     const dispatch = useDispatch();
       const navigate = useNavigate();

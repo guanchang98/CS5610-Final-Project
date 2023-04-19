@@ -16,9 +16,8 @@ export const findAllByRole = async (role) => {
 };
 
 export const findUserById = async (id) => {
-    const user = await usersModel.findById(id);
-    console.log(user)
-    return user;
+  const user = await usersModel.findById(id);
+  return user;
 };
 
 export const findUserByUsername = async (username) => {
