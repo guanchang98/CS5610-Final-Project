@@ -39,7 +39,7 @@ const usersSlice = createSlice({
       state.users.push(action.payload);
     },
     [deleteUserThunk.fulfilled]: (state, action) => {
-      state.users = state.users.filter((user) => user.id !== action.payload);
+      state.users = state.users.filter((user) => user._id !== action.payload);
     },
     [findAllUsersThunk.pending]: (state, action) => {
       state.loading = true;

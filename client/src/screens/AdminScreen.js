@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 import "../index.css";
 
 function AdminScreen() {
-    const {currentUser, users} = useSelector((state) => state.users);
+    const {users} = useSelector((state) => state.users);
     const [allUsers, setAllUsers] = useState(users);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -28,7 +28,7 @@ function AdminScreen() {
         <div>
             <h1>Welcome, admin!</h1>
             <ul className="list-group">
-                {allUsers && allUsers.map((user) => {
+                {users && users.map((user) => {
                     return (
                         <div key={user._id} className="card mt-2 row">
                             <div className="col">
@@ -36,9 +36,10 @@ function AdminScreen() {
                                     <img src={user.avatar} width="60px"/>
                                 </Link>
                                 <Link to={`/profile/${user._id}`} className="btn">
-                                    <span className="wd-no-underline">{user.username}</span>
+                                    <span className="wd-no-underline col-6">{user.username}</span>
                                 </Link>
-                                <span className="bold blue">{user.role}</span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button className="btn btn-sm btn-info">{user.role}</button>
                                 <button className="btn btn-danger rounded-pill float-end mt-3" onClick={() => deleteUser(user._id)}>
                                     Delete
                                 </button>
