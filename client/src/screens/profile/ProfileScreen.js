@@ -33,8 +33,8 @@ import '../../index.css';
 
 const ProfileScreen = (props) => {
     const {userId} = useParams();
-    const   profile = useSelector((state) => state.users.currentUser);
-//    const [profile, setProfile] = useState(currentUser);
+    const {currentUser} = useSelector((state) => state.users);
+    const [profile, setProfile] = useState(currentUser);
     const [followedFlag, setFlag] = useState("");
     const {follows} = useSelector((state) => state.follows);
     const [following,setFollows] = useState(follows);
@@ -42,9 +42,9 @@ const ProfileScreen = (props) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const fetchFollows = async () => {
-        if (userId && user){
-            if(user.role === "SELLER"){
+    const fetchFollows = async (curUser, paramUser) => {
+        if (userId){
+            if(paramUser.role === "SELLER"){
                 const response = await dispatch(findFollowsByFollowedIdThunk(userId));
                 setFollows(response.payload);
             }
@@ -53,36 +53,36 @@ const ProfileScreen = (props) => {
                 setFollows(response.payload);
             }
         }
-        else if (profile){
-            if (profile.role === "SELLER"){
-                const response = await dispatch(findFollowsByFollowedIdThunk(profile._id));
+        else{
+            if (curUser.role === "SELLER"){
+                const response = await dispatch(findFollowsByFollowedIdThunk(curUser._id));
                 setFollows(response.payload);
             }
             else {
-                const response = await dispatch(findFollowsByFollowerIdThunk(profile._id));
+                const response = await dispatch(findFollowsByFollowerIdThunk(curUser._id));
                 setFollows(response.payload);
             }
         }
     };
 
-    const fetchFollowerAndFollowing = async () => {
-        if (userId && profile){
-            const response = await dispatch(findFollowsByFollowerAndFollowedThunk({follower:profile._id, followed:userId}));
-            console.log("fetchFollowerAndFollowing",response);
-            console.log(profile,userId);
+    const fetchFollowerAndFollowing = async (curUser) => {
+        if (userId && curUser){
+            const response = await dispatch(findFollowsByFollowerAndFollowedThunk({follower:curUser._id, followed:userId}));
             setFlag(response.payload.result);
         }
     }
 
     const fetchProfile = async () => {
         const response = await dispatch(profileThunk());
-//        setProfile(response.payload);
+        setProfile(response.payload);
+        return response;
     };
 
     const fetchUserInfo = async () => {
         if (userId) {
            const response = await dispatch(findUserByIdThunk(userId));
            setUser(response.payload);
+           return response;
         }
     }
 
@@ -101,12 +101,26 @@ const ProfileScreen = (props) => {
     };
 
     const loadScreen = async () => {
-//                    await fetchProfile();
+        try{
+          const profileData = await fetchProfile();
+          const paramsUser = await fetchUserInfo();
+          if (userId){
+            if (profileData && paramsUser){
+                await fetchFollowerAndFollowing(profileData.payload);
+                await fetchFollows(profileData.payload, paramsUser.payload);
+            }
+          }
+          else{
+            if (profileData){
+                await fetchFollowerAndFollowing(profileData.payload);
+                await fetchFollows(profileData.payload, null);
+            }
+          }
 
-                    await fetchUserInfo();
-                    await fetchFollowerAndFollowing();
-                    await fetchFollows();
-                  };
+        } catch (error) {
+          console.error(error);
+        }
+    };
 
     useEffect(() => {
         loadScreen();
@@ -118,7 +132,7 @@ const ProfileScreen = (props) => {
                       <div className="row">
                           <img src={user?.profilePic} className="w-100 mb-3" height="240"/>
                           <div className="col-9 float-start">
-                          <img src={user?.avatar} className="w-25 wd-pos-absolute-profile-banner" height="120"/>
+                          <img src={user?.avatar} className="w-25 wd-pos-absolute-profile-banner" height="140"/>
                           </div>
                           {followedFlag==="no" && <div className="col-3 mb-4">
                                    <button onClick={followUser} className="btn btn-primary rounded-3 float-end" >
@@ -168,7 +182,7 @@ const ProfileScreen = (props) => {
                      <div className="row">
                          <img src={profile?.profilePic} className="w-100 mb-3" height="240"/>
                          <div className="col-9 float-start">
-                         <img src={profile?.avatar} className="w-25 wd-pos-absolute-profile-banner" height="120"/>
+                         <img src={profile?.avatar} className="w-25 wd-pos-absolute-profile-banner" height="140"/>
                          </div>
 
 

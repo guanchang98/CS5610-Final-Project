@@ -9,9 +9,9 @@ function AdminScreen() {
   const { currentUser, users } = useSelector((state) => state.users);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // if (!currentUser || currentUser.role !== 'ADMIN') {
-  //     navigate('/login');
-  // }
+//  if (!currentUser || currentUser.role !== 'ADMIN') {
+//       navigate('/login');
+//  }
   const deleteUser = async (id) => {
     await dispatch(deleteUserThunk(id));
   }
@@ -32,11 +32,8 @@ function AdminScreen() {
             <Link to={`/profile/${user._id}`} className="btn">
                 <span className="wd-no-underline">{user.username}</span>
             </Link>
-            
-            {/* <span> {user.bio} </span> */}
-                            
             <span className="bold blue">{user.role}</span>
-            <button className="btn btn-danger rounded-pill float-end mt-3">
+            <button onClick={deleteUser(user._)}className="btn btn-danger rounded-pill float-end mt-3">
                 Delete
             </button>    
               </div>
