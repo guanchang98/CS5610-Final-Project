@@ -42,7 +42,7 @@ const CartScreen = () => {
 
     const getCartItems = async () => {
         let cartList = [];
-        if (currentUser._id) {
+        if (currentUser && currentUser._id) {
             try {
                 const response = await dispatch(getCartByUserIdThunk(currentUser._id));
                 cartList = response.payload;

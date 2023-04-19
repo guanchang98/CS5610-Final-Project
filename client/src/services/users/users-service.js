@@ -66,6 +66,12 @@ export const getCartByUserId = async (userId) => {
   return response;
 }
 
+export const getHistoryByUserId = async (userId) => {
+  const response = await axios.get(`${USERS_API_URL}/${userId}/history`);
+  // console.log("response: ", response.data)
+  return response;
+}
+
 export const moveCartItemsToHistory = (userId, productId, count) => {
   console.log("product id from server", productId, userId, count)
   const response = api.put(`${USERS_API_URL}/${userId}/history/${productId}/count/${count}`);

@@ -74,3 +74,12 @@ export const getCartByUserIdThunk = createAsyncThunk(
     return response.data;
   }
 );
+
+export const getHistoryByUserIdThunk = createAsyncThunk(
+    "users/getHistoryByUserId",
+    async (userId) => {
+        const response = await userService.getHistoryByUserId(userId);
+        return response.data;
+    }
+);
+
