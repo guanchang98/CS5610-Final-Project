@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import {
     profileThunk,
     logoutThunk,
-    updateUserThunk, getCartByUserIdThunk, getHistoryByUserIdThunk,
+    updateUserThunk, getCartByUserIdThunk, getHistoryByUserIdThunk, findUserByIdThunk,
 } from "../../services/users/users-thunks";
 
 //import { findLikesByUserId } from "../../napster/likes-service";
@@ -13,11 +13,10 @@ import {findUserById} from "../../services/users/users-service";
 import ProfileMe from "../../components/ProfileMe";
 
 import {
-  CartAndHistoryFunctionality,
-  userUnfollowsUserThunk,
-  userFollowsUserThunk,
-  findFollowsByFollowedIdThunk,
-  findFollowsByFollowerAndFollowedThunk,
+    userUnfollowsUserThunk,
+    userFollowsUserThunk,
+    findFollowsByFollowedIdThunk,
+    findFollowsByFollowerAndFollowedThunk, findFollowsByFollowerIdThunk,
 } from "../../services/users/follows-thunks";
 import {
     userFollowsUser,
@@ -34,7 +33,7 @@ import {findProductByIdThunk} from "../../services/products/products-thunks";
 
 const ProfileScreen = (props) => {
     const {userId} = useParams();
-    const   profile = useSelector((state) => state.users.currentUser);
+    const profile = useSelector((state) => state.users.currentUser);
 //    const [profile, setProfile] = useState(currentUser);
     const [followedFlag, setFlag] = useState("");
     const {follows} = useSelector((state) => state.follows);
@@ -108,7 +107,7 @@ const ProfileScreen = (props) => {
         await getHistoryItems();
     };
 
-    const getItembyId = async (id) => {
+    const getItemById = async (id) => {
         // console.log("wait to get item by id")
         const response = await dispatch(findProductByIdThunk(id));
         // console.log("item from getItemById function: ", response.payload);
@@ -117,16 +116,16 @@ const ProfileScreen = (props) => {
 
     const getHistoryItems = async () => {
         let historyList = [];
-        if (currentUser && currentUser._id) {
+        if (profile && profile._id) {
             try {
-                const response = await dispatch(getHistoryByUserIdThunk(currentUser._id));
+                const response = await dispatch(getHistoryByUserIdThunk(profile._id));
                 historyList = response.payload;
                 let price = 0;
                 if (historyList) {
                     // console.log("cart length: ", historyList.length);
                     const productList = [];
                     for (let i = 0; i < historyList.length; i++) {
-                        const response = await getItembyId(historyList[i].product_id);
+                        const response = await getItemById(historyList[i].product_id);
                         price += response.payload.price * historyList[i].count;
                         productList.push({...response.payload, count: historyList[i].count});
                     }
@@ -263,7 +262,7 @@ const ProfileScreen = (props) => {
                             </div>
                         </li>
                         {
-                            currentUser && currentUser._id && currentUser.history && products &&
+                            profile && profile._id && profile.history && products &&
                             products.map(p =>
                                 <CartAndHistoryItem item={p}/>
                             )
