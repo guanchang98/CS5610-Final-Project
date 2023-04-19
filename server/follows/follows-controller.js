@@ -13,8 +13,7 @@ function FollowsController(app)  {
 
           const followed = req.params.followed;
           const follows = await followsDao.findFollowsByFollowedId(followed);
-          console.log("findfollowsbyfollowedid");
-          console.log(follows);
+
 
           const followsProfiles = [];
           for (let i = 0; i < follows.length; i++){
@@ -22,7 +21,6 @@ function FollowsController(app)  {
                 followsProfiles.push(findUser);
           }
 
-          console.log(followsProfiles);
           res.json(followsProfiles);
 
 
@@ -34,9 +32,6 @@ function FollowsController(app)  {
 
       const follower = req.params.follower;
       const follows = await followsDao.findFollowsByFollowerId(follower);
-      console.log("findfollowsbyfollowerid");
-      console.log(follower);
-      console.log(follows);
       const followsProfiles = [];
       for (let i = 0; i < follows.length; i++){
 
@@ -46,20 +41,14 @@ function FollowsController(app)  {
            }
 
       }
-
-      console.log(followsProfiles);
       res.json(followsProfiles);
+      };
 
-
-        };
       const findFollowsByFollowerAndFollowed = async (req, res) => {
             const follower = req.params.follower;
             const followed = req.params.followed;
             const findFollows = await followsDao.findFollowsByFollowerAndFollowed(follower, followed);
-            console.log("findFollowsByFollowerAndFollowed");
-            console.log(follower);
-            console.log(followed);
-            console.log(findFollows);
+
             if (findFollows){
                 res.send({'result':"yes"});
             }
@@ -67,14 +56,12 @@ function FollowsController(app)  {
                 res.send({"result":"no"});
             }
       }
+
      const userFollowsUser = async (req, res) => {
-            console.log("user follow user");
             const follower = req.params.follower;
             const followed = req.params.followed;
-            console.log("user follow user");
 
             let follow = await followsDao.findFollowsByFollowerAndFollowed(follower, followed);
-            console.log(follow);
             if(follow){
                 res.sendStatus(400);
                 return;

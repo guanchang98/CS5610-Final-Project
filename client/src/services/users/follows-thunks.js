@@ -25,5 +25,12 @@ export const findFollowsByFollowerIdThunk = createAsyncThunk("follow/findfollowe
   return response;
 });
 
+export const findFollowsByFollowerAndFollowedThunk = createAsyncThunk("follow/findfollowedandfollower", async (follow) => {
+  const followed = follow.followed;
+  const follower = follow.follower;
+  const response = await followService.findFollowsByFollowerAndFollowed(follower, followed);
+  return response;
+});
+
 
 

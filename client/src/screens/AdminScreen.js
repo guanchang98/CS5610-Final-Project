@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { findAllUsersThunk } from "../services/users/users-thunks";
+import { findAllUsersThunk,deleteUserThunk } from "../services/users/users-thunks";
 import {Link} from "react-router-dom";
 import "../index.css";
 
@@ -12,6 +12,9 @@ function AdminScreen() {
   // if (!currentUser || currentUser.role !== 'ADMIN') {
   //     navigate('/login');
   // }
+  const deleteUser = async (id) => {
+    await dispatch(deleteUserThunk(id));
+  }
   useEffect(() => {
     dispatch(findAllUsersThunk());
   }, []);
@@ -33,7 +36,7 @@ function AdminScreen() {
             {/* <span> {user.bio} </span> */}
                             
             <span className="bold blue">{user.role}</span>
-            <button  className="btn btn-danger rounded-pill float-end mt-3">
+            <button className="btn btn-danger rounded-pill float-end mt-3">
                 Delete
             </button>    
               </div>
