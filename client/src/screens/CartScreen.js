@@ -42,7 +42,6 @@ const CartScreen = () => {
                         // console.log("productList: ", response.payload);
                         productList.push({...response.payload, count: cartList[i].count});
                     }
-                    ;
                     // console.log("productList: ", productList.length)
                     setProducts(productList);
                     setTotalPrice(price);
@@ -57,7 +56,7 @@ const CartScreen = () => {
 
     const checkOutShoppingCart = async () => {
         for (let i = 0; i < prods.length; i++) {
-            console.log("checkOutShoppingCart", currentUser._id, prods[i].product_id, prods[i].count);
+            // console.log("checkOutShoppingCart", currentUser._id, prods[i].product_id, prods[i].count);
             await moveCartItemsToHistory(currentUser._id, prods[i].product_id, prods[i].count);
         }
         await loadScreen();
@@ -90,7 +89,7 @@ const CartScreen = () => {
                         </div>
                     </li>
                     {
-                        currentUser._id && currentUser.cart && prods &&
+                        currentUser && currentUser._id && currentUser.cart && prods &&
                         prods.map(p =>
                             // console.log("p: ", p),
                             <CartAndHistoryItem item={p}/>
