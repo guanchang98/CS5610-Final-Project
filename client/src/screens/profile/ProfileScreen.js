@@ -1,28 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router";
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {useNavigate, useParams} from "react-router";
 import {Link} from "react-router-dom";
 import {
-  profileThunk,
-  logoutThunk,
-  updateUserThunk,
-  findUserByIdThunk,
+    profileThunk,
+    logoutThunk,
+    updateUserThunk, getCartByUserIdThunk, getHistoryByUserIdThunk, findUserByIdThunk,
 } from "../../services/users/users-thunks";
 
 //import { findLikesByUserId } from "../../napster/likes-service";
-import { findUserById } from "../../services/users/users-service";
+import {findUserById} from "../../services/users/users-service";
 import ProfileMe from "../../components/ProfileMe";
 
 import {
-userUnfollowsUserThunk,
-  userFollowsUserThunk,
-  findFollowsByFollowerIdThunk,
-  findFollowsByFollowedIdThunk,
-  findFollowsByFollowerAndFollowedThunk,
+    userUnfollowsUserThunk,
+    userFollowsUserThunk,
+    findFollowsByFollowedIdThunk,
+    findFollowsByFollowerAndFollowedThunk,
+    findFollowsByFollowerIdThunk,
 } from "../../services/users/follows-thunks";
 import {
-  userFollowsUser,
-  findFollowsByFollowerAndFollowed,
+    userFollowsUser,
+    findFollowsByFollowerAndFollowed,
 } from "../../services/users/follows-service";
 import ProductsList from "../../components/ProductsList";
 import BackButtonComponent from "../../components/BackButtonComponent";
@@ -30,6 +29,8 @@ import {useLocation} from "react-router";
 import bannerPic from "../../images/profile_banner.jpeg";
 import avatar from "../../images/avatar_man.png";
 import '../../index.css';
+import CartAndHistoryItem from "../../components/CartAndHistoryItem";
+import {findProductByIdThunk} from "../../services/products/products-thunks";
 
 const ProfileScreen = (props) => {
     const {userId} = useParams();
@@ -39,6 +40,7 @@ const ProfileScreen = (props) => {
     const {follows} = useSelector((state) => state.follows);
     const [following,setFollows] = useState(follows);
     const [user, setUser] = useState(null);
+  const [products, setProducts] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -122,6 +124,36 @@ const ProfileScreen = (props) => {
         }
     };
 
+    const getItemById = async (id) => {
+        // console.log("wait to get item by id")
+        const response = await dispatch(findProductByIdThunk(id));
+        // console.log("item from getItemById function: ", response.payload);
+        return response;
+    }
+
+    const getHistoryItems = async () => {
+        let historyList = [];
+        if (profile && profile._id) {
+            try {
+                const response = await dispatch(getHistoryByUserIdThunk(profile._id));
+                historyList = response.payload;
+                let price = 0;
+                if (historyList) {
+                    // console.log("cart length: ", historyList.length);
+                    const productList = [];
+                    for (let i = 0; i < historyList.length; i++) {
+                        const response = await getItemById(historyList[i].product_id);
+                        price += response.payload.price * historyList[i].count;
+                        productList.push({...response.payload, count: historyList[i].count});
+                    }
+                    setProducts(productList);
+                }
+            } catch (e) {
+                console.log("fetching carList error: ", e);
+            }
+            return [];
+        }
+    }
     useEffect(() => {
         loadScreen();
     }, [userId]);
@@ -230,8 +262,30 @@ const ProfileScreen = (props) => {
                          </div>
                      </div>
                  </div>
-                 {userId?<div></div>: <h3>History</h3>
-                 /*{<ProductsList/>}*/
+                 {userId?<div></div>: <div>
+                    <h2>History</h2>
+                    <ul className="list-group mb-3">
+                        <li className="list-group-item">
+                            <div className="row">
+                                <div className="col-8">
+                                    <h3>Name</h3>
+                                </div>
+                                <div className="col-2">
+                                    <h3>Price</h3>
+                                </div>
+                                <div className="col-2">
+                                    <h3>Quantity</h3>
+                                </div>
+                            </div>
+                        </li>
+                        {
+                            profile && profile._id && profile.history && products &&
+                            products.map(p =>
+                                <CartAndHistoryItem item={p}/>
+                            )
+                        }
+                    </ul>
+                </div>
                  }
             </div>:<Link to = '/login'>Please login first</Link>)
 
