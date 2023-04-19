@@ -20,7 +20,7 @@ const DetailsScreen = () => {
     const [liked, setLiked] = useState(false);
     const {currentUser} = useSelector(state => state.users);
 
-    console.log("current user: ", currentUser)
+    // console.log("current user: ", currentUser)
 
     const dispatch = useDispatch();
 

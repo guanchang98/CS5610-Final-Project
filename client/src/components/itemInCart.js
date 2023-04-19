@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 
 const ItemInCart = ({item}) => {
     let navigate = useNavigate(); 
-    console.log("product item: ", item);
+    // console.log("product item: ", item);
 
     return (
         

@@ -1,7 +1,7 @@
 import axios from "axios";
- const API_BASE = process.env.REACT_APP_API_BASE;
- const USERS_API_URL = `${API_BASE}/users`;
-//const USERS_API_URL = "http://localhost:4000/api/users";
+ // const API_BASE = process.env.REACT_APP_API_BASE;
+ // const USERS_API_URL = `${API_BASE}/users`;
+const USERS_API_URL = "http://localhost:4000/api/users";
 console.log(USERS_API_URL)
 
 const api = axios.create({
@@ -60,8 +60,14 @@ export const addProductsToUserCart = (userId, productId, count) => {
 }
 
 export const getCartByUserId = async (userId) => {
-  console.log("get cart by user id: ", userId)
+  // console.log("get cart by user id: ", userId)
   const response = await axios.get(`${USERS_API_URL}/${userId}/cart`);
-  console.log("response: ", response.data)
+  // console.log("response: ", response.data)
+  return response;
+}
+
+export const moveCartItemsToHistory = (userId, productId, count) => {
+  console.log("product id from server", productId, userId, count)
+  const response = api.put(`${USERS_API_URL}/${userId}/history/${productId}/count/${count}`);
   return response;
 }

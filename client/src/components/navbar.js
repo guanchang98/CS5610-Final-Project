@@ -9,7 +9,7 @@ const NavBar = () => {
     const {pathname} = useLocation();
     const paths = pathname.split("/");
     const active = paths[1];
-    console.log(paths);
+    // console.log(paths);
     // const loggingIn = false;
 
     return (
