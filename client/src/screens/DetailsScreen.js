@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import {useLocation, useParams} from "react-router";
 import { userLikesProduct} from "../services/product-list/product-list-service";
-import { updateProductByIdThunk} from "../services/products/products-thunks";
-import {updateProductById, findProductById} from '../services/products/products-service'
+// import { updateProductByIdThunk} from "../services/products/products-thunks";
+import {updateProductById, findProductById} from '../services/products/products-service';
+import { updateProductByIdThunk, findProductByIdThunk } from "../services/products/products-thunks";
 import {addProductsToUserCart} from '../services/users/users-service';
 import { useDispatch, useSelector } from "react-redux";
+import { addProductsToUserCartThunk } from "../services/users/users-thunks";
+import { userLikesProductThunk } from "../services/product-list/product-list-thunk";
 // import BackButtonComponent from "../components/BackButtonComponent";
 
 const DetailsScreen = () => {
@@ -17,7 +20,9 @@ const DetailsScreen = () => {
     const [liked, setLiked] = useState(false);
     const {currentUser} = useSelector(state => state.users);
 
-    // const dispatch = useDispatch();
+    console.log("current user: ", currentUser)
+
+    const dispatch = useDispatch();
 
     const likeProduct = async () => {
         setLiked(!liked);
@@ -25,14 +30,18 @@ const DetailsScreen = () => {
     }
 
     const addToCart = async () => {
+        console.log("count: ", count)
         const response = await addProductsToUserCart(currentUser._id, state.product_id, count);
-        setCount()
+        console.log("response from add to cart: ", response)
+        // const response = await addProductsToUserCartThunk(currentUser._id, state.product_id, count);
+
     }
 
     const addToWishlist = async () => {
         const response = await updateProductById({...state, seller_id: currentUser._id});
         const response2 = await userLikesProduct(currentUser._id, state._id);
-        fetchProduct("defaultValue");
+        fetchProduct();
+        // const response = await dispatch(updateProductByIdThunk({...state, seller_id: currentUser._id}));
     }
 
     const fetchProduct = async () => {
@@ -72,7 +81,6 @@ const DetailsScreen = () => {
                         </div>
                         {
                             currentUser === null && 
-                            // alert ("Please login")
                             <div>
                                 <h3>Log in</h3>
                             </div>
@@ -126,10 +134,6 @@ const DetailsScreen = () => {
                         }
                     </div>
                 </div>
-                {/* <button className="btn btn-primary float-end"
-                        onClick={unLikeProduct}>
-                    unlike product
-                </button> */}
 
                 {   
                     currentUser !== null && currentUser._id === product.seller_id && 

@@ -16,8 +16,10 @@ const ProductsList = (props) => {
             }
             {
                 productArray.map(item =>
+                    // console.log("item: ", item)
                     <ProductItem
-                        key={item._id} item={item}/>)
+                        key={item._id} item={item}/>
+                        )
             }
         </div>
     );

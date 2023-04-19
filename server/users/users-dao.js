@@ -50,5 +50,11 @@ export const addProductsToUserCart = (userId, productId, count) =>
   usersModel.updateOne({_id: userId }, { $push: { cart: {product_id: productId, count: count}}}); 
 
 
+export const getCartByUserId = async (userId) => {
+  const status = await usersModel.findOne({ _id: userId });
+  return status;
+}
+
+
 
 
