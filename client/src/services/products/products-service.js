@@ -1,8 +1,8 @@
 import axios from 'axios';
 const PUNK_API = "https://api.punkapi.com/v2";
-const API_BASE = process.env.REACT_APP_API_BASE;
-const PRODUCT_API_URL = `${API_BASE}/products`;
-// const PRODUCT_API_URL = "http://localhost:4000/api/products";
+// const API_BASE = process.env.REACT_APP_API_BASE;
+// const PRODUCT_API_URL = `${API_BASE}/products`;
+const PRODUCT_API_URL = "http://localhost:4000/api/products";
 
 export const fullTextSearch = async (query) => {
     const response = await axios.get(`${PUNK_API}/beers?${query}`);

@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 const ProductsList = (props) => {
     const productArray = props.productArray;
     const {loading} = useSelector(state => state.products);
-    console.log("loading", loading);
+    // console.log("loading", loading);
     return (
         <div className="row mt-2 justify-content-between">
             {
@@ -16,7 +16,6 @@ const ProductsList = (props) => {
             }
             {
                 productArray.map(item =>
-                    // console.log("item: ", item)
                     <ProductItem
                         key={item._id} item={item}/>
                         )

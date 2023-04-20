@@ -2,7 +2,7 @@ import React, {useEffect, useState}from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {useLocation, useParams} from "react-router";
 import { useNavigate } from "react-router";
-import {Link} from "react-router-dom";
+// import {Link} from "react-router-dom";
 import { findProductByIdThunk, updateProductByIdThunk } from "../services/products/products-thunks";
 import { updateProductById } from "../services/products/products-service";
 
@@ -99,12 +99,12 @@ const EditProductScreen = () => {
                             <br/>
                             <br/>
 
-                            <div class="d-grid gap-2 col-6 mx-auto">
-                                <button class="btn btn-primary"
+                            <div className="d-grid gap-2 col-6 mx-auto">
+                                <button className="btn btn-primary"
                                          onClick={saveEditButton}>
                                     Save
                                 </button>
-                                <button class="btn btn-danger"
+                                <button className="btn btn-danger"
                                         onClick={cancelButton}>
                                     cencel
                                 </button>
@@ -112,7 +112,6 @@ const EditProductScreen = () => {
                         </div>
                     </div>
             </div>
-     
         </div>
     )
     }

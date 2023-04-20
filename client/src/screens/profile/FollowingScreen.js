@@ -21,29 +21,34 @@ const FollowingScreen = () => {
 //      const [following,setFollows] = useState([]);
     const  {currentUser}  = useSelector((state) => state.users);
     const [profile, setProfile] = useState(currentUser);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const fetchProfile = async () => {
         const response = await dispatch(profileThunk());
         setProfile(response.payload);
+        return response;
     };
-    const dispatch = useDispatch();
-      const navigate = useNavigate();
 
-    const fetchFollowers = async () => {
-        const response = await dispatch(findFollowsByFollowerIdThunk(profile._id));
+    const fetchFollowers = async (id) => {
+        const response = await dispatch(findFollowsByFollowerIdThunk(id));
         setFollows(response.payload);
     };
 
     const loadScreen = async () => {
-          await fetchProfile();
-          fetchFollowers();
-
+          try{
+              const profileData = await fetchProfile();
+              if (profileData){
+                await fetchFollowers(profileData.payload._id);
+              }
+          } catch (error) {
+              console.error(error);
+          }
     };
-      
+
     useEffect(() => {
-
-                 loadScreen();
-
+       loadScreen();
     }, []);
+
     return (
         <div>
             <BackButtonComponent/>

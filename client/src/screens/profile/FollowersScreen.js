@@ -27,15 +27,23 @@ const FollowersScreen = () => {
     const fetchProfile = async () => {
         const response = await dispatch(profileThunk());
         setProfile(response.payload);
+        return response;
     };
-    const fetchFollowing = async () => {
-        const response = await dispatch(findFollowsByFollowedIdThunk(currentUser._id));
+    const fetchFollowing = async (id) => {
+        const response = await dispatch(findFollowsByFollowedIdThunk(id));
         setFollowing(response.payload);
     };
 
     const loadScreen = async () => {
-          await fetchProfile();
-          await fetchFollowing();
+          try{
+                const profileData = await fetchProfile();
+                if (profileData){
+                   await fetchFollowing(profileData.payload._id);
+                }
+          } catch (error) {
+                console.error(error);
+          }
+
     };
 
     useEffect(() => {

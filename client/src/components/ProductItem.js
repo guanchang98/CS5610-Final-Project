@@ -15,7 +15,6 @@ const ProductItem = (
 ) => {
     let navigate = useNavigate(); 
     // console.log("product item: ", item);
-
     return (
         <div className="col-md-4 col-lg-3 col-sm-6 mb-3">
             <div className="card p-2" onClick={() => navigate(`/details/${item._id}`, { state: item })}>

@@ -106,6 +106,25 @@ function UsersController(app) {
     }
   };
 
+  const moveCartItemsToHistory = async (req, res) => {
+    const userId = req.params.id;
+    const product_id = req.params.pid;
+    const count = req.params.count;
+    console.log("moveCartItemsToHistory", userId, product_id, count);
+    await usersDao.moveCartItemsToHistory(userId, product_id, count);
+    const status = await usersDao.deleteCartItems(userId, product_id, count);
+    res.json(status);
+  }
+
+  const getHistoryByUserId = async (req, res) => {
+    const userId = req.params.id;
+    const user = await usersDao.findUserById(userId);
+    if (user) {
+      res.json(user.history);
+    } else {
+      res.sendStatus(404);
+    }
+  };
 
   app.post("/api/users/login", login);
   app.post("/api/users/logout", logout);
@@ -120,6 +139,9 @@ function UsersController(app) {
 
   app.put("/api/users/:id/cart/:pid/count/:c", addProductsToUserCart);
   app.get("/api/users/:id/cart", getCartByUserId);
+
+  app.put("/api/users/:id/history/:pid/count/:count", moveCartItemsToHistory);
+  app.get("/api/users/:id/history", getHistoryByUserId);
 }
 
 export default UsersController;
