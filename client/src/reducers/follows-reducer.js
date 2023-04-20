@@ -20,7 +20,7 @@ const followsSlice = createSlice({
         },
     [userUnfollowsUserThunk.fulfilled]: (state, action) => {
               state.follows = state.follows
-                             .filter(t => t._id !== action.payload.follower);
+                             .filter(t => t._id !== action.payload.follower && t._id !== action.payload.followed);
             },
     [findFollowsByFollowedIdThunk.fulfilled]:(state, action) => {
               state.follows = action.payload;
