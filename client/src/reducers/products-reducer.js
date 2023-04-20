@@ -4,7 +4,8 @@ import {
     createProductThunk,
     deleteProductByIdThunk,
     findProductByIdThunk,
-    updateProductByIdThunk
+    updateProductByIdThunk,
+    findProductByObjectIdThunk,
 } from "../services/products/products-thunks";
 
 const initialState = {
@@ -36,6 +37,14 @@ const productSlice = createSlice({
             [findProductByIdThunk.fulfilled]: (state, action) => {
                 state.loading = false;
                 state.products = action.payload;
+            },
+            [findProductByObjectIdThunk.fulfilled]: (state, action) => {
+                state.loading = false;
+                state.products = action.payload;
+            },
+            [findProductByObjectIdThunk.pending]: (state, action) => {
+                state.loading = true;
+                state.products = [];
             },
             [createProductThunk.fulfilled]: (state, {payload}) => {
                 state.loading = false;

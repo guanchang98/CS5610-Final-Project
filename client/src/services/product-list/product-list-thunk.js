@@ -9,3 +9,20 @@ export const userLikesProductThunk = createAsyncThunk(
         return response.data;
     }
 );
+
+export const userUnlikesProductThunk = createAsyncThunk(
+    "products/userUnlikesProduct",
+    async (userId, productId) => {
+        const response = await service.userUnlikesProduct(userId, productId);
+        return response.data;
+    }
+);
+
+export const findLikeStatusByProductIdAndUserIdThunk = createAsyncThunk(
+    "products/likeStatus",
+    async (userId, productId) => {
+        const response = await service.findLikeStatusByProductIdAndUserId(userId, productId);
+        console.log("find like status thunk", response);
+        return response.data;
+    }
+)

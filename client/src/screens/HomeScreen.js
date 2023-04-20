@@ -40,8 +40,8 @@ const HomeScreen = () => {
             response[i] = await saveProductsToDBAndReturn(response[i]);
             // console.log("after create", response[i]);
         }
-        console.log("search", search);
-        console.log("response", response);
+        // console.log("search", search);
+        // console.log("response", response);
         setResults(response);
     }
     useEffect(() => {

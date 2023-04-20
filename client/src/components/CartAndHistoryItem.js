@@ -11,7 +11,6 @@ const CartAndHistoryItem = ({item}) => {
                     <div className="col-8">
                         <h4>{item.name}</h4>
                         <img src={item.image_url} width="50px" height="100px" onClick={() => navigate(`../details/${item._id}`, {state: item})}/>
-                        <p className="text-secondary">{item.description}</p>
                     </div>
                     <div className="col-2">
                         <h4>${item.price}</h4>

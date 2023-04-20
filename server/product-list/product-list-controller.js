@@ -3,8 +3,9 @@ import * as productDao from './product-list-dao.js';
 
 function ProductListController(app) {
 
-    const findProductList = async (req, res) => {
-        const productList = await productDao.findAllProductList();
+    const findProductListByUserId = async (req, res) => {
+        const userId = req.params.id;
+        const productList = await productDao.findAllProductListByUserId(userId);
         res.json(productList);
     }
 
@@ -22,9 +23,18 @@ function ProductListController(app) {
         res.json(status);
     };
 
-    app.post("/api/users/:uId/likes/:pId", userLikesProduct);
-    app.delete("/api/users/:uId/unlikes/:pId", userUnlikesProduct);
-    app.get("/api/product-list", findProductList);
+    const findLikeStatus = async (req, res) => {
+        const userId = req.params.uid;
+        const productId = req.params.pid;
+        const status = await productDao.findLikeStatusByUserIdAndProductId(userId, productId);
+        console.log("findLikeStatus", status);
+        res.json(status);
+    }
+
+    app.post("/api/product-list/:uId/likes/:pId", userLikesProduct);
+    app.delete("/api/product-list/:uId/unlikes/:pId", userUnlikesProduct);
+    app.get("/api/product-list/:id", findProductListByUserId);
+    app.get("/api/product-list/:uid/:pid/likeStatus", findLikeStatus);
 }
 
 export default ProductListController;
