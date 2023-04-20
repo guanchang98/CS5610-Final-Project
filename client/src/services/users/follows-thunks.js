@@ -5,14 +5,14 @@ export const userFollowsUserThunk = createAsyncThunk("follow/create", async (fol
   const followed = follow.followed;
   const follower = follow.follower;
   const response = await followService.userFollowsUser(follower, followed);
-  return response.data;
+  return response;
 });
 
 export const userUnfollowsUserThunk = createAsyncThunk("follow/delete", async (follow) => {
   const followed = follow.followed;
   const follower = follow.follower;
   const response = await followService.userUnfollowsUser(follower, followed);
-  return {followed:followed,follower:follower};
+  return {follower:follower, followed:followed};
 });
 
 export const findFollowsByFollowedIdThunk = createAsyncThunk("follow/findfollower", async (followed) => {

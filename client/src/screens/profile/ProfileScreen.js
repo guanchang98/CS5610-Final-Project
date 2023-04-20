@@ -40,7 +40,7 @@ const ProfileScreen = (props) => {
     const {follows} = useSelector((state) => state.follows);
     const [following,setFollows] = useState(follows);
     const [user, setUser] = useState(null);
-  const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -89,13 +89,21 @@ const ProfileScreen = (props) => {
     }
 
     const followUser = async () => {
-        await userFollowsUser(profile._id, userId);
-        setFlag("yes");
+        try{
+            await dispatch(userFollowsUserThunk({follower:profile._id, followed:userId}));
+            setFlag("yes");
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     const unfollowUser = async () => {
-            await dispatch(userUnfollowsUserThunk({follower:profile._id, followed:userId}));
-            setFlag("no");
+            try{
+                await dispatch(userUnfollowsUserThunk({follower:profile._id, followed:userId}));
+                setFlag("no");
+            } catch (error) {
+                      console.error(error);
+            }
         };
 
     const updateProfile = async () => {
@@ -107,15 +115,16 @@ const ProfileScreen = (props) => {
           const profileData = await fetchProfile();
           const paramsUser = await fetchUserInfo();
           if (userId){
-            if (profileData && paramsUser){
+            if (profileData.payload && paramsUser.payload){
                 await fetchFollowerAndFollowing(profileData.payload);
                 await fetchFollows(profileData.payload, paramsUser.payload);
             }
           }
           else{
-            if (profileData){
+            if (profileData.payload){
                 await fetchFollowerAndFollowing(profileData.payload);
                 await fetchFollows(profileData.payload, null);
+                await getHistoryItems(profileData.payload);
             }
           }
 
@@ -131,11 +140,11 @@ const ProfileScreen = (props) => {
         return response;
     }
 
-    const getHistoryItems = async () => {
+    const getHistoryItems = async (curUser) => {
         let historyList = [];
-        if (profile && profile._id) {
+        if (curUser && curUser._id) {
             try {
-                const response = await dispatch(getHistoryByUserIdThunk(profile._id));
+                const response = await dispatch(getHistoryByUserIdThunk(curUser._id));
                 historyList = response.payload;
                 let price = 0;
                 if (historyList) {
@@ -173,7 +182,7 @@ const ProfileScreen = (props) => {
                                </div>}
                           {followedFlag==="yes" && <div className="col-3 mb-4">
                                                             <button onClick={unfollowUser} className="btn btn-primary rounded-3 float-end" >
-                                                                                        Unfollow
+                                                           Unfollow
                                                             </button>
                                                         </div>}
                           <br></br>  <br></br> <br></br> <br></br>
@@ -195,12 +204,12 @@ const ProfileScreen = (props) => {
 
                                       {
                                            user?.role === "BUYER" &&
-                                           <p>{following && following.length} Following</p>
+                                           <p>{follows && follows.length} Following</p>
                                        }
 
                                       {
                                            user?.role === "SELLER" &&
-                                           <p>{following && following.length} Followers</p>
+                                           <p>{follows && follows.length} Followers</p>
                                        }
                                   </div>
                               </div>
@@ -247,14 +256,14 @@ const ProfileScreen = (props) => {
                                      {
                                          profile?.role === "BUYER" && !userId &&
                                          <Link to="/following" className="list-group-item list-group-item-action border-0">
-                                             <span className="text-secondary">{following && following.length} Following</span>
+                                             <span className="text-secondary">{follows && follows.length} Following</span>
                                          </Link>
                                      }
 
                                      {
                                          profile?.role === "SELLER" && !userId &&
                                          <Link to="/followers" className="list-group-item list-group-item-action border-0">
-                                             <span className="text-secondary">{following && following.length} Followers</span>
+                                             <span className="text-secondary">{follows && follows.length} Followers</span>
                                          </Link>
                                      }
                                  </div>
