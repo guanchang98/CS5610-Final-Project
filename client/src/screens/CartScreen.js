@@ -12,6 +12,7 @@ import ItemInCart from "../components/itemInCart";
 
 const CartScreen = () => {
     const {currentUser} = useSelector(state => state.users); 
+    console.log("currentUser: ", currentUser)
     let dispatch = useDispatch();
     const [prods, setProducts] = useState([]);
 
@@ -73,8 +74,10 @@ const CartScreen = () => {
                         </div>
                     </div>
                 </li>
+
                  {
-                    currentUser._id && currentUser.cart && prods &&
+                    // console.log("currentUser: ", currentUser)
+                    currentUser && currentUser._id && currentUser.cart && prods &&
                     prods.map(p =>
                         // console.log("p: ", p),
                         <ItemInCart key={Date()} item={p}/>

@@ -35,3 +35,4 @@ export const updateProductById = async (product) => {
     const response = await axios.put(`${PRODUCT_API_URL}/${product._id}`, product);
     return response.data;
 }
+

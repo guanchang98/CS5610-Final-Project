@@ -17,6 +17,8 @@ export const findAllByRole = async (role) => {
 
 export const findUserById = async (id) => {
   const user = await usersModel.findById(id);
+  console.log("find user")
+  console.log(user)
   return user;
 };
 
@@ -49,10 +51,10 @@ export const addProductsToUserCart = (userId, productId, count) =>
   usersModel.updateOne({_id: userId }, { $push: { cart: {product_id: productId, count: count}}}); 
 
 
-export const getCartByUserId = async (userId) => {
-  const status = await usersModel.findOne({ _id: userId });
-  return status;
-}
+  export const getCartByUserId = async (userId) => {
+    const status = await usersModel.findOne({ _id: userId });
+    return status;
+  }
 
 
 

@@ -51,16 +51,19 @@ const productSlice = createSlice({
             },
             [deleteProductByIdThunk.fulfilled]: (state, {payload}) => {
                 state.loading = false;
+                console.log("delete prod reducer -- payload", state.products)
                 state.products = state.products.filter(p => p._id !== payload);
             },
             [updateProductByIdThunk.fulfilled]: (state, {payload}) => {
                 state.loading = false;
-                const productIdx = state.products.findIndex((p) => p._id === payload._id)
+                // console.log("state", state)
+                // console.log("prod reducer -- payload", state.products)
+                const productIdx = state.products.findIndex(p => p.product_id === payload.product_id)
                 state.products[productIdx] = {
                     ...state.products[productIdx],
                     ...payload
                 }
-            }
+            },
         }
     }
 )

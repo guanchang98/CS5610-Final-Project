@@ -14,7 +14,7 @@ const ProductItem = (
     }
 ) => {
     let navigate = useNavigate(); 
-    console.log("product item: ", item);
+    // console.log("product item: ", item);
 
     return (
         <div className="col-md-4 col-lg-3 col-sm-6 mb-3">
