@@ -10,6 +10,7 @@ import { addProductsToUserCartThunk } from "../services/users/users-thunks";
 import { userLikesProductThunk } from "../services/product-list/product-list-thunk";
 import BackButtonComponent from "../components/BackButtonComponent";
 // import BackButtonComponent from "../components/BackButtonComponent";
+import { useNavigate } from "react-router";
 
 const DetailsScreen = () => {
     // const params = useParams();
@@ -24,6 +25,7 @@ const DetailsScreen = () => {
     // console.log("current user: ", currentUser)
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const likeProduct = async () => {
         setLiked(!liked);
@@ -43,6 +45,11 @@ const DetailsScreen = () => {
         const response2 = await userLikesProduct(currentUser._id, state._id);
         fetchProduct();
         // const response = await dispatch(updateProductByIdThunk({...state, seller_id: currentUser._id}));
+    }
+
+    const editButton = () => {
+        console.log("edit button: ", product)
+        navigate(`/edit-product`, {state: product});
     }
 
     const fetchProduct = async () => {
@@ -140,7 +147,8 @@ const DetailsScreen = () => {
                 {   
                     currentUser !== null && currentUser._id === product.seller_id && 
                     <div className="d-grid gap-2 col-2 mx-auto mt-5">
-                        <button className="btn btn-danger">
+                        <button className="btn btn-danger" 
+                                onClick={editButton}>
                             Edit
                         </button>
                     </div>
