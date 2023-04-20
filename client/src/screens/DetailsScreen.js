@@ -8,7 +8,7 @@ import {
 // import { updateProductByIdThunk} from "../services/products/products-thunks";
 import {updateProductById, findProductById} from '../services/products/products-service';
 import {updateProductByIdThunk, findProductByIdThunk} from "../services/products/products-thunks";
-import {addProductsToUserCart, findUserById} from '../services/users/users-service';
+import {addProductsToUserCart} from '../services/users/users-service';
 import {useDispatch, useSelector} from "react-redux";
 import {addProductsToUserCartThunk} from "../services/users/users-thunks";
 import {
@@ -28,7 +28,6 @@ const DetailsScreen = () => {
     const [count, setCount] = useState(1);
     const currentUser = useSelector(state => state.users.currentUser);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const [liked, setLiked] = useState(false);
     const getLikeStatus = async () => {
         console.log(currentUser);
@@ -42,6 +41,8 @@ const DetailsScreen = () => {
         }
     }
 
+    const navigate = useNavigate();
+
     const likeProduct = async () => {
         if (liked) {
             await userUnlikesProduct(currentUser._id, state._id);
@@ -50,8 +51,6 @@ const DetailsScreen = () => {
         }
         await setLiked(!liked);
     }
-    
-
 
     const addToCart = async () => {
         console.log("count: ", count)
@@ -62,9 +61,7 @@ const DetailsScreen = () => {
     }
 
     const addToWishlist = async () => {
-        if (currentUser.role === "SELLER") {
-            await updateProductById({...state, seller_id: currentUser._id});
-        }
+        await updateProductById({...state, seller_id: currentUser._id});
         await userLikesProduct(currentUser._id, state._id);
         await fetchProduct();
         // const response = await dispatch(updateProductByIdThunk({...state, seller_id: currentUser._id}));
@@ -97,12 +94,26 @@ const DetailsScreen = () => {
         await getLikeStatus();
         await findSellerById();
     };
+
     return (
         <div>
             {/* <BackButtonComponent/> */}
             {/* Detail page for item {params.detailsId}; */}
             <BackButtonComponent/>
             <h2>Product Detail</h2>
+            {
+                seller &&
+                <div>
+                    <span className="text-secondary">Sell by </span>
+                    <img className="rounded"
+                         src={seller.avatar}
+                         alt=''
+                         width="50px"
+                         height='50px'
+                         onClick={() => navigate(`/profile/${seller._id}`)}/>
+                </div>
+            }
+
             <div className="row mt-5">
                 <div className="col-5 text-center">
                     <img className="rounded wd-punk-image-size-detail" src={state.image_url} alt='' width='100%'/>
@@ -122,23 +133,6 @@ const DetailsScreen = () => {
                             </ul>
                         </div>
                         <p className="text-secondary">{state.description}</p>
-            {
-                seller &&
-                <div>
-                    <span className="text-secondary">Sell by </span> 
-                    <img className="rounded" 
-                        src={seller.avatar}    
-                        alt=''
-                        width="50px" 
-                        height='50px'
-                        onClick={() => navigate(`/profile/${seller._id}`)}/> 
-                </div>
-            }
-            
-            {/* <h2>{product.seller_id}</h2> */}
-                <div className="row mt-5">
-                    <div className="col-5 text-center">
-                        <img className="rounded wd-punk-image-size-detail" src={state.image_url} alt='' width='100%'/>
                     </div>
                     {
                         currentUser === null &&
@@ -211,4 +205,4 @@ const DetailsScreen = () => {
     )
 }
 
-export default DetailsScreen;   
+export default DetailsScreen;
