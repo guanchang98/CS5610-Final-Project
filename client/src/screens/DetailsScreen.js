@@ -4,32 +4,36 @@ import { userLikesProduct} from "../services/product-list/product-list-service";
 // import { updateProductByIdThunk} from "../services/products/products-thunks";
 import {updateProductById, findProductById} from '../services/products/products-service';
 import { updateProductByIdThunk, findProductByIdThunk } from "../services/products/products-thunks";
-import {addProductsToUserCart} from '../services/users/users-service';
+import {addProductsToUserCart, findUserById} from '../services/users/users-service';
 import { useDispatch, useSelector } from "react-redux";
 import { addProductsToUserCartThunk } from "../services/users/users-thunks";
 import { userLikesProductThunk } from "../services/product-list/product-list-thunk";
 import BackButtonComponent from "../components/BackButtonComponent";
 // import BackButtonComponent from "../components/BackButtonComponent";
 import { useNavigate } from "react-router";
+import { findUserByIdThunk } from "../services/users/users-thunks";
 
 const DetailsScreen = () => {
     // const params = useParams();
     const { state } = useLocation();
+    const [seller, setSeller] = useState(null);
     const [product, setProduct] = useState(state);
-    // console.log("state", state)
-    // console.log("product: ", product)
     const [count, setCount] = useState(1);
     const [liked, setLiked] = useState(false);
     const {currentUser} = useSelector(state => state.users);
-
-    // console.log("current user: ", currentUser)
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const likeProduct = async () => {
         setLiked(!liked);
-        const response = await userLikesProduct(currentUser._id, state._id);
+        // console.log("like staute", liked)
+        if(liked) {
+            console.log("add to wishlist")
+            const response = await userLikesProduct(currentUser._id, state._id);
+        }else {
+            // remove from wishlist
+            console.log("remove from wishlist")
+        }
     }
 
     const addToCart = async () => {
@@ -47,6 +51,14 @@ const DetailsScreen = () => {
         // const response = await dispatch(updateProductByIdThunk({...state, seller_id: currentUser._id}));
     }
 
+    const findSellerById = async () => {
+        if (product.seller_id) {
+            const response = await dispatch(findUserByIdThunk(product.seller_id));
+            console.log("response: ", response)
+            setSeller(response.payload);
+        }
+    }
+
     const editButton = () => {
         console.log("edit button: ", product)
         navigate(`/edit-product`, {state: product});
@@ -59,6 +71,8 @@ const DetailsScreen = () => {
 
     useEffect(() => {
         fetchProduct();
+        likeProduct();
+        findSellerById();
     }, [])
     
     return (
@@ -67,7 +81,20 @@ const DetailsScreen = () => {
             {/* Detail page for item {params.detailsId}; */}
             <BackButtonComponent/>
             <h2>Product Detail</h2>
-           
+            {
+                seller &&
+                <div>
+                    <span className="text-secondary">Sell by </span> 
+                    <img className="rounded" 
+                        src={seller.avatar}    
+                        alt=''
+                        width="50px" 
+                        height='50px'
+                        onClick={() => navigate(`/profile/${seller._id}`)}/> 
+                </div>
+            }
+            
+            {/* <h2>{product.seller_id}</h2> */}
                 <div className="row mt-5">
                     <div className="col-5 text-center">
                         <img className="rounded wd-punk-image-size-detail" src={state.image_url} alt='' width='100%'/>
