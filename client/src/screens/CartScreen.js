@@ -1,13 +1,10 @@
 import React, {useEffect, useState, useRef} from "react";
 import BackButtonComponent from "../components/BackButtonComponent";
 import {useSelector, useDispatch} from "react-redux";
-// import ProductItem from "../components/ProductItem";
-import {findUserByIdThunk, profileThunk, getCartByUserIdThunk} from "../services/users/users-thunks";
-// import {findUserById} from "../services/users/users-service";
-// import {findProductById} from "../services/products/products-service";
+import {getCartByUserIdThunk} from "../services/users/users-thunks";
 import {findProductByIdThunk} from "../services/products/products-thunks";
 import CartAndHistoryItem from "../components/CartAndHistoryItem";
-import {moveCartItemsToHistory} from "../services/users/users-service";
+import {moveCartItemsToHistory, deleteProductFromCart} from "../services/users/users-service";
 import {Toast} from "bootstrap";
 import "../index.css";
 
@@ -34,9 +31,7 @@ const CartScreen = () => {
     }, [showToast]);
 
     const getItembyId = async (id) => {
-        // console.log("wait to get item by id")
         const response = await dispatch(findProductByIdThunk(id));
-        // console.log("item from getItemById function: ", response.payload);
         return response;
     }
 
@@ -48,20 +43,14 @@ const CartScreen = () => {
                 cartList = response.payload;
                 let price = 0;
                 if (cartList) {
-                    // console.log("cart length: ", cartList.length);
                     const productList = [];
                     for (let i = 0; i < cartList.length; i++) {
                         const response = await getItembyId(cartList[i].product_id);
                         price += response.payload.price * cartList[i].count;
-                        // console.log(response);
-                        // console.log(response.payload);
-                        // console.log("productList: ", response.payload);
-                        productList.push({...response.payload, count: cartList[i].count});
+                        productList.push({...response.payload, count: cartList[i].count, cartListId: cartList[i]._id});
                     }
-                    // console.log("productList: ", productList.length)
                     setProducts(productList);
                     setTotalPrice(price);
-                    // console.log(productList);
                 }
             } catch (e) {
                 console.log("fetching carList error: ", e);
@@ -72,12 +61,17 @@ const CartScreen = () => {
 
     const checkOutShoppingCart = async () => {
         for (let i = 0; i < prods.length; i++) {
-            // console.log("checkOutShoppingCart", currentUser._id, prods[i].product_id, prods[i].count);
             await moveCartItemsToHistory(currentUser._id, prods[i].product_id, prods[i].count);
         }
         await loadScreen();
         await toggleToast();
     }
+
+    const deleteItemFromCart = async (item) => {
+        await deleteProductFromCart(currentUser._id, item.cartListId);
+        await loadScreen();
+    };
+
     const loadScreen = async () => {
         await getCartItems();
     };
@@ -86,39 +80,32 @@ const CartScreen = () => {
         loadScreen();
     }, [currentUser]);
 
+    
+
 
     return (
         <div>
             <BackButtonComponent/>
             <h1>Cart</h1>
-            <ul className="list-group mb-3">
-                <li className="list-group-item">
-                    <div className="row">
-                        <div className="col-8">
-                            <h3>Name</h3>
-                        </div>
-                        <div className="col-2">
-                            <h3>Price</h3>
-                        </div>
-                        <div className="col-2">
-                            <h3>Quantity</h3>
-                        </div>
-                    </div>
-                </li>
+            <hr/>
+            <ul className="list-group mb-3 mt-3">
                 {
                     currentUser && currentUser._id && currentUser.cart && prods &&
                     prods.map(p =>
-                        // console.log("p: ", p),
-                        <CartAndHistoryItem item={p}/>
+                        <CartAndHistoryItem key={p.cartListId} item={p} onClickDelete={deleteItemFromCart}/>
                     )
                 }
             </ul>
-            <div className="float-start text-danger">
-                <b>Total Price: ${totalPrice}</b>
+            <div className="row">
+                <div className="col-8 float-start text-danger">
+                    <h4>Total Price: ${totalPrice}</h4>
+                </div>
+                <div className="col-4">
+                    <button className="btn btn-primary float-end" onClick={checkOutShoppingCart}>
+                        Checkout
+                    </button>
+                </div>
             </div>
-            <button className="btn btn-primary float-end" onClick={checkOutShoppingCart}>
-                Checkout
-            </button>
             <div className="toast text-white bg-success border-0 wd-toast" role="alert" aria-live="assertive"
                  aria-atomic="true" hidden={!showToast} ref={toastRef}>
                 <div className="d-flex">

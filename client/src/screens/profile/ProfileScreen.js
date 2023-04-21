@@ -273,20 +273,8 @@ const ProfileScreen = (props) => {
                  </div>
                  {userId?<div></div>: <div>
                     <h2>History</h2>
+                    <hr/>
                     <ul className="list-group mb-3">
-                        <li className="list-group-item">
-                            <div className="row">
-                                <div className="col-8">
-                                    <h3>Name</h3>
-                                </div>
-                                <div className="col-2">
-                                    <h3>Price</h3>
-                                </div>
-                                <div className="col-2">
-                                    <h3>Quantity</h3>
-                                </div>
-                            </div>
-                        </li>
                         {
                             profile && profile._id && profile.history && products &&
                             products.map(p =>

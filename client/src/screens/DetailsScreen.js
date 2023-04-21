@@ -136,8 +136,8 @@ const DetailsScreen = () => {
                     </div>
                     {
                         currentUser === null &&
-                        <div>
-                            <h3>Log in</h3>
+                        <div className="d-grid gap-2 col-5 mx-auto">
+                            <button className="btn btn-primary" onClick={() => navigate('/login')}>Please Login</button>
                         </div>
 
                     }

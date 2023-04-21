@@ -77,3 +77,9 @@ export const moveCartItemsToHistory = (userId, productId, count) => {
   const response = api.put(`${USERS_API_URL}/${userId}/history/${productId}/count/${count}`);
   return response;
 }
+
+export const deleteProductFromCart = (userId, clId) => {
+  // console.log("delete product from cart: ", userId, productId, count)
+  const response = api.delete(`${USERS_API_URL}/${userId}/deletle/cart/item/${clId}`);
+  return response;
+}

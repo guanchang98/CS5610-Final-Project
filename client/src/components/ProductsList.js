@@ -7,7 +7,7 @@ const ProductsList = (props) => {
     const {loading} = useSelector(state => state.products);
     // console.log("loading", loading);
     return (
-        <div className="row mt-2 justify-content-between">
+        <div className="row mt-2">
             {
                 loading &&
                 <li className="list-group-item">

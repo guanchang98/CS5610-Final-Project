@@ -126,6 +126,14 @@ function UsersController(app) {
     }
   };
 
+  const deleteProductFromCart = async (req, res) => {
+    const userId = req.params.id;
+    const cartListId = req.params.clId;
+    const status = await usersDao.deleteProductFromCart(userId, cartListId);
+    res.json(status);
+  };
+
+
   app.post("/api/users/login", login);
   app.post("/api/users/logout", logout);
   app.get("/api/users/profile", profile);
@@ -142,6 +150,9 @@ function UsersController(app) {
 
   app.put("/api/users/:id/history/:pid/count/:count", moveCartItemsToHistory);
   app.get("/api/users/:id/history", getHistoryByUserId);
+
+  app.delete("/api/users/:id/deletle/cart/item/:clId", deleteProductFromCart);
+
 }
 
 export default UsersController;
