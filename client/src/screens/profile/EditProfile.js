@@ -47,7 +47,7 @@ const EditProfile = () => {
                                 </div>
                                 <div className="row mb-3">
                                     <label> Set dob: </label>
-                                    <input contenteditable="true" className="mr-4 ml-4"  value = {profile?.dob} onChange={(e) => {
+                                    <input contenteditable="true" type="date" className="mr-4 ml-4"  value = {profile?.dob} onChange={(e) => {
                                                                                                             setProfile({ ...profile, dob: e.target.value });
                                                                                                           }}  />
                                 </div>

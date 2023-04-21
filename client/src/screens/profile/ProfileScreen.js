@@ -115,7 +115,7 @@ const ProfileScreen = (props) => {
           const profileData = await fetchProfile();
           const paramsUser = await fetchUserInfo();
           if (userId){
-            if (profileData.payload && paramsUser.payload){
+            if (paramsUser.payload){
                 await fetchFollowerAndFollowing(profileData.payload);
                 await fetchFollows(profileData.payload, paramsUser.payload);
             }
@@ -201,15 +201,14 @@ const ProfileScreen = (props) => {
                               </div>
                               <div className="row">
                                   <div className="mb-3 list-group list-group-horizontal col-3">
-
                                       {
                                            user?.role === "BUYER" &&
-                                           <p>{follows && follows.length} Following</p>
+                                           <h2>{follows && follows.length} Following</h2>
                                        }
 
                                       {
                                            user?.role === "SELLER" &&
-                                           <p>{follows && follows.length} Followers</p>
+                                           <h2>{follows && follows.length} Followers</h2>
                                        }
                                   </div>
                               </div>
@@ -256,14 +255,14 @@ const ProfileScreen = (props) => {
                                      {
                                          profile?.role === "BUYER" && !userId &&
                                          <Link to="/following" className="list-group-item list-group-item-action border-0">
-                                             <span className="text-secondary">{follows && follows.length} Following</span>
+                                             <h2 className="text-secondary">{follows && follows.length} Following</h2>
                                          </Link>
                                      }
 
                                      {
                                          profile?.role === "SELLER" && !userId &&
                                          <Link to="/followers" className="list-group-item list-group-item-action border-0">
-                                             <span className="text-secondary">{follows && follows.length} Followers</span>
+                                             <h2 className="text-secondary">{follows && follows.length} Followers</h2>
                                          </Link>
                                      }
                                  </div>
