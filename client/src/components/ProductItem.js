@@ -23,7 +23,7 @@ const ProductItem = (
                 </div>
                 <div>
                     <p className="text-center text-secondary">{item.name}</p>
-                    <p className="text-center fw-bold">${item.price}</p>
+                    <p className="text-center fw-bold">${Number(item.price).toFixed(2)}</p>
                 </div>
             </div>
         </div>
