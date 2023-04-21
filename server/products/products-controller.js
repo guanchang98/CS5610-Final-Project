@@ -32,6 +32,12 @@ function ProductsController(app) {
         res.json(product);
     }
 
+    const findProductByObjectId = async (req, res) => {
+        const id = req.params.id;
+        const product = await productsDao.findProductByObjectId(id);
+        res.json(product);
+    }
+
     const deleteProductById = async (req, res) => {
         const productId = req.params.pid;
         const status = await productsDao.deleteProductById(productId);
@@ -41,6 +47,7 @@ function ProductsController(app) {
     app.post("/api/products", createProduct);
     app.get("/api/products", findProducts);
     app.get("/api/products/:pid", findProductById);
+    app.get("/api/products/objectId/:id", findProductByObjectId);
     app.put("/api/products/:pid", updateProductById);
     app.delete("/api/products/:pid", deleteProductById);
 }

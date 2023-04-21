@@ -4,7 +4,8 @@ import {
     createProductThunk,
     deleteProductByIdThunk,
     findProductByIdThunk,
-    updateProductByIdThunk
+    updateProductByIdThunk,
+    findProductByObjectIdThunk,
 } from "../services/products/products-thunks";
 
 const initialState = {
@@ -37,6 +38,14 @@ const productSlice = createSlice({
                 state.loading = false;
                 state.products = action.payload;
             },
+            [findProductByObjectIdThunk.fulfilled]: (state, action) => {
+                state.loading = false;
+                state.products = action.payload;
+            },
+            [findProductByObjectIdThunk.pending]: (state, action) => {
+                state.loading = true;
+                state.products = [];
+            },
             [createProductThunk.fulfilled]: (state, {payload}) => {
                 state.loading = false;
                 state.products = {...state.products, payload};
@@ -51,16 +60,19 @@ const productSlice = createSlice({
             },
             [deleteProductByIdThunk.fulfilled]: (state, {payload}) => {
                 state.loading = false;
+                console.log("delete prod reducer -- payload", state.products)
                 state.products = state.products.filter(p => p._id !== payload);
             },
             [updateProductByIdThunk.fulfilled]: (state, {payload}) => {
                 state.loading = false;
-                const productIdx = state.products.findIndex((p) => p._id === payload._id)
+                // console.log("state", state)
+                // console.log("prod reducer -- payload", state.products)
+                const productIdx = state.products.findIndex(p => p.product_id === payload.product_id)
                 state.products[productIdx] = {
                     ...state.products[productIdx],
                     ...payload
                 }
-            }
+            },
         }
     }
 )

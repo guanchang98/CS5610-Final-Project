@@ -25,6 +25,12 @@ export const findProductById = async (pid) => {
     return product;
 }
 
+export const findProductByObjectId = async (id) => {
+    const response = await axios.get(`${PRODUCT_API_URL}/objectId/${id}`);
+    const product = response.data;
+    return product;
+}
+
 
 export const deleteProductById = async (pid) => {
     const response = await axios.delete(`${PRODUCT_API_URL}/${pid}`);
@@ -33,5 +39,7 @@ export const deleteProductById = async (pid) => {
 export const updateProductById = async (product) => {
     // const response = await axios.put(`${PRODUCT_API_URL}/update/${product._id}`, product);
     const response = await axios.put(`${PRODUCT_API_URL}/${product._id}`, product);
+    console.log(product);
     return response.data;
 }
+

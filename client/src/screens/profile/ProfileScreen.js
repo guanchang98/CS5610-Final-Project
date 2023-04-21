@@ -155,7 +155,7 @@ const ProfileScreen = (props) => {
                         price += response.payload.price * historyList[i].count;
                         productList.push({...response.payload, count: historyList[i].count});
                     }
-                    setProducts(productList);
+                    setProducts(productList.reverse());
                 }
             } catch (e) {
                 console.log("fetching carList error: ", e);
