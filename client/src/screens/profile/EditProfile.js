@@ -52,18 +52,9 @@ const EditProfile = () => {
                                                                                                           }}  />
                                 </div>
                                 <br></br>
-                                <div className="row">
-
-                                    <div className="col-5 ml-3">
-
-                                        <Link className="btn btn-primary rounded-3" to="/profile"> Cancel
-                                                                        </Link>
-                                    </div>
-                                    <div className="col-4">
-                                    <button className="btn btn-primary rounded-3" onClick = {updateProfile}>
-                                                                                             Save
-                                    </button>
-                                    </div>
+                                <div className="d-grid gap-2 col-4 mx-auto">
+                                     <Link className="btn btn-danger" to = "/profile"> Cancel</Link>
+                                     <button className="btn btn-primary" onClick = {updateProfile}>Save</button>
                                 </div>
    </div>
    );

@@ -166,8 +166,7 @@ const ProfileScreen = (props) => {
     useEffect(() => {
         loadScreen();
     }, [userId]);
-
-    return user?(<div>
+    return user && (!profile || (profile && profile._id !== user._id))?(<div>
                   <div className="border-1">
                       <BackButtonComponent/>
                       <div className="row">
@@ -175,12 +174,12 @@ const ProfileScreen = (props) => {
                           <div className="col-9 float-start">
                           <img src={user?.avatar} className="w-25 wd-pos-absolute-profile-banner" height="140"/>
                           </div>
-                          {followedFlag==="no" && <div className="col-3 mb-4">
+                          {followedFlag==="no" && profile?.role=="BUYER" && <div className="col-3 mb-4">
                                    <button onClick={followUser} className="btn btn-primary rounded-3 float-end" >
                                                                Follow
                                    </button>
                                </div>}
-                          {followedFlag==="yes" && <div className="col-3 mb-4">
+                          {followedFlag==="yes" && profile?.role=="BUYER" && <div className="col-3 mb-4">
                                                             <button onClick={unfollowUser} className="btn btn-primary rounded-3 float-end" >
                                                            Unfollow
                                                             </button>
@@ -226,7 +225,7 @@ const ProfileScreen = (props) => {
                          </div>
 
 
-                         {!userId && profile && <div className="col-3 mb-4">
+                         {profile && <div className="col-3 mb-4">
                               <Link className="btn btn-primary rounded-3 float-end" to="/edit-profile">
                                                           Edit Profile
                               </Link>
@@ -242,9 +241,9 @@ const ProfileScreen = (props) => {
                              <div className="row mb-3">
                                  <div className="col-3">
                                      <i className="bi bi-geo-alt text-secondary"></i>
-                                     <span className="text-secondary"> {profile?.location}   </span>
+                                     <span className="text-secondary"> {profile?.location}</span>
                                  </div>
-                                 {userId?<div></div>:<div className="col-4">
+                                 {<div className="col-4">
                                                                               <i className="bi bi-balloon text-secondary"></i>
                                                                               <span  className="text-secondary" > Born on {profile?.dob} </span>
                                                                           </div>}
@@ -253,14 +252,14 @@ const ProfileScreen = (props) => {
                              <div className="row">
                                  <div className="mb-3 list-group list-group-horizontal col-3">
                                      {
-                                         profile?.role === "BUYER" && !userId &&
+                                         profile?.role === "BUYER" &&
                                          <Link to="/following" className="list-group-item list-group-item-action border-0">
                                              <h2 className="text-secondary">{follows && follows.length} Following</h2>
                                          </Link>
                                      }
 
                                      {
-                                         profile?.role === "SELLER" && !userId &&
+                                         profile?.role === "SELLER" &&
                                          <Link to="/followers" className="list-group-item list-group-item-action border-0">
                                              <h2 className="text-secondary">{follows && follows.length} Followers</h2>
                                          </Link>
@@ -270,7 +269,7 @@ const ProfileScreen = (props) => {
                          </div>
                      </div>
                  </div>
-                 {userId?<div></div>: <div>
+                 {<div>
                     <h2>History</h2>
                     <ul className="list-group mb-3">
                         <li className="list-group-item">

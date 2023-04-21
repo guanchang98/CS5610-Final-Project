@@ -17,11 +17,17 @@ function RegisterScreen() {
         }
     else {
         try {
-              await dispatch(registerThunk({ username:username, password:password, role:role}));
-              navigate("/profile");
+              const response = await dispatch(registerThunk({ username:username, password:password, role:role}));
+              if (response.error){
+                alert("user already exists, redirect you to log in!");
+                navigate("/login");
+              }
+              else{
+                navigate("/profile");
+              }
             } catch (err) {
               console.log(err);
-              alert("user already exists, please go to log in!");
+              alert("user already exists, redirect you to log in!");
             }
 
     }

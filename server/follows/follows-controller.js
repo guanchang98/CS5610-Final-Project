@@ -18,7 +18,9 @@ function FollowsController(app)  {
           const followsProfiles = [];
           for (let i = 0; i < follows.length; i++){
                const findUser = await usersDao.findUserById(follows[i].follower);
-                followsProfiles.push(findUser);
+               if(findUser){
+                  followsProfiles.push(findUser);
+               }
           }
 
           res.json(followsProfiles);
