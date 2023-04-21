@@ -17,7 +17,7 @@ const ProductItem = (
     // console.log("product item: ", item);
     return (
         <div className="col-md-4 col-lg-3 col-sm-6 mb-3">
-            <div className="card p-2" onClick={() => navigate(`/details/${item._id}`, { state: item })}>
+            <div className="card p-2 h-100" onClick={() => navigate(`/details/${item._id}`, { state: item })}>
                 <div className="text-center">
                     <img className="rounded wd-punk-image-size-home" src={item.image_url} alt='' length='100%'/><br/><br/>  
                 </div>

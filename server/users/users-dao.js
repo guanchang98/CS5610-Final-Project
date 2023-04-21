@@ -66,6 +66,12 @@ export const deleteCartItems = (userId, productId, count) =>
         $pull: {cart: {product_id: productId, count: count}}
     },);
 
+// delete product from cartlist 
+export const deleteProductFromCart = (userId, cartListId) =>
+    usersModel.updateOne({_id: userId}, {
+        $pull: {cart: {_id: cartListId}}
+},);
+
 
 
 
