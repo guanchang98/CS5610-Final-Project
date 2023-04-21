@@ -32,12 +32,13 @@ const FollowersScreen = () => {
     const fetchFollowing = async (id) => {
         const response = await dispatch(findFollowsByFollowedIdThunk(id));
         setFollowing(response.payload);
+        console.log(response.payload);
     };
 
     const loadScreen = async () => {
           try{
                 const profileData = await fetchProfile();
-                if (profileData){
+                if (profileData.payload){
                    await fetchFollowing(profileData.payload._id);
                 }
           } catch (error) {
@@ -58,7 +59,7 @@ const FollowersScreen = () => {
                                     {
                                         follows?.map(user =>
                                             <UserItem
-                                                key={user.id} user={user}/> )
+                                                key={user?.id} user={user}/> )
                                     }
                         </ul>
         </div>
