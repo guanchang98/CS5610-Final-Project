@@ -74,7 +74,7 @@ const EditProductScreen = () => {
                                     onChange={(e) => {  
                                         setProduct({
                                             ...product, 
-                                            price: e.target.value,
+                                            price: Number(e.target.value).toFixed(2),
                                         })
                                     }}>
                                 </textarea>

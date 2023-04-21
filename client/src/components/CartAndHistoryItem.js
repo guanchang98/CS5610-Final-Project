@@ -17,7 +17,8 @@ const CartAndHistoryItem = ({item, onClickDelete}) => {
                     </div>
                     <div className="col-5 ms-8">
                         <p>{item.name}</p>   
-                        <p>${item.price}</p> 
+                        <p>${Number(item.price).toFixed(2)}</p>
+ 
                     </div>
                     {   
                          currentAddress === 'cart' && 

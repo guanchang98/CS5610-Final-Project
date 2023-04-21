@@ -143,7 +143,7 @@ const DetailsScreen = () => {
                         <h3 className="fw-bold text-secondary">{state.name}</h3>
                         <div className="mt-1">
                             <ul className="list-unstyled">
-                                <li><h3 className="fw-bold">${state.price}
+                                <li><h3 className="fw-bold">${Number(state.price).toFixed(2)}
                                     {
                                         currentUser && currentUser._id && currentUser.role === "BUYER" &&
                                         <i className={`${liked ? 'bi bi-heart-fill text-danger' : 'bi bi-heart'} float-end me-2`}

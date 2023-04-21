@@ -50,7 +50,7 @@ const CartScreen = () => {
                         productList.push({...response.payload, count: cartList[i].count, cartListId: cartList[i]._id});
                     }
                     setProducts(productList);
-                    setTotalPrice(price);
+                    setTotalPrice(price.toFixed(2));
                 }
             } catch (e) {
                 console.log("fetching carList error: ", e);
