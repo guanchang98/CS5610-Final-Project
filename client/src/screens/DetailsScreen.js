@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import {useLocation, useParams} from "react-router";
 import {
     findLikeStatusByProductIdAndUserId,
@@ -19,6 +19,7 @@ import BackButtonComponent from "../components/BackButtonComponent";
 // import BackButtonComponent from "../components/BackButtonComponent";
 import {useNavigate} from "react-router";
 import { findUserByIdThunk } from "../services/users/users-thunks";
+import {Toast} from "bootstrap";
 
 const DetailsScreen = () => {
     // const params = useParams();
@@ -26,9 +27,27 @@ const DetailsScreen = () => {
     const [seller, setSeller] = useState(null);
     const [product, setProduct] = useState(state);
     const [count, setCount] = useState(1);
+    const [showToast, setShowToast] = useState(false); 
+    const toastRef = useRef(null);
     const currentUser = useSelector(state => state.users.currentUser);
     const dispatch = useDispatch();
     const [liked, setLiked] = useState(false);
+
+    const toggleToast = () => {
+        setShowToast(!showToast);
+    };
+
+    useEffect(() => {
+        if (showToast) {
+            const toast = new Toast(toastRef.current);
+            toast.show();
+            setTimeout(() => {
+                setShowToast(false);
+            }, 2000); // Change state after 2 seconds
+        }
+    }, [showToast]);
+
+
     const getLikeStatus = async () => {
         console.log(currentUser);
         if (currentUser && currentUser._id) {
@@ -53,9 +72,10 @@ const DetailsScreen = () => {
     }
 
     const addToCart = async () => {
-        console.log("count: ", count)
+        // console.log("count: ", count)
         const response = await addProductsToUserCart(currentUser._id, state.product_id, count);
-        console.log("response from add to cart: ", response)
+        // console.log("response from add to cart: ", response)
+        await toggleToast();
         // const response = await addProductsToUserCartThunk(currentUser._id, state.product_id, count);
 
     }
@@ -201,6 +221,16 @@ const DetailsScreen = () => {
             }
             <br/>
             <br/>
+            <div className="toast text-white bg-success border-0 wd-toast" role="alert" aria-live="assertive"
+                 aria-atomic="true" hidden={!showToast} ref={toastRef}>
+                <div className="d-flex">
+                    <div className="toast-body">
+                        Add to Cart Successfully!
+                    </div>
+                    <button type="button" className="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                            aria-label="Close"></button>
+                </div>
+            </div>
         </div>
     )
 }
