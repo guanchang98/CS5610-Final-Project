@@ -47,23 +47,14 @@ const EditProfile = () => {
                                 </div>
                                 <div className="row mb-3">
                                     <label> Set dob: </label>
-                                    <input contenteditable="true" className="mr-4 ml-4"  value = {profile?.dob} onChange={(e) => {
+                                    <input contenteditable="true" type="date" className="mr-4 ml-4"  value = {profile?.dob} onChange={(e) => {
                                                                                                             setProfile({ ...profile, dob: e.target.value });
                                                                                                           }}  />
                                 </div>
                                 <br></br>
-                                <div className="row">
-
-                                    <div className="col-5 ml-3">
-
-                                        <Link className="btn btn-primary rounded-3" to="/profile"> Cancel
-                                                                        </Link>
-                                    </div>
-                                    <div className="col-4">
-                                    <button className="btn btn-primary rounded-3" onClick = {updateProfile}>
-                                                                                             Save
-                                    </button>
-                                    </div>
+                                <div className="d-grid gap-2 col-4 mx-auto">
+                                     <Link className="btn btn-danger" to = "/profile"> Cancel</Link>
+                                     <button className="btn btn-primary" onClick = {updateProfile}>Save</button>
                                 </div>
    </div>
    );
