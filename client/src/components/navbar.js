@@ -1,14 +1,21 @@
-import React from "react";
+import React, {useEffect} from "react";
 // import {Link} from "react-router-dom";
 import {useLocation} from "react-router";
 // import SearchBar from './SearchBar.js'; 
-import LoginButton from './LoginButton'; 
+import LoginButton from './LoginButton';
+import {useSelector} from "react-redux";
 
 
 const NavBar = () => {
     const {pathname} = useLocation();
     const paths = pathname.split("/");
     const active = paths[1];
+    const {currentUser} = useSelector(state => state.users);
+
+    useEffect(() => {
+        console.log(currentUser);
+    }, [currentUser])
+
 
     return (
         <nav className="navbar navbar-expand-md navbar-light bg-light">
@@ -33,10 +40,21 @@ const NavBar = () => {
                             <a className={`nav-link ${active === 'profile' ? 'active' : ''}`} href="/profile">Profile</a>
                         </li>
                         <li>
-                            <a className={`nav-link ${active === 'wishlist' ? 'active' : ''}`} href="/wishlist">Wishlist</a>
+                            {
+                                currentUser && currentUser.role === "SELLER" &&
+                                <a className={`nav-link ${active === 'wishlist' ? 'active' : ''}`} href="/wishlist">ProductList</a>
+                            }
+                            {
+                                (!currentUser || (currentUser && currentUser.role === "BUYER")) &&
+                                <a className={`nav-link ${active === 'wishlist' ? 'active' : ''}`} href="/wishlist">Wishlist</a>
+                            }
                         </li>
                         <li>
-                            <a className={`nav-link ${active === 'cart' ? 'active' : ''}`} href="/cart">Cart</a>
+                            {
+                                (!currentUser || (currentUser && currentUser.role === "BUYER")) &&
+                                <a className={`nav-link ${active === 'cart' ? 'active' : ''}`} href="/cart">Cart</a>
+                            }
+
                         </li>
                         <li>
                             <LoginButton />
