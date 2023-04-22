@@ -55,6 +55,7 @@ function App(){
                                 <Route path="/" element={<HomeScreen/>}/>
                                 <Route path="home" element={<HomeScreen/>}/>
                                 <Route path="search" element={<HomeScreen/>}/>
+                                <Route path="search/:searchString" element={<HomeScreen/>}/>
                                 <Route path="profile" element={<ProfileScreen/>}/>
                                 <Route path="edit-profile" element={<EditProfile/>}/>
                                 <Route path="profile/:userId" element={<ProfileScreen/>}/>
@@ -69,13 +70,6 @@ function App(){
                                 <Route path="edit-product" element={<EditProductScreen/>}/>
                             </Routes>
                         </div>
-                        {/* {
-                        {/* {
-                            !loggingIn &&
-                            <div className="container col-1 col1-md-1 col-lg-3 col-xl-3">
-                                <LoginButton/>
-                            </div>
-                        } */}
                     </div>
                     </div>
                   </CurrentUserContext>

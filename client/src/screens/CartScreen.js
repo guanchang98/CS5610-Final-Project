@@ -80,8 +80,6 @@ const CartScreen = () => {
         loadScreen();
     }, [currentUser]);
 
-    
-
 
     return (
         <div>
@@ -101,7 +99,8 @@ const CartScreen = () => {
                     <h4>Total Price: ${totalPrice}</h4>
                 </div>
                 <div className="col-4">
-                    <button className="btn btn-primary float-end" onClick={checkOutShoppingCart}>
+                    <button className={`btn btn-primary float-end ${prods.length == 0 ? "disabled" : ""}`}
+                            onClick={checkOutShoppingCart}>
                         Checkout
                     </button>
                 </div>
@@ -112,7 +111,9 @@ const CartScreen = () => {
                     <div className="toast-body">
                         Checkout Successfully!
                     </div>
-                    <button type="button" className="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    <button type="button"
+                            className="btn-close btn-close-white me-2 m-auto"
+                            data-bs-dismiss="toast"
                             aria-label="Close"></button>
                 </div>
             </div>
