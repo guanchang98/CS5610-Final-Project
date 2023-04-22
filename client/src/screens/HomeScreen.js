@@ -4,28 +4,26 @@ import {Link} from "react-router-dom";
 import {fullTextSearch} from "../services/products/products-service";
 import {createProductThunk} from "../services/products/products-thunks";
 import {useDispatch} from "react-redux";
+import {useNavigate, useParams} from "react-router";
 
 const HomeScreen = () => {
-    const [search, setSearch] = useState("");
     const [results, setResults] = useState([]);
     const dispatch = useDispatch();
-    // const {products, loading} = useSelector(state => state.products);
+    const {searchString} = useParams();
+    const [search, setSearch] = useState(searchString);
+    const navigate = useNavigate();
+
 
     const saveProductsToDBAndReturn = async (product) => {
         const [createResponse] = await Promise.all([
             dispatch(createProductThunk(product)),
-            // dispatch(findProductByIdThunk(product.product_id)),
         ]);
-        // const createPayload = createResponse.payload;
-
         const {payload} = createResponse;
-        // console.log("Create payload", payload);
-        // console.log("Find payload", findResponse.payload);
         return payload;
     }
+
     const searchPunk = async () => {
         const query = search === "" ? "" : "beer_name=" + search;
-        // const query = "";
         let response = await fullTextSearch(query);
         for (let i = 0; i < response.length; i++) {
             response[i] = {
@@ -36,13 +34,14 @@ const HomeScreen = () => {
                 price: 9.99,
                 first_brewed: response[i].first_brewed,
             }
-            // console.log("before", response[i]);
             response[i] = await saveProductsToDBAndReturn(response[i]);
-            // console.log("after create", response[i]);
         }
-        // console.log("search", search);
-        // console.log("response", response);
         setResults(response);
+        if (search !== "") {
+            navigate(`/search/${search}`);
+        } else {
+            navigate("/search");
+        }
     }
     useEffect(() => {
         searchPunk();
