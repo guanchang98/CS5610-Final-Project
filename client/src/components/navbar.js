@@ -9,8 +9,6 @@ const NavBar = () => {
     const {pathname} = useLocation();
     const paths = pathname.split("/");
     const active = paths[1];
-    // console.log(paths);
-    // const loggingIn = false;
 
     return (
         <nav className="navbar navbar-expand-md navbar-light bg-light">
@@ -29,7 +27,7 @@ const NavBar = () => {
                 <div className="collapse navbar-collapse" id='navbarToggleMenu'>
                     <ul className="navbar-nav ms-auto">
                         <li>
-                            <a className={`nav-link ${active === 'home' ? 'active' : ''}`} href="/home">Home</a>
+                            <a className={`nav-link ${(active === 'home' || active === 'search') ? 'active' : ''}`} href="/home">Home</a>
                         </li>
                         <li>
                             <a className={`nav-link ${active === 'profile' ? 'active' : ''}`} href="/profile">Profile</a>
@@ -40,16 +38,9 @@ const NavBar = () => {
                         <li>
                             <a className={`nav-link ${active === 'cart' ? 'active' : ''}`} href="/cart">Cart</a>
                         </li>
-                        {/* <li>
-                            <a className="nav-link" href="/register">Register</a>
-                        </li>
-                        <li>
-                            <a className="nav-link" href="/login">Login</a>
-                        </li> */}
                         <li>
                             <LoginButton />
                         </li>
-                        
                     </ul>
                 </div>
             </div>

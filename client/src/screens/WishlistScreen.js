@@ -11,18 +11,21 @@ const WishlistScreen = () => {
     const dispatch = useDispatch();
 
     const getLikeProductList = async () => {
-        const response = await findLikeProductListById(currentUser._id).then(
-            async (result) => {
-                let products = [];
-                for (let i = 0; i < result.length; i++) {
-                    const prod = await getItembyId(result[i].productId);
-                    console.log(prod.payload);
-                    products.push(prod.payload);
+        if (currentUser && currentUser._id) {
+            const response = await findLikeProductListById(currentUser._id).then(
+                async (result) => {
+                    let products = [];
+                    for (let i = 0; i < result.length; i++) {
+                        const prod = await getItembyId(result[i].productId);
+                        console.log(prod.payload);
+                        products.push(prod.payload);
+                    }
+                    setLikeProducts(products);
+                    console.log(likeProducts);
                 }
-                setLikeProducts(products);
-                console.log(likeProducts);
-            }
-        )
+            )
+        }
+
     }
 
     const getItembyId = async (id) => {

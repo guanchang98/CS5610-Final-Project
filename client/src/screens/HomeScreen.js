@@ -10,7 +10,7 @@ const HomeScreen = () => {
     const [results, setResults] = useState([]);
     const dispatch = useDispatch();
     const {searchString} = useParams();
-    const [search, setSearch] = useState(searchString);
+    const [search, setSearch] = useState(searchString || "");
     const navigate = useNavigate();
 
 
@@ -37,10 +37,10 @@ const HomeScreen = () => {
             response[i] = await saveProductsToDBAndReturn(response[i]);
         }
         setResults(response);
-        if (search !== "") {
-            navigate(`/search/${search}`);
+        if (!search) {
+            navigate("/home");
         } else {
-            navigate("/search");
+            navigate(`/search/${search}`);
         }
     }
     useEffect(() => {
