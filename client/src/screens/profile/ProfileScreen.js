@@ -118,6 +118,8 @@ const ProfileScreen = (props) => {
             if (paramsUser.payload){
                 await fetchFollowerAndFollowing(profileData.payload);
                 await fetchFollows(profileData.payload, paramsUser.payload);
+                await getHistoryItems(paramsUser.payload);
+
             }
           }
           else{
