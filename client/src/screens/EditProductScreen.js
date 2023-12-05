@@ -85,7 +85,6 @@ const EditProductScreen = () => {
                                     onChange={(e) => {  
                                         setProduct({
                                             ...product, 
-                                            // price: Number(e.target.value).toFixed(2),
                                             price: e.target.value,
                                         })
                                     }}>

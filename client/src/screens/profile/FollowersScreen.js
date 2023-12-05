@@ -39,7 +39,6 @@ const FollowersScreen = () => {
     const fetchFollowing = async (id) => {
         const response = await dispatch(findFollowsByFollowedIdThunk(id));
         setFollowing(response.payload);
-        console.log(response.payload);
     };
 
     const loadScreen = async () => {
