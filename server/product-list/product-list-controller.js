@@ -27,7 +27,6 @@ function ProductListController(app) {
         const userId = req.params.uid;
         const productId = req.params.pid;
         const status = await productDao.findLikeStatusByUserIdAndProductId(userId, productId);
-        console.log("findLikeStatus", status);
         res.json(status);
     }
 

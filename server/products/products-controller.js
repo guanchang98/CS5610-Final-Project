@@ -4,7 +4,6 @@ function ProductsController(app) {
     const createProduct = async (req, res) => {
         const newProduct = req.body;
         const exist = await productsDao.checkProductExists(newProduct);
-        // console.log(exist);
         let product = null;
         if (exist === 0) {
             product = await productsDao.createProduct(newProduct);

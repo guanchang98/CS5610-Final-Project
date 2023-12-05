@@ -1,11 +1,27 @@
-import React, {useEffect, useState, useRef} from "react";
+import React, {
+    useEffect,
+    useState,
+    useRef
+} from "react";
 import BackButtonComponent from "../components/BackButtonComponent";
-import {useSelector, useDispatch} from "react-redux";
-import {getCartByUserIdThunk} from "../services/users/users-thunks";
-import {findProductByIdThunk} from "../services/products/products-thunks";
+import {
+    useSelector,
+    useDispatch
+} from "react-redux";
+import {
+    getCartByUserIdThunk
+} from "../services/users/users-thunks";
+import {
+    findProductByIdThunk
+} from "../services/products/products-thunks";
 import CartAndHistoryItem from "../components/CartAndHistoryItem";
-import {moveCartItemsToHistory, deleteProductFromCart} from "../services/users/users-service";
-import {Toast} from "bootstrap";
+import {
+    moveCartItemsToHistory,
+    deleteProductFromCart
+} from "../services/users/users-service";
+import {
+    Toast
+} from "bootstrap";
 import "../index.css";
 
 const CartScreen = () => {

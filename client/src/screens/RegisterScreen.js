@@ -1,7 +1,16 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router";
-import { registerThunk } from "../services/users/users-thunks";
+import React, {
+    useState
+} from "react";
+import {
+    useDispatch,
+    useSelector
+} from "react-redux";
+import {
+    useNavigate
+} from "react-router";
+import {
+    registerThunk
+} from "../services/users/users-thunks";
 
 function RegisterScreen() {
   const { currentUser } = useSelector((state) => state.users);

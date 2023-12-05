@@ -22,7 +22,6 @@ export const findLikeStatusByProductIdAndUserIdThunk = createAsyncThunk(
     "products/likeStatus",
     async (userId, productId) => {
         const response = await service.findLikeStatusByProductIdAndUserId(userId, productId);
-        console.log("find like status thunk", response);
         return response.data;
     }
 )

@@ -1,8 +1,21 @@
-import React, {useEffect, useState} from "react";
-import {useSelector, useDispatch} from "react-redux";
-import {useNavigate} from "react-router";
-import {findAllUsersThunk, deleteUserThunk} from "../services/users/users-thunks";
-import {Link} from "react-router-dom";
+import React, {
+    useEffect,
+    useState
+} from "react";
+import {
+    useSelector,
+    useDispatch
+} from "react-redux";
+import {
+    useNavigate
+} from "react-router";
+import {
+    findAllUsersThunk,
+    deleteUserThunk
+} from "../services/users/users-thunks";
+import {
+    Link
+} from "react-router-dom";
 import "../index.css";
 
 function AdminScreen() {
@@ -10,9 +23,6 @@ function AdminScreen() {
     const [allUsers, setAllUsers] = useState(users);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-//  if (!currentUser || currentUser.role !== 'ADMIN') {
-//       navigate('/login');
-//  }
     const deleteUser = async (id) => {
         await dispatch(deleteUserThunk(id));
     }
@@ -24,6 +34,7 @@ function AdminScreen() {
     useEffect(() => {
         loadScreen();
     }, []);
+
     return (
         <div>
             <h1>Welcome, admin!</h1>

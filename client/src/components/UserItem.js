@@ -1,10 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import {Link} from "react-router-dom";
+import React, {
+    useEffect,
+    useState
+} from 'react';
+import {
+    Link
+} from "react-router-dom";
 import "../index.css";
 import {
-  userUnfollowsUserThunk,
+    userUnfollowsUserThunk,
 } from "../services/users/follows-thunks";
-import { useDispatch, useSelector } from "react-redux";
+import {
+    useDispatch,
+    useSelector
+} from "react-redux";
 
 const UserItem = (
     {

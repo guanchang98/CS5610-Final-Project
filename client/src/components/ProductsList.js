@@ -5,7 +5,6 @@ import {useSelector} from "react-redux";
 const ProductsList = (props) => {
     const productArray = props.productArray;
     const {loading} = useSelector(state => state.products);
-    // console.log("loading", loading);
     return (
         <div className="row mt-2">
             {

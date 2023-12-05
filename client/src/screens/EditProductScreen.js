@@ -1,11 +1,25 @@
-import React, {useEffect, useState}from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {useLocation, useParams} from "react-router";
-import { useNavigate } from "react-router";
-// import {Link} from "react-router-dom";
-import { findProductByIdThunk, updateProductByIdThunk } from "../services/products/products-thunks";
-import { updateProductById } from "../services/products/products-service";
-
+import React, {
+    useEffect,
+    useState
+} from "react";
+import {
+    useSelector,
+    useDispatch
+} from "react-redux";
+import {
+    useLocation,
+    useParams
+} from "react-router";
+import {
+    useNavigate
+} from "react-router";
+import {
+    findProductByIdThunk,
+    updateProductByIdThunk
+} from "../services/products/products-thunks";
+import {
+    updateProductById
+} from "../services/products/products-service";
 
 const EditProductScreen = () => {
 
@@ -16,9 +30,7 @@ const EditProductScreen = () => {
     const dispatch = useDispatch();
 
     const saveEditButton = async () => {
-        // await dispatch(updateProductByIdThunk(product));
         await updateProductById(product);
-        // console.log("save edit button: ", product)
         navigate(`/details/${state._id}`, {state: product});
     }
 
@@ -28,7 +40,6 @@ const EditProductScreen = () => {
 
     const fetchProduct = async () => {
         const response = await dispatch(findProductByIdThunk(product.product_id));
-        // console.log("response: ", response.payload)
         setProduct(response.payload);
     }    
 
@@ -115,6 +126,6 @@ const EditProductScreen = () => {
             </div>
         </div>
     )
-    }
+}
 
-    export default EditProductScreen;
+export default EditProductScreen;

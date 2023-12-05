@@ -1,8 +1,8 @@
 import axios from "axios";
- const API_BASE = process.env.REACT_APP_API_BASE;
- const USERS_API_URL = `${API_BASE}/users`;
-// const USERS_API_URL = "http://localhost:4000/api/users";
-// console.log(USERS_API_URL)
+
+const API_BASE = process.env.REACT_APP_API_BASE;
+const USERS_API_URL = `${API_BASE}/users`;
+
 
 const api = axios.create({
   withCredentials: true,
@@ -34,10 +34,6 @@ export const login = (user) => {
   return api.post(`${USERS_API_URL}/login`, user);
 };
 
-//export const loginUser = async (user) => {
-//  const response = await axios.post(`${API_BASE}/api/login`, user);
-//  return response.data;
-//};
 
 export const logout = () => {
   return api.post(`${USERS_API_URL}/logout`);
@@ -48,38 +44,30 @@ export const register = (user) => {
 };
 
 export const profile =  () => {
-//  const response = await api.get(`${USERS_API_URL}/profile`);
-//  return response;
     return api.get(`${USERS_API_URL}/profile`);
 };
 
 export const addProductsToUserCart = (userId, productId, count) => {
-  console.log("product id from server: ", "product id: ", productId, "user id: ", userId, "count: ", count)
   const response = api.put(`${USERS_API_URL}/${userId}/cart/${productId}/count/${count}`);
   return response.data;
 }
 
 export const getCartByUserId = async (userId) => {
-  // console.log("get cart by user id: ", userId)
   const response = await axios.get(`${USERS_API_URL}/${userId}/cart`);
-  // console.log("response: ", response.data)
   return response;
 }
 
 export const getHistoryByUserId = async (userId) => {
   const response = await axios.get(`${USERS_API_URL}/${userId}/history`);
-  // console.log("response: ", response.data)
   return response;
 }
 
 export const moveCartItemsToHistory = (userId, productId, count) => {
-  console.log("product id from server", productId, userId, count)
   const response = api.put(`${USERS_API_URL}/${userId}/history/${productId}/count/${count}`);
   return response;
 }
 
 export const deleteProductFromCart = (userId, clId) => {
-  // console.log("delete product from cart: ", userId, productId, count)
   const response = api.delete(`${USERS_API_URL}/${userId}/deletle/cart/item/${clId}`);
   return response;
 }

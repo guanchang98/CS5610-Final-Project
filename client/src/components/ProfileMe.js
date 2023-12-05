@@ -1,7 +1,6 @@
 import BackButtonComponent from "./BackButtonComponent";
 import React, { useEffect, useState } from 'react';
 import {Link} from "react-router-dom";
-//import updateUserThunk from "../services/users/users-thunk";
 const ProfileMe = (
     {
             profile

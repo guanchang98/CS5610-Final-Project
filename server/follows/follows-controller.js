@@ -13,8 +13,6 @@ function FollowsController(app)  {
 
           const followed = req.params.followed;
           const follows = await followsDao.findFollowsByFollowedId(followed);
-
-
           const followsProfiles = [];
           for (let i = 0; i < follows.length; i++){
                const findUser = await usersDao.findUserById(follows[i].follower);
@@ -24,10 +22,6 @@ function FollowsController(app)  {
           }
 
           res.json(followsProfiles);
-
-
-
-
     };
 
     const findFollowsByFollowerId = async (req, res) => {
@@ -62,7 +56,6 @@ function FollowsController(app)  {
      const userFollowsUser = async (req, res) => {
             const follower = req.params.follower;
             const followed = req.params.followed;
-
             let follow = await followsDao.findFollowsByFollowerAndFollowed(follower, followed);
             if(follow){
                 res.sendStatus(400);
@@ -78,7 +71,6 @@ function FollowsController(app)  {
     app.get("/api/users/:followed/followers", findFollowsByFollowedId);
     app.get("/api/users/:follower/followees", findFollowsByFollowerId);
     app.get("/api/users/:follower/follows/:followed",findFollowsByFollowerAndFollowed);
-
 
 };
 
