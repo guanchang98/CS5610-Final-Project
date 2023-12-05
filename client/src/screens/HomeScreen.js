@@ -1,10 +1,25 @@
-import React, {useEffect, useState} from "react";
+import React, {
+    useEffect,
+    useState
+} from "react";
 import ProductsList from "../components/ProductsList";
-import {Link} from "react-router-dom";
-import {fullTextSearch} from "../services/products/products-service";
-import {createProductThunk, findProductsThunk} from "../services/products/products-thunks";
-import {useDispatch} from "react-redux";
-import {useNavigate, useParams} from "react-router";
+import {
+    Link
+} from "react-router-dom";
+import {
+    fullTextSearch
+} from "../services/products/products-service";
+import {
+    createProductThunk,
+    findProductsThunk
+} from "../services/products/products-thunks";
+import {
+    useDispatch
+} from "react-redux";
+import {
+    useNavigate,
+    useParams
+} from "react-router";
 
 const HomeScreen = () => {
     const [results, setResults] = useState([]);
@@ -12,7 +27,6 @@ const HomeScreen = () => {
     const {searchString} = useParams();
     const [search, setSearch] = useState(searchString || "");
     const navigate = useNavigate();
-
 
     const saveProductsToDBAndReturn = async (product) => {
         const [createResponse] = await Promise.all([

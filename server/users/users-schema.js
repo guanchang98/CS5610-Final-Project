@@ -12,21 +12,6 @@ const usersSchema = new mongoose.Schema(
     profilePic:{type: String, default:"https://www.reuters.com/resizer/S2QZTkoqSfT_OagpUN2LL5FX5j8=/960x0/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/TXDGVXPBEVMY5PA2RHRF2EA25Y.jpg"},
     cart: [
         {
-          // type: {
-          //   product_id: {
-          //     type: Number,
-          //     ref: "product",
-          //     required: true,
-          //     localField: "product_id",
-          //     foreignField: "product_id",
-          //     justOne: true,
-          //   },
-          //   count: {
-          //     type: Number,
-          //     required: true,
-          //   },
-          // },
-          // required: false,
           product_id: {type: Number, required: true},
           count: {type: Number, required: true},
         },

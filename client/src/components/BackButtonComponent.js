@@ -1,5 +1,7 @@
 import React from "react";
-import {useNavigate} from "react-router";
+import {
+    useNavigate
+} from "react-router";
 
 const BackButtonComponent = () => {
     const navigate = useNavigate();

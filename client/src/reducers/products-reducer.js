@@ -65,8 +65,6 @@ const productSlice = createSlice({
             },
             [updateProductByIdThunk.fulfilled]: (state, {payload}) => {
                 state.loading = false;
-                // console.log("state", state)
-                // console.log("prod reducer -- payload", state.products)
                 const productIdx = state.products.findIndex(p => p.product_id === payload.product_id)
                 state.products[productIdx] = {
                     ...state.products[productIdx],

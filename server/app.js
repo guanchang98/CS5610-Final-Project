@@ -14,8 +14,7 @@ mongoose.connect("mongodb+srv://zhuge:good@cluster0.kx04lve.mongodb.net/project?
 
 const app = express();
 const allowedOrigins = ["http://localhost:3000","http://localhost:3001","https://capable-rugelach-0c7fd8.netlify.app"]
-console.log("allowed origins")
-console.log(allowedOrigins)
+
 //app.use(cors());
 app.use(
   cors({

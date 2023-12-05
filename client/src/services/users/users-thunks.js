@@ -61,7 +61,6 @@ export const profileThunk = createAsyncThunk("users/profile", async () => {
 export const addProductsToUserCartThunk = createAsyncThunk(
   "users/addProductsToUserCart",    
   async (userId, productId, count) => {
-    console.log("product id from server: ", "product id: ", productId, "user id: ", userId, "count: ", count)
     const response = await userService.addProductsToUserCart(userId, productId, count);
     return response.data;
   } 

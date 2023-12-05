@@ -1,5 +1,7 @@
-import { useLocation, useNavigate} from 'react-router';
-
+import {
+    useLocation,
+    useNavigate
+} from 'react-router';
 
 const CartAndHistoryItem = ({item, onClickDelete}) => {
     const {pathname} = useLocation();
@@ -44,8 +46,6 @@ const CartAndHistoryItem = ({item, onClickDelete}) => {
                 </div>
                 <hr/>
             </li>
-        
-    
     );
 }
 

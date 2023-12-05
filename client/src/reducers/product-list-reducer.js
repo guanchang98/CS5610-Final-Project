@@ -1,16 +1,14 @@
-import {createSlice} from "@reduxjs/toolkit";
-
+import {
+    createSlice
+} from "@reduxjs/toolkit";
 import {
     findLikeStatusByProductIdAndUserIdThunk,
     userLikesProductThunk,
     userUnlikesProductThunk
 } from "../services/product-list/product-list-thunk";
-
 const initialState = {
     productList: [],
 };
-
-
 const productListSlice = createSlice({
     name: "productList",
     initialState: initialState,

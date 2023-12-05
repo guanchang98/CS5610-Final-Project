@@ -1,24 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+    useEffect,
+    useState
+} from 'react';
 import UserItem from "../../components/UserItem";
 import BackButtonComponent from "../../components/BackButtonComponent";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router";
-import { findUserById } from "../../services/users/users-service";
 import {
-  userFollowsUserThunk,
-  findFollowsByFollowerIdThunk,
-  findFollowsByFollowedIdThunk,
+    useDispatch,
+    useSelector
+} from "react-redux";
+import {
+    useNavigate,
+    useParams
+} from "react-router";
+import {
+    findUserById
+} from "../../services/users/users-service";
+import {
+    userFollowsUserThunk,
+    findFollowsByFollowerIdThunk,
+    findFollowsByFollowedIdThunk,
 } from "../../services/users/follows-thunks";
 import {
-  profileThunk,
-  logoutThunk,
-  updateUserThunk,
+    profileThunk,
+    logoutThunk,
+    updateUserThunk,
 } from "../../services/users/users-thunks";
+
 
 const FollowingScreen = () => {
     const {follows} = useSelector((state) => state.follows);
     const [following,setFollows] = useState(follows);
-//      const [following,setFollows] = useState([]);
     const  {currentUser}  = useSelector((state) => state.users);
     const [profile, setProfile] = useState(currentUser);
     const dispatch = useDispatch();
@@ -51,15 +62,11 @@ const FollowingScreen = () => {
 
     return (
         <div>
-            <BackButtonComponent/>
+            <BackButtonComponent />
             <h1>Following</h1>
             <h1>{currentUser?.username}</h1>
-            <ul className="list-group">
-                        {
-                            follows?.map(user =>
-                                <UserItem
-                                    key={user._id} user={user}/> )
-                        }
+            <ul className="list-group"> { follows?.map(user =>
+                <UserItem key={user._id} user={user} /> ) }
             </ul>
         </div>
     )

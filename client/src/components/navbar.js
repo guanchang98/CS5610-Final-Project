@@ -1,10 +1,13 @@
-import React, {useEffect} from "react";
-// import {Link} from "react-router-dom";
-import {useLocation} from "react-router";
-// import SearchBar from './SearchBar.js'; 
+import React, {
+    useEffect
+} from "react";
+import {
+    useLocation
+} from "react-router";
 import LoginButton from './LoginButton';
-import {useSelector} from "react-redux";
-
+import {
+    useSelector
+} from "react-redux";
 
 const NavBar = () => {
     const {pathname} = useLocation();
@@ -20,7 +23,7 @@ const NavBar = () => {
     return (
         <nav className="navbar navbar-expand-md navbar-light bg-light">
             <div className="container-fluid">
-                <a className="navbar-brand f" href="/home">Shopping</a>
+                <a className="navbar-brand f" href="/home">Beers Marketplace</a>
                 <button className="navbar-toggler" 
                         type="button" 
                         data-bs-toggle="collapse" 

@@ -1,9 +1,19 @@
-import React, {useEffect, useState} from "react";
+import React, {
+    useEffect,
+    useState
+} from "react";
 import BackButtonComponent from "../components/BackButtonComponent";
-import {useDispatch, useSelector} from "react-redux";
-import {findLikeProductListById} from "../services/product-list/product-list-service";
+import {
+    useDispatch,
+    useSelector
+} from "react-redux";
+import {
+    findLikeProductListById
+} from "../services/product-list/product-list-service";
 import ProductsList from "../components/ProductsList";
-import {findProductByObjectIdThunk} from "../services/products/products-thunks";
+import {
+    findProductByObjectIdThunk
+} from "../services/products/products-thunks";
 
 const WishlistScreen = () => {
     const {currentUser} = useSelector(state => state.users);
@@ -29,9 +39,7 @@ const WishlistScreen = () => {
     }
 
     const getItembyId = async (id) => {
-        // console.log("wait to get item by id")
         const response = await dispatch(findProductByObjectIdThunk(id));
-        // console.log("item from getItemById function: ", response.payload);
         return response;
     }
 

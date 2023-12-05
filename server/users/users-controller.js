@@ -1,7 +1,5 @@
-// import users from "./users.js";
 import * as usersDao from "./users-dao.js";
 
-// let currentUser = null;
 
 function UsersController(app) {
   const findAllUsers = async (req, res) => {
@@ -10,21 +8,15 @@ function UsersController(app) {
   };
   const findUserById = async (req, res) => {
     const id = req.params.id;
-    // const user = users.find((user) => user.id === id);
     const user = await usersDao.findUserById(id);
     res.send(user);
   };
   const deleteUserById = async (req, res) => {
     const id = req.params.id;
-    // const user = users.find((user) => user.id === id);
-    // const index = users.indexOf(user);
-    // users.splice(index, 1);
     const status = await usersDao.deleteUser(id);
     res.json(status);
   };
   const createUser = async (req, res) => {
-    // const user = req.body;
-    // users.push({ ...user, id: new Date().getTime() });
     const user = await usersDao.createUser(req.body);
     res.json(user);
   };
@@ -33,9 +25,6 @@ function UsersController(app) {
   const updateUser = async (req, res) => {
     const id = req.params.id;
     const currentUser = req.session["currentUser"];
-    // const user = users.find((user) => user.id === id);
-    // const index = users.indexOf(user);
-    // users[index] = { ...user, ...req.body };
     if (id === currentUser._id){
         req.session["currentUser"] = {...currentUser, ...req.body};
     }
@@ -61,21 +50,17 @@ function UsersController(app) {
 
   const register = async (req, res) => {
     const user = req.body;
-    // const foundUser = users.find((user) => user.username === req.body.username);
     const foundUser = await usersDao.findUserByUsername(req.body.username);
     if (foundUser) {
       res.sendStatus(409);
     } else {
-      // const newUser = { ...user, id: new Date().getTime() };
       const newUser = await usersDao.createUser(user);
       req.session["currentUser"] = newUser;
-      // users.push(newUser);
       res.json(newUser);
     }
   };
   const logout = async (req, res) => {
     req.session.destroy();
-    // currentUser = null;
     res.sendStatus(204);
   };
   const profile = async (req, res) => {
@@ -110,7 +95,6 @@ function UsersController(app) {
     const userId = req.params.id;
     const product_id = req.params.pid;
     const count = req.params.count;
-    console.log("moveCartItemsToHistory", userId, product_id, count);
     await usersDao.moveCartItemsToHistory(userId, product_id, count);
     const status = await usersDao.deleteCartItems(userId, product_id, count);
     res.json(status);

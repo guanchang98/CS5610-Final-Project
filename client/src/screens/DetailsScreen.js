@@ -5,7 +5,6 @@ import {
     userLikesProduct,
     userUnlikesProduct
 } from "../services/product-list/product-list-service";
-// import { updateProductByIdThunk} from "../services/products/products-thunks";
 import {updateProductById, findProductById} from '../services/products/products-service';
 import {updateProductByIdThunk, findProductByIdThunk} from "../services/products/products-thunks";
 import {addProductsToUserCart} from '../services/users/users-service';
@@ -16,13 +15,11 @@ import {
     findLikeStatusByProductIdAndUserIdThunk
 } from "../services/product-list/product-list-thunk";
 import BackButtonComponent from "../components/BackButtonComponent";
-// import BackButtonComponent from "../components/BackButtonComponent";
 import {useNavigate} from "react-router";
 import { findUserByIdThunk } from "../services/users/users-thunks";
 import {Toast} from "bootstrap";
 
 const DetailsScreen = () => {
-    // const params = useParams();
     const {state} = useLocation();
     const [seller, setSeller] = useState(null);
     const [product, setProduct] = useState(state);
@@ -72,11 +69,8 @@ const DetailsScreen = () => {
     }
 
     const addToCart = async () => {
-        // console.log("count: ", count)
         const response = await addProductsToUserCart(currentUser._id, state.product_id, count);
-        // console.log("response from add to cart: ", response)
         await toggleToast();
-        // const response = await addProductsToUserCartThunk(currentUser._id, state.product_id, count);
 
     }
 
@@ -84,7 +78,6 @@ const DetailsScreen = () => {
         await updateProductById({...state, seller_id: currentUser._id});
         await userLikesProduct(currentUser._id, state._id);
         await fetchProduct();
-        // const response = await dispatch(updateProductByIdThunk({...state, seller_id: currentUser._id}));
     }
 
     const findSellerById = async () => {

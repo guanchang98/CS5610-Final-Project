@@ -1,9 +1,20 @@
-import {Link} from "react-router-dom";
-import React, {useState, useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {useNavigate} from "react-router";
-import {loginThunk} from "../services/users/users-thunks";
-
+import {
+    Link
+} from "react-router-dom";
+import React, {
+    useState,
+    useEffect
+} from "react";
+import {
+    useDispatch,
+    useSelector
+} from "react-redux";
+import {
+    useNavigate
+} from "react-router";
+import {
+    loginThunk
+} from "../services/users/users-thunks";
 
 const LoginScreen = () => {
     const {currentUser} = useSelector((state) => state.users);
@@ -14,8 +25,6 @@ const LoginScreen = () => {
     const login = async () => {
         try {
             const user = await dispatch(loginThunk({username, password}));
-            console.log("login")
-            console.log(user.payload.role)
             if (user.payload.role === "ADMIN"){
                 navigate("/admin");
             }
