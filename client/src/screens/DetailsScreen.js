@@ -19,6 +19,13 @@ import {useNavigate} from "react-router";
 import { findUserByIdThunk } from "../services/users/users-thunks";
 import {Toast} from "bootstrap";
 
+/**
+ * Functional component representing detail page of a product.
+ * Seller can edit product's detail, while buyer can add to cart/like the product.
+ *
+ * @component
+ * @returns {JSX.Element} - The rendered component.
+ */
 const DetailsScreen = () => {
     const {state} = useLocation();
     const [seller, setSeller] = useState(null);
@@ -34,19 +41,7 @@ const DetailsScreen = () => {
         setShowToast(!showToast);
     };
 
-    useEffect(() => {
-        if (showToast) {
-            const toast = new Toast(toastRef.current);
-            toast.show();
-            setTimeout(() => {
-                setShowToast(false);
-            }, 2000); // Change state after 2 seconds
-        }
-    }, [showToast]);
-
-
     const getLikeStatus = async () => {
-        console.log(currentUser);
         if (currentUser && currentUser._id) {
             const response = await findLikeStatusByProductIdAndUserId(currentUser._id, state._id);
             if (response === null) {
@@ -98,15 +93,23 @@ const DetailsScreen = () => {
         setProduct(response);
     }
 
-    useEffect(() => {
-        loadScreen()
-    }, [currentUser])
-
     const loadScreen = async () => {
         await fetchProduct();
         await getLikeStatus();
         await findSellerById();
     };
+
+    useEffect(() => {
+        //fetch product information, check whether current user like/sell/like the product
+        loadScreen()
+        if (showToast) {
+            const toast = new Toast(toastRef.current);
+            toast.show();
+            setTimeout(() => {
+                setShowToast(false);
+            }, 2000); // Change state after 2 seconds
+        }
+    }, [showToast, currentUser]);
 
     return (
         <div>

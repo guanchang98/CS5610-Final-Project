@@ -15,6 +15,12 @@ import {
     findProductByObjectIdThunk
 } from "../services/products/products-thunks";
 
+/**
+ * Functional component representing buyer's wishlist of want-to-buy products.
+ *
+ * @component
+ * @returns {JSX.Element} - The rendered component.
+ */
 const WishlistScreen = () => {
     const {currentUser} = useSelector(state => state.users);
     const [likeProducts, setLikeProducts] = useState([]);
@@ -48,6 +54,7 @@ const WishlistScreen = () => {
     };
 
     useEffect(() => {
+        //fetch buyers' wish list
         loadScreen();
     }, [currentUser]);
 

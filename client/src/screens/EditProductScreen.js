@@ -21,6 +21,12 @@ import {
     updateProductById
 } from "../services/products/products-service";
 
+/**
+ * Functional component representing a page for sellers to edit owned products' details.
+ *
+ * @component
+ * @returns {JSX.Element} - The rendered component.
+ */
 const EditProductScreen = () => {
 
     const { state } = useLocation();
@@ -48,6 +54,7 @@ const EditProductScreen = () => {
     }
 
     useEffect(() => {
+        //fetch product information which user will edit
         loadScreen();
     }, [])
 

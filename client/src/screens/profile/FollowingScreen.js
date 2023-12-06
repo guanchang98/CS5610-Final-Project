@@ -27,6 +27,12 @@ import {
 } from "../../services/users/users-thunks";
 
 
+/**
+ * Functional component representing user's following users.
+ *
+ * @component
+ * @returns {JSX.Element} - The rendered component.
+ */
 const FollowingScreen = () => {
     const {follows} = useSelector((state) => state.follows);
     const [following,setFollows] = useState(follows);
@@ -57,6 +63,7 @@ const FollowingScreen = () => {
     };
 
     useEffect(() => {
+        //fetch current user's id and followings
        loadScreen();
     }, []);
 

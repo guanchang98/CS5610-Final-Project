@@ -16,6 +16,12 @@ import {
     loginThunk
 } from "../services/users/users-thunks";
 
+/**
+ * Functional component representing login screen.
+ *
+ * @component
+ * @returns {JSX.Element} - The rendered component.
+ */
 const LoginScreen = () => {
     const {currentUser} = useSelector((state) => state.users);
     const [username, setUsername] = useState("");

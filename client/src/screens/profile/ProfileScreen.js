@@ -49,6 +49,12 @@ import {
     findProductByIdThunk
 } from "../../services/products/products-thunks";
 
+/**
+ * Functional component representing user's profile.
+ *
+ * @component
+ * @returns {JSX.Element} - The rendered component.
+ */
 const ProfileScreen = (props) => {
     const {
         userId
@@ -131,27 +137,7 @@ const ProfileScreen = (props) => {
     const updateProfile = async () => {
         await dispatch(updateUserThunk(profile));
     };
-    const loadScreen = async () => {
-        try {
-            const profileData = await fetchProfile();
-            const paramsUser = await fetchUserInfo();
-            if (userId) {
-                if (paramsUser.payload) {
-                    await fetchFollowerAndFollowing(profileData.payload);
-                    await fetchFollows(profileData.payload, paramsUser.payload);
-                    await getHistoryItems(paramsUser.payload);
-                }
-            } else {
-                if (profileData.payload) {
-                    await fetchFollowerAndFollowing(profileData.payload);
-                    await fetchFollows(profileData.payload, null);
-                    await getHistoryItems(profileData.payload);
-                }
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
+
     const getItemById = async (id) => {
         const response = await dispatch(findProductByIdThunk(id));
         return response;
@@ -181,7 +167,31 @@ const ProfileScreen = (props) => {
             return [];
         }
     }
+
+    const loadScreen = async () => {
+            try {
+                const profileData = await fetchProfile();
+                const paramsUser = await fetchUserInfo();
+                if (userId) {
+                    if (paramsUser.payload) {
+                        await fetchFollowerAndFollowing(profileData.payload);
+                        await fetchFollows(profileData.payload, paramsUser.payload);
+                        await getHistoryItems(paramsUser.payload);
+                    }
+                } else {
+                    if (profileData.payload) {
+                        await fetchFollowerAndFollowing(profileData.payload);
+                        await fetchFollows(profileData.payload, null);
+                        await getHistoryItems(profileData.payload);
+                    }
+                }
+            } catch (error) {
+                console.error(error);
+            }
+    };
+
     useEffect(() => {
+        //Fetch user's profile, follower/following, shopping history
         loadScreen();
     }, [userId]);
     return user && (!profile || (profile && profile._id !== user._id))?(<div>

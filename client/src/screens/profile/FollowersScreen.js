@@ -23,6 +23,12 @@ import {
     updateUserThunk,
 } from "../../services/users/users-thunks";
 
+/**
+ * Functional component representing user's followers.
+ *
+ * @component
+ * @returns {JSX.Element} - The rendered component.
+ */
 const FollowersScreen = () => {
     const {follows} = useSelector((state) => state.follows);
     const [followers,setFollowing] = useState(follows);
@@ -54,6 +60,7 @@ const FollowersScreen = () => {
     };
 
     useEffect(() => {
+        //fetch current user's id and followers
         loadScreen();
     }, []);
 

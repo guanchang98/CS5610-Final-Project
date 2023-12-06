@@ -21,6 +21,13 @@ import {
     useParams
 } from "react-router";
 
+
+/**
+ * Functional component representing home screen which will be loaded when user open the website.
+ *
+ * @component
+ * @returns {JSX.Element} - The rendered component.
+ */
 const HomeScreen = () => {
     const [results, setResults] = useState([]);
     const dispatch = useDispatch();
@@ -72,6 +79,7 @@ const HomeScreen = () => {
         }
     }
     useEffect(() => {
+        //fetch all products available from mongodb database
         searchPunk();
     }, [])
     return (

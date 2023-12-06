@@ -8,7 +8,6 @@ import LoginScreen from "./screens/LoginScreen";
 import FollowersScreen from "./screens/profile/FollowersScreen";
 import FollowingScreen from "./screens/profile/FollowingScreen";
 import EditProductScreen from './screens/EditProductScreen';
-import CurrentUserScreen from "./screens/profile/CurrentUserScreen";
 import {Provider, useSelector} from "react-redux";
 import store from "./reducers/store"
 import RegisterScreen from "./screens/RegisterScreen";

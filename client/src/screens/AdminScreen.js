@@ -18,6 +18,12 @@ import {
 } from "react-router-dom";
 import "../index.css";
 
+/**
+ * Functional component representing user role ADMIN's homepage.
+ *
+ * @component
+ * @returns {JSX.Element} - The rendered component.
+ */
 function AdminScreen() {
     const {users} = useSelector((state) => state.users);
     const [allUsers, setAllUsers] = useState(users);
@@ -32,6 +38,7 @@ function AdminScreen() {
         setAllUsers(response.payload);
     }
     useEffect(() => {
+        //Fetch all registered users for admin role
         loadScreen();
     }, []);
 
