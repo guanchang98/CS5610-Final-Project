@@ -1,5 +1,11 @@
 import productsModel from "./products-model.js";
 
+/**
+ * @dao
+ * Provides data access methods for products.
+ *
+ * @module daos/products-dao
+ */
 export const createProduct = (product) => productsModel.create(product);
 export const findProductById = (pid) => productsModel.findOne({product_id: pid});
 export const findProductByObjectId = (id) => productsModel.findOne({_id: id});

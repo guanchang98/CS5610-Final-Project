@@ -9,21 +9,13 @@ import {
     useSelector
 } from "react-redux";
 import {
-    useNavigate,
-    useParams
+    useNavigate
 } from "react-router";
 import {
-    findUserById
-} from "../../services/users/users-service";
-import {
-    userFollowsUserThunk,
-    findFollowsByFollowerIdThunk,
-    findFollowsByFollowedIdThunk,
+    findFollowsByFollowerIdThunk
 } from "../../services/users/follows-thunks";
 import {
-    profileThunk,
-    logoutThunk,
-    updateUserThunk,
+    profileThunk
 } from "../../services/users/users-thunks";
 
 
@@ -39,7 +31,6 @@ const FollowingScreen = () => {
     const  {currentUser}  = useSelector((state) => state.users);
     const [profile, setProfile] = useState(currentUser);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const fetchProfile = async () => {
         const response = await dispatch(profileThunk());
         setProfile(response.payload);

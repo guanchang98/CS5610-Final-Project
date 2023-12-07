@@ -1,5 +1,12 @@
 import followsModel from "./follows-model.js"
 
+/**
+ * @dao
+ * Provides data access methods for follow relationship between users.
+ *
+ * @module daos/follows-dao
+ */
+
 export const userFollowsUser = async (follower, followed) => {
     return await followsModel.create({follower:follower, followed:followed});
 };

@@ -2,7 +2,7 @@ import {profileThunk,updateUserThunk} from "../../services/users/users-thunks";
 import {useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from 'react';
 import {Link} from "react-router-dom";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 
 /**
  * Functional component for user to edit profile.

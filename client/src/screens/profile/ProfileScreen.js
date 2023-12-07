@@ -7,7 +7,6 @@ import {
     useSelector
 } from "react-redux";
 import {
-    useNavigate,
     useParams
 } from "react-router";
 import {
@@ -15,16 +14,9 @@ import {
 } from "react-router-dom";
 import {
     profileThunk,
-    logoutThunk,
-    updateUserThunk,
-    getCartByUserIdThunk,
     getHistoryByUserIdThunk,
     findUserByIdThunk,
 } from "../../services/users/users-thunks";
-import {
-    findUserById
-} from "../../services/users/users-service";
-import ProfileMe from "../../components/ProfileMe";
 import {
     userUnfollowsUserThunk,
     userFollowsUserThunk,
@@ -32,17 +24,7 @@ import {
     findFollowsByFollowerAndFollowedThunk,
     findFollowsByFollowerIdThunk,
 } from "../../services/users/follows-thunks";
-import {
-    userFollowsUser,
-    findFollowsByFollowerAndFollowed,
-} from "../../services/users/follows-service";
-import ProductsList from "../../components/ProductsList";
 import BackButtonComponent from "../../components/BackButtonComponent";
-import {
-    useLocation
-} from "react-router";
-import bannerPic from "../../images/profile_banner.jpeg";
-import avatar from "../../images/avatar_man.png";
 import '../../index.css';
 import CartAndHistoryItem from "../../components/CartAndHistoryItem";
 import {
@@ -71,7 +53,6 @@ const ProfileScreen = (props) => {
     const [user, setUser] = useState(null);
     const [products, setProducts] = useState([]);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const fetchFollows = async (curUser, paramUser) => {
         if (userId) {
             if (paramUser.role === "SELLER") {
@@ -133,9 +114,6 @@ const ProfileScreen = (props) => {
         } catch (error) {
             console.error(error);
         }
-    };
-    const updateProfile = async () => {
-        await dispatch(updateUserThunk(profile));
     };
 
     const getItemById = async (id) => {

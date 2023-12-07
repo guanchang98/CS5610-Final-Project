@@ -1,5 +1,11 @@
 import * as productsDao from "./products-dao.js";
 
+/**
+ * @controller
+ * Handles incoming HTTP requests related to products.
+ *
+ * @module controllers/ProductsController
+ */
 function ProductsController(app) {
     const createProduct = async (req, res) => {
         const newProduct = req.body;

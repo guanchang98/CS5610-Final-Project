@@ -1,6 +1,11 @@
 import * as usersDao from "./users-dao.js";
 
-
+/**
+ * @controller
+ * Handles incoming HTTP requests related to users.
+ *
+ * @module controllers/UsersController
+ */
 function UsersController(app) {
   const findAllUsers = async (req, res) => {
     const users = await usersDao.findAllUsers();

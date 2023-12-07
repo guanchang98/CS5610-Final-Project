@@ -1,23 +1,37 @@
-import React, {useEffect, useState, useRef} from "react";
-import {useLocation, useParams} from "react-router";
+import React, {
+    useEffect,
+    useState,
+    useRef
+} from "react";
+import {
+    useLocation
+} from "react-router";
 import {
     findLikeStatusByProductIdAndUserId,
     userLikesProduct,
     userUnlikesProduct
 } from "../services/product-list/product-list-service";
-import {updateProductById, findProductById} from '../services/products/products-service';
-import {updateProductByIdThunk, findProductByIdThunk} from "../services/products/products-thunks";
-import {addProductsToUserCart} from '../services/users/users-service';
-import {useDispatch, useSelector} from "react-redux";
-import {addProductsToUserCartThunk} from "../services/users/users-thunks";
 import {
-    userLikesProductThunk,
-    findLikeStatusByProductIdAndUserIdThunk
-} from "../services/product-list/product-list-thunk";
+    updateProductById,
+    findProductById
+} from '../services/products/products-service';
+import {
+    addProductsToUserCart
+} from '../services/users/users-service';
+import {
+    useDispatch,
+    useSelector
+} from "react-redux";
 import BackButtonComponent from "../components/BackButtonComponent";
-import {useNavigate} from "react-router";
-import { findUserByIdThunk } from "../services/users/users-thunks";
-import {Toast} from "bootstrap";
+import {
+    useNavigate
+} from "react-router";
+import {
+    findUserByIdThunk
+} from "../services/users/users-thunks";
+import {
+    Toast
+} from "bootstrap";
 
 /**
  * Functional component representing detail page of a product.

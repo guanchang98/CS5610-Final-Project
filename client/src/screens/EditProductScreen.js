@@ -3,19 +3,16 @@ import React, {
     useState
 } from "react";
 import {
-    useSelector,
     useDispatch
 } from "react-redux";
 import {
-    useLocation,
-    useParams
+    useLocation
 } from "react-router";
 import {
     useNavigate
 } from "react-router";
 import {
-    findProductByIdThunk,
-    updateProductByIdThunk
+    findProductByIdThunk
 } from "../services/products/products-thunks";
 import {
     updateProductById

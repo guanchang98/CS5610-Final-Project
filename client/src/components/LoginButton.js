@@ -1,12 +1,7 @@
-import React, {
-    useEffect
-} from "react";
+import React from "react";
 import {
     Link
 } from "react-router-dom";
-import {
-    changeState
-} from "../reducers/isLogging-reducer";
 import {
     useDispatch,
     useSelector
@@ -38,15 +33,11 @@ const LoginButton = () => {
               <div className="float-end">Welcome, {currentUser.username}</div>
            </div>
            ):(
-           <div>
-              <Link to="/login" className="btn btn-link float-end"
-                 onClick={() =>
-              {console.log("login")}}>Login</Link>
-              <Link to="/register" className="btn btn-link float-end"
-                 onClick={() =>
-              {console.log("register")}}>Register</Link>
-              <div className="float-end">Welcome, Anonymous</div>
-           </div>
+            <div class="wd-link-container">
+              <a href="/register">Register</a>
+              <span>/ </span>
+              <a href="/login">Login</a>
+            </div>
            );
 }
 
