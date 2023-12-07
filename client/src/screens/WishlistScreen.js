@@ -33,11 +33,9 @@ const WishlistScreen = () => {
                     let products = [];
                     for (let i = 0; i < result.length; i++) {
                         const prod = await getItembyId(result[i].productId);
-                        console.log(prod.payload);
                         products.push(prod.payload);
                     }
                     setLikeProducts(products);
-                    console.log(likeProducts);
                 }
             )
         }
