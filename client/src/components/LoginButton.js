@@ -33,7 +33,7 @@ const LoginButton = () => {
               <div className="float-end">Welcome, {currentUser.username}</div>
            </div>
            ):(
-            <div class="wd-link-container">
+            <div className="wd-link-container">
               <a href="/register">Register</a>
               <span>/ </span>
               <a href="/login">Login</a>
