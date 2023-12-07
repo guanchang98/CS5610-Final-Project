@@ -9,28 +9,25 @@ import {
     useSelector
 } from "react-redux";
 import {
-    useNavigate,
-    useParams
-} from "react-router";
-import {
-    userFollowsUserThunk,
-    findFollowsByFollowerIdThunk,
     findFollowsByFollowedIdThunk,
 } from "../../services/users/follows-thunks";
 import {
-    profileThunk,
-    logoutThunk,
-    updateUserThunk,
+    profileThunk
 } from "../../services/users/users-thunks";
 
+/**
+ * Functional component representing user's followers.
+ *
+ * @component
+ * @returns {JSX.Element} - The rendered component.
+ */
 const FollowersScreen = () => {
     const {follows} = useSelector((state) => state.follows);
     const [followers,setFollowing] = useState(follows);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const { currentUser } = useSelector((state) => state.users);
-    const [profile, setProfile] = useState(currentUser);
+    const [setProfile] = useState(currentUser);
     const fetchProfile = async () => {
         const response = await dispatch(profileThunk());
         setProfile(response.payload);
@@ -39,7 +36,6 @@ const FollowersScreen = () => {
     const fetchFollowing = async (id) => {
         const response = await dispatch(findFollowsByFollowedIdThunk(id));
         setFollowing(response.payload);
-        console.log(response.payload);
     };
 
     const loadScreen = async () => {
@@ -55,6 +51,7 @@ const FollowersScreen = () => {
     };
 
     useEffect(() => {
+        //fetch current user's id and followers
         loadScreen();
     }, []);
 

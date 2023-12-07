@@ -34,7 +34,7 @@ const NavBar = () => {
                 >
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className="collapse navbar-collapse" id='navbarToggleMenu'>
+                <div className="collapse navbar-collapse" id='navbarToggleMenu' >
                     <ul className="navbar-nav ms-auto">
                         <li>
                             <a className={`nav-link ${(active === 'home' || active === 'search') ? 'active' : ''}`} href="/home">Home</a>
@@ -50,6 +50,10 @@ const NavBar = () => {
                             {
                                 (!currentUser || (currentUser && currentUser.role === "BUYER")) &&
                                 <a className={`nav-link ${active === 'wishlist' ? 'active' : ''}`} href="/wishlist">Wishlist</a>
+                            }
+                            {
+                                (currentUser && currentUser.role === "ADMIN") &&
+                                <a className={`nav-link ${active === 'admin' ? 'active' : ''}`} href="/admin">Management</a>
                             }
                         </li>
                         <li>

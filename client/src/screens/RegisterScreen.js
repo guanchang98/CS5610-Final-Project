@@ -12,6 +12,12 @@ import {
     registerThunk
 } from "../services/users/users-thunks";
 
+/**
+ * Functional component representing register screen.
+ *
+ * @component
+ * @returns {JSX.Element} - The rendered component.
+ */
 function RegisterScreen() {
   const { currentUser } = useSelector((state) => state.users);
   const [username, setUsername] = useState("");

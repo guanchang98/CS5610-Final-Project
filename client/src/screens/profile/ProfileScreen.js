@@ -7,7 +7,6 @@ import {
     useSelector
 } from "react-redux";
 import {
-    useNavigate,
     useParams
 } from "react-router";
 import {
@@ -15,16 +14,9 @@ import {
 } from "react-router-dom";
 import {
     profileThunk,
-    logoutThunk,
-    updateUserThunk,
-    getCartByUserIdThunk,
     getHistoryByUserIdThunk,
     findUserByIdThunk,
 } from "../../services/users/users-thunks";
-import {
-    findUserById
-} from "../../services/users/users-service";
-import ProfileMe from "../../components/ProfileMe";
 import {
     userUnfollowsUserThunk,
     userFollowsUserThunk,
@@ -32,23 +24,19 @@ import {
     findFollowsByFollowerAndFollowedThunk,
     findFollowsByFollowerIdThunk,
 } from "../../services/users/follows-thunks";
-import {
-    userFollowsUser,
-    findFollowsByFollowerAndFollowed,
-} from "../../services/users/follows-service";
-import ProductsList from "../../components/ProductsList";
 import BackButtonComponent from "../../components/BackButtonComponent";
-import {
-    useLocation
-} from "react-router";
-import bannerPic from "../../images/profile_banner.jpeg";
-import avatar from "../../images/avatar_man.png";
 import '../../index.css';
 import CartAndHistoryItem from "../../components/CartAndHistoryItem";
 import {
     findProductByIdThunk
 } from "../../services/products/products-thunks";
 
+/**
+ * Functional component representing user's profile.
+ *
+ * @component
+ * @returns {JSX.Element} - The rendered component.
+ */
 const ProfileScreen = (props) => {
     const {
         userId
@@ -65,7 +53,6 @@ const ProfileScreen = (props) => {
     const [user, setUser] = useState(null);
     const [products, setProducts] = useState([]);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const fetchFollows = async (curUser, paramUser) => {
         if (userId) {
             if (paramUser.role === "SELLER") {
@@ -128,30 +115,7 @@ const ProfileScreen = (props) => {
             console.error(error);
         }
     };
-    const updateProfile = async () => {
-        await dispatch(updateUserThunk(profile));
-    };
-    const loadScreen = async () => {
-        try {
-            const profileData = await fetchProfile();
-            const paramsUser = await fetchUserInfo();
-            if (userId) {
-                if (paramsUser.payload) {
-                    await fetchFollowerAndFollowing(profileData.payload);
-                    await fetchFollows(profileData.payload, paramsUser.payload);
-                    await getHistoryItems(paramsUser.payload);
-                }
-            } else {
-                if (profileData.payload) {
-                    await fetchFollowerAndFollowing(profileData.payload);
-                    await fetchFollows(profileData.payload, null);
-                    await getHistoryItems(profileData.payload);
-                }
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
+
     const getItemById = async (id) => {
         const response = await dispatch(findProductByIdThunk(id));
         return response;
@@ -181,7 +145,31 @@ const ProfileScreen = (props) => {
             return [];
         }
     }
+
+    const loadScreen = async () => {
+            try {
+                const profileData = await fetchProfile();
+                const paramsUser = await fetchUserInfo();
+                if (userId) {
+                    if (paramsUser.payload) {
+                        await fetchFollowerAndFollowing(profileData.payload);
+                        await fetchFollows(profileData.payload, paramsUser.payload);
+                        await getHistoryItems(paramsUser.payload);
+                    }
+                } else {
+                    if (profileData.payload) {
+                        await fetchFollowerAndFollowing(profileData.payload);
+                        await fetchFollows(profileData.payload, null);
+                        await getHistoryItems(profileData.payload);
+                    }
+                }
+            } catch (error) {
+                console.error(error);
+            }
+    };
+
     useEffect(() => {
+        //Fetch user's profile, follower/following, shopping history
         loadScreen();
     }, [userId]);
     return user && (!profile || (profile && profile._id !== user._id))?(<div>

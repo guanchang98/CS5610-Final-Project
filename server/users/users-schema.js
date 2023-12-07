@@ -1,4 +1,11 @@
 import mongoose from "mongoose";
+
+/**
+ * @schema
+ * Defines the database schema for users.
+ *
+ * @module schemas/users
+ */
 const usersSchema = new mongoose.Schema(
   {
     username: { type: String, unique: true, required: true },

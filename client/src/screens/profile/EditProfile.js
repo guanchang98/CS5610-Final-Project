@@ -2,9 +2,14 @@ import {profileThunk,updateUserThunk} from "../../services/users/users-thunks";
 import {useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from 'react';
 import {Link} from "react-router-dom";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 
-
+/**
+ * Functional component for user to edit profile.
+ *
+ * @component
+ * @returns {JSX.Element} - The rendered component.
+ */
 const EditProfile = () => {
    const { currentUser } = useSelector((state) => state.users);
    const [profile, setProfile] = useState(currentUser);
@@ -24,7 +29,8 @@ const EditProfile = () => {
    };
 
    useEffect(() => {
-            loadScreen()  }, []);
+       //Fetch current user's profile
+       loadScreen()  }, []);
 
    return (
        <div>

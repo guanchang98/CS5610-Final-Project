@@ -24,6 +24,12 @@ import {
 } from "bootstrap";
 import "../index.css";
 
+/**
+ * Functional component representing shopping cart of buyer.
+ *
+ * @component
+ * @returns {JSX.Element} - The rendered component.
+ */
 const CartScreen = () => {
     const {currentUser} = useSelector(state => state.users);
     let dispatch = useDispatch();
@@ -93,6 +99,7 @@ const CartScreen = () => {
     };
 
     useEffect(() => {
+        //fetch buyer's shopping cart
         loadScreen();
     }, [currentUser]);
 

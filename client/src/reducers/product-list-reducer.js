@@ -2,9 +2,7 @@ import {
     createSlice
 } from "@reduxjs/toolkit";
 import {
-    findLikeStatusByProductIdAndUserIdThunk,
-    userLikesProductThunk,
-    userUnlikesProductThunk
+    findLikeStatusByProductIdAndUserIdThunk
 } from "../services/product-list/product-list-thunk";
 const initialState = {
     productList: [],
@@ -22,3 +20,5 @@ const productListSlice = createSlice({
         },
     }
 })
+
+export default productListSlice.reducer;

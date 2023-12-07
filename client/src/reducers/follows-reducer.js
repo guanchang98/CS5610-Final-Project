@@ -1,6 +1,5 @@
 const {
-    createSlice,
-    current
+    createSlice
 } = require("@reduxjs/toolkit");
 const {
     userFollowsUserThunk,

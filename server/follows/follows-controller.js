@@ -1,6 +1,12 @@
 import * as followsDao from "./follows-dao.js"
 import * as usersDao from "../users/users-dao.js"
 
+/**
+ * @controller
+ * Handles incoming HTTP requests related to follow relationship between users.
+ *
+ * @module controllers/FollowsController
+ */
 function FollowsController(app)  {
     const unFollowsUser = async (req, res) => {
             const follower = req.params.follower;

@@ -1,24 +1,45 @@
-import React, {useEffect, useState, useRef} from "react";
-import {useLocation, useParams} from "react-router";
+import React, {
+    useEffect,
+    useState,
+    useRef
+} from "react";
+import {
+    useLocation
+} from "react-router";
 import {
     findLikeStatusByProductIdAndUserId,
     userLikesProduct,
     userUnlikesProduct
 } from "../services/product-list/product-list-service";
-import {updateProductById, findProductById} from '../services/products/products-service';
-import {updateProductByIdThunk, findProductByIdThunk} from "../services/products/products-thunks";
-import {addProductsToUserCart} from '../services/users/users-service';
-import {useDispatch, useSelector} from "react-redux";
-import {addProductsToUserCartThunk} from "../services/users/users-thunks";
 import {
-    userLikesProductThunk,
-    findLikeStatusByProductIdAndUserIdThunk
-} from "../services/product-list/product-list-thunk";
+    updateProductById,
+    findProductById
+} from '../services/products/products-service';
+import {
+    addProductsToUserCart
+} from '../services/users/users-service';
+import {
+    useDispatch,
+    useSelector
+} from "react-redux";
 import BackButtonComponent from "../components/BackButtonComponent";
-import {useNavigate} from "react-router";
-import { findUserByIdThunk } from "../services/users/users-thunks";
-import {Toast} from "bootstrap";
+import {
+    useNavigate
+} from "react-router";
+import {
+    findUserByIdThunk
+} from "../services/users/users-thunks";
+import {
+    Toast
+} from "bootstrap";
 
+/**
+ * Functional component representing detail page of a product.
+ * Seller can edit product's detail, while buyer can add to cart/like the product.
+ *
+ * @component
+ * @returns {JSX.Element} - The rendered component.
+ */
 const DetailsScreen = () => {
     const {state} = useLocation();
     const [seller, setSeller] = useState(null);
@@ -34,19 +55,7 @@ const DetailsScreen = () => {
         setShowToast(!showToast);
     };
 
-    useEffect(() => {
-        if (showToast) {
-            const toast = new Toast(toastRef.current);
-            toast.show();
-            setTimeout(() => {
-                setShowToast(false);
-            }, 2000); // Change state after 2 seconds
-        }
-    }, [showToast]);
-
-
     const getLikeStatus = async () => {
-        console.log(currentUser);
         if (currentUser && currentUser._id) {
             const response = await findLikeStatusByProductIdAndUserId(currentUser._id, state._id);
             if (response === null) {
@@ -98,15 +107,23 @@ const DetailsScreen = () => {
         setProduct(response);
     }
 
-    useEffect(() => {
-        loadScreen()
-    }, [currentUser])
-
     const loadScreen = async () => {
         await fetchProduct();
         await getLikeStatus();
         await findSellerById();
     };
+
+    useEffect(() => {
+        //fetch product information, check whether current user like/sell/like the product
+        loadScreen()
+        if (showToast) {
+            const toast = new Toast(toastRef.current);
+            toast.show();
+            setTimeout(() => {
+                setShowToast(false);
+            }, 2000); // Change state after 2 seconds
+        }
+    }, [showToast, currentUser]);
 
     return (
         <div>

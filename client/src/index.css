@@ -50,3 +50,10 @@
     left: 50%;
     transform: translateX(-50%);
 }
+
+.wd-link-container {
+}
+
+.wd-link-container a {
+  margin-right: 5px; /* Adjust the right margin to control spacing */
+}

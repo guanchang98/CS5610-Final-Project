@@ -1,4 +1,4 @@
-import {BrowserRouter, Link} from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 import {Route, Routes} from "react-router";
 import HomeScreen from "./screens/HomeScreen";
 import ProfileScreen from "./screens/profile/ProfileScreen";
@@ -8,8 +8,7 @@ import LoginScreen from "./screens/LoginScreen";
 import FollowersScreen from "./screens/profile/FollowersScreen";
 import FollowingScreen from "./screens/profile/FollowingScreen";
 import EditProductScreen from './screens/EditProductScreen';
-import CurrentUserScreen from "./screens/profile/CurrentUserScreen";
-import {Provider, useSelector} from "react-redux";
+import {Provider} from "react-redux";
 import store from "./reducers/store"
 import RegisterScreen from "./screens/RegisterScreen";
 import AdminScreen from "./screens/AdminScreen";
@@ -20,8 +19,6 @@ import CurrentUserContext from "./components/current-user-context";
 import NavBar from './components/navbar';
 
 function App(){
-    const currentUser = "anonymous";
-    const loggingIn = false;
 
     return (
             <BrowserRouter>

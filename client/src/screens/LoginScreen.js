@@ -1,9 +1,5 @@
-import {
-    Link
-} from "react-router-dom";
 import React, {
-    useState,
-    useEffect
+    useState
 } from "react";
 import {
     useDispatch,
@@ -16,8 +12,13 @@ import {
     loginThunk
 } from "../services/users/users-thunks";
 
+/**
+ * Functional component representing login screen.
+ *
+ * @component
+ * @returns {JSX.Element} - The rendered component.
+ */
 const LoginScreen = () => {
-    const {currentUser} = useSelector((state) => state.users);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();

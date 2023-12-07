@@ -1,5 +1,11 @@
 import productListModel from "./product-list-model.js";
 
+/**
+ * @dao
+ * Provides data access methods for product list of users.
+ *
+ * @module daos/product-list-dao
+ */
 export const userLikesProduct = (userId, productId) => {
     return productListModel.create({userId: userId, productId: productId});
 }

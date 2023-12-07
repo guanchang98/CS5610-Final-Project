@@ -1,12 +1,8 @@
-import {
-    findProductById
-} from "../services/products/products-service";
 const {
     createSlice
 } = require("@reduxjs/toolkit");
 const {
     findAllUsersThunk,
-    findUserByIdThunk,
     createUserThunk,
     deleteUserThunk,
     updateUserThunk,

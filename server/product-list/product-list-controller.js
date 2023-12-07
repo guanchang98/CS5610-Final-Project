@@ -1,6 +1,11 @@
 import * as productDao from './product-list-dao.js';
 
-
+/**
+ * @controller
+ * Handles incoming HTTP requests related to product list of buyer(like)/seller(own).
+ *
+ * @module controllers/ProductListController
+ */
 function ProductListController(app) {
 
     const findProductListByUserId = async (req, res) => {

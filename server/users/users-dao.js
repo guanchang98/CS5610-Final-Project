@@ -1,5 +1,11 @@
 import usersModel from "./users-model.js";
 
+/**
+ * @dao
+ * Provides data access methods for users.
+ *
+ * @module daos/users-dao
+ */
 export const findAllUsers = async () => {
     const users = await usersModel.find();
     return users;

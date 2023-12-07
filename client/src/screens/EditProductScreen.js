@@ -3,24 +3,27 @@ import React, {
     useState
 } from "react";
 import {
-    useSelector,
     useDispatch
 } from "react-redux";
 import {
-    useLocation,
-    useParams
+    useLocation
 } from "react-router";
 import {
     useNavigate
 } from "react-router";
 import {
-    findProductByIdThunk,
-    updateProductByIdThunk
+    findProductByIdThunk
 } from "../services/products/products-thunks";
 import {
     updateProductById
 } from "../services/products/products-service";
 
+/**
+ * Functional component representing a page for sellers to edit owned products' details.
+ *
+ * @component
+ * @returns {JSX.Element} - The rendered component.
+ */
 const EditProductScreen = () => {
 
     const { state } = useLocation();
@@ -48,6 +51,7 @@ const EditProductScreen = () => {
     }
 
     useEffect(() => {
+        //fetch product information which user will edit
         loadScreen();
     }, [])
 
@@ -85,7 +89,6 @@ const EditProductScreen = () => {
                                     onChange={(e) => {  
                                         setProduct({
                                             ...product, 
-                                            // price: Number(e.target.value).toFixed(2),
                                             price: e.target.value,
                                         })
                                     }}>
