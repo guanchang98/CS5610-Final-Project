@@ -213,7 +213,7 @@ const DetailsScreen = () => {
                         <div className="text-center">
                             <button className="btn btn-primary"
                                     onClick={addToWishlist}>
-                                Add To Wishlist
+                                Add To ProductList
                             </button>
                         </div>
                     }
